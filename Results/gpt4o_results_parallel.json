@@ -1,0 +1,117 @@
+{
+    "model": "gpt-4o-mini",
+    "class_distribution": {
+        "bug": 112,
+        "enhancement": 61,
+        "documentation": 39,
+        "security": 22,
+        "question": 16
+    },
+    "accuracy": 0.852,
+    "precision": 0.9268,
+    "recall": 0.852,
+    "f1": 0.8814,
+    "per_class_metrics": {
+        "bug": {
+            "precision": 0.9642857142857143,
+            "recall": 0.8,
+            "f1-score": 0.8744939271255061,
+            "support": 135.0
+        },
+        "documentation": {
+            "precision": 0.6923076923076923,
+            "recall": 1.0,
+            "f1-score": 0.8181818181818182,
+            "support": 27.0
+        },
+        "enhancement": {
+            "precision": 0.9508196721311475,
+            "recall": 0.8529411764705882,
+            "f1-score": 0.8992248062015504,
+            "support": 68.0
+        },
+        "question": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 0.0
+        },
+        "security": {
+            "precision": 0.9090909090909091,
+            "recall": 1.0,
+            "f1-score": 0.9523809523809523,
+            "support": 20.0
+        },
+        "accuracy": 0.852,
+        "macro avg": {
+            "precision": 0.7033007975630927,
+            "recall": 0.7305882352941176,
+            "f1-score": 0.7088563007779655,
+            "support": 250.0
+        },
+        "weighted avg": {
+            "precision": 0.9268337400304613,
+            "recall": 0.852,
+            "f1-score": 0.8813699804887075,
+            "support": 250.0
+        }
+    },
+    "p50_latency": 0.7243,
+    "p95_latency": 2.3801,
+    "avg_latency": 0.9515,
+    "wall_clock_time": 24.67,
+    "throughput": 10.1337,
+    "concurrency": 10,
+    "error_count": 0,
+    "error_rate": 0.0,
+    "rate_limit_errors": 0,
+    "timeout_errors": 0,
+    "other_errors": 0,
+    "total_tokens": 76855,
+    "cost_per_call": 4.667e-05,
+    "total_cost": 0.011668,
+    "labels": [
+        "bug",
+        "documentation",
+        "enhancement",
+        "question",
+        "security"
+    ],
+    "confusion_matrix": [
+        [
+            108,
+            11,
+            3,
+            11,
+            2
+        ],
+        [
+            0,
+            27,
+            0,
+            0,
+            0
+        ],
+        [
+            4,
+            1,
+            58,
+            5,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            0,
+            20
+        ]
+    ]
+}

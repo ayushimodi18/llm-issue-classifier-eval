@@ -1,0 +1,91 @@
+title,ground_truth,gpt4o_prediction,gpt41_prediction,gpt51_prediction,gpt4o_raw_output,gpt41_raw_output,gpt51_raw_output
+Unhide support for NAT Gateways,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Support of --since nad --until arguments in doctl,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+--version flag,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+oauth2 support,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Non working example for doctl compute image create,bug,documentation,bug,documentation,documentation,bug,documentation
+droplet-autoscale create/update --user-data-file,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+feature request: store the token in the keyring,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+doctl compute action list is SLOW,bug,bug,bug,question,bug,bug,question
+Allow Interacting with spaces,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Add ability of connecting recovery iso to droplet.,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+"Document permissions for ""doctl compute droplet create"" optional flags",bug,documentation,security,documentation,documentation,security,documentation
+doctl .deb package,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+doctl manual,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Reference an app by name instead of ID,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Some inconsistencies in enum argument descriptions,bug,documentation,documentation,bug,documentation,documentation,bug
+Dependency inconsistency caused by `replace`,enhancement,bug,bug,other,bug,bug,enh
+`doctl serverless install` should not require authentication,bug,enhancement,enhancement,other,enhancement,enhancement,enh
+Add ability to change connection pool size for connection pools,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Functions node flag --env not working?,bug,question,bug,bug,question,bug,bug
+doctl apps logs doesn't output JSON,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+feature: functions: create function triggers with doctl ,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+doctl kubernetes cluster node-pool create mycluster123 --auto-scale --min-nodes 0 --name test --size s-1vcpu-2gb --max-nodes 1 --count 0 says the node pool needs at least min 1,bug,bug,question,question,bug,question,question
+Access the link to download CA certificate for managed databases,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Adding taints has wrong syntax in DO docs,bug,documentation,bug,documentation,documentation,bug,documentation
+Ability to deploy separate parts of an App,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Get deployment status via doctl,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Ability to validate App Spec Schema in Offline Mode,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Not Possible to See CName Domain Record Tags from the CLI with Doctl?,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+compute image create --image-file,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Add Support for Alerts for Uptime Checks,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Provide the tool as an AppImage,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Cannot get read-only creds with `doctl registry login`,bug,bug,bug,other,bug,bug,enh
+"Add command ""Add ssh key to droplet"" (Renewed, was not considered all around)",enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Add CSV export alongisde text/json,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Provide Proper Snap Package on ARM,bug,bug,enhancement,other,bug,enhancement,enh
+Need more details when emitting Error: unexpected end of JSON input,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Database Replica Functions Missing Integration Tests,enhancement,bug,enhancement,other,bug,enhancement,enh
+Bring back SizeSlug option to doctl compute droplet list,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Allow retrieving and updating database cluster configuration,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Allow `--build-command` to be passed for docker builds,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+How do I check droplets in a load-balancer are registered and in healthy state using the CLI?,enhancement,question,question,other,question,question,enh
+doctl as NPM package and .deb,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Implement `--wait` on `compute volume create`,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+--interactive false still gives a confirmation prompt,bug,bug,bug,other,bug,bug,enh
+Add --wait flag to load-balancer create command,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Add --wait flag to database create command,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Use consistent aliases for `list` and `delete` sub-commands,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Add shell completion to doctl running in docker,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+[Feature Request] Deploy zip to Functions,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+AppSpec JSON Schema,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+"Get ""/v2/account"": unsupported protocol scheme """"",bug,bug,bug,question,bug,bug,question
+Documentation not rendering correctly for some pages,bug,documentation,bug,bug,documentation,bug,bug
+"`Fingerprint could not be generated, please make sure your key is valid` while creating ssh-key with doctl",bug,bug,bug,question,bug,bug,question
+Upgrading node pools,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Saving the kubernetes config is not unique enough,bug,enhancement,enhancement,bug,enhancement,enhancement,bug
+Revoke doks token command,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+"Unknown field ""log_destinations"" when updating spec",bug,bug,question,question,bug,question,question
+connection refused from doctl,bug,bug,bug,question,bug,bug,question
+"Docker compose push return unexpected end of JSON input: """"",bug,bug,bug,question,bug,bug,question
+doctl binary for Android ARM64,enhancement,bug,bug,other,bug,bug,enh
+Typo in --wait command,bug,documentation,bug,bug,documentation,bug,bug
+snapshot help doesn't list required parameters,bug,question,question,bug,question,question,bug
+Access to recovery console settings,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Requesting a `databases firewalls remove --rule` flag,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+`doctl compute droplet create --wait` is not waiting long enough ,bug,bug,bug,other,bug,bug,enh
+Upload image from local fileystem,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+installation issues on macos ,bug,bug,bug,question,bug,bug,question
+doctl databases fork existing cluster,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+doctl apps create support for update existing apps,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Add ability to switch context using environment variable,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+apps spec validate doen't give meaningful information,enhancement,bug,enhancement,other,bug,enhancement,enh
+Enable dynamic completion of nouns,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Proposal for creating Visual Studio Code extension.,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Stable repositories for ready to use app specification,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Add wait option to app create and update commands,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Remove auth from list,enhancement,question,enhancement,other,question,enhancement,enh
+Add watch option to Apps Platform create-deployment,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Ability to define a tag name when deploying a prebuilt image from the Container Registry to Apps Platform,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Tag existing images in container registry,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Add ability to protect (or ignore) certain droplets so they can't be demolished inadvertently,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Create new API keys from doctl,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Support for getting do_token from Vault,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Improve error message when providing non-numeric droplet id,bug,enhancement,enhancement,other,enhancement,enhancement,enh
+Doctl Returns 500 Error When deploying app.yaml to DO App Platform (image source),bug,bug,question,bug,bug,question,bug
+`doctl compute droplet get <droplet-id|droplet-name>`,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+SSH key public_key not accessible via doctl,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Doctl Returns 500 Error When deploying app.yaml to DO App Platform,bug,bug,question,bug,bug,question,bug
+Way to delete image tags from DO container registry,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+Allow picking the context’s name in `doctl kubernetes cluster kubeconfig save`,enhancement,enhancement,enhancement,other,enhancement,enhancement,enh
+--auto-upgrade flag requires '=' and documentation doesn't describe usage well,bug,documentation,bug,bug,documentation,bug,bug

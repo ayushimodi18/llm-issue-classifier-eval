@@ -1,0 +1,4 @@
+model,accuracy,precision,recall,f1,p50_latency,p95_latency,avg_latency,wall_clock_time,throughput,concurrency,error_count,error_rate,rate_limit_errors,timeout_errors,other_errors,total_tokens,cost_per_call,total_cost
+gpt-4o-mini,0.852,0.9268,0.852,0.8814,0.7243,2.3801,0.9515,24.67,10.1337,10,0,0.0,0,0,0,76855,4.667e-05,0.011668
+gpt-4.1-mini,0.868,0.9435,0.868,0.8997,0.6429,1.1842,0.7796,24.95,10.0189,10,0,0.0,0,0,0,76859,0.00012449,0.031122
+gpt-5.1,0.6,0.696,0.6,0.6376,0.7723,1.5095,0.9444,29.44,8.4913,10,0,0.0,0,0,0,78794,0.00069035,0.172588

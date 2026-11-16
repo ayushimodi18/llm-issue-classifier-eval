@@ -1,0 +1,25 @@
+{
+    "gpt4o_prediction": {
+        "enhancement": 543,
+        "bug": 103,
+        "documentation": 76,
+        "other": 20,
+        "security": 6,
+        "question": 2
+    },
+    "gpt41_prediction": {
+        "enhancement": 496,
+        "bug": 131,
+        "documentation": 81,
+        "other": 23,
+        "security": 16,
+        "question": 3
+    },
+    "gpt51_prediction": {
+        "other": 566,
+        "bug": 86,
+        "documentation": 74,
+        "security": 16,
+        "question": 8
+    }
+}

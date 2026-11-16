@@ -1,0 +1,692 @@
+issue_id,title,description,status,ground_truth
+4595327740,add support for advanced pg and advanced mysql engines in database options,This PR aims to add support for ADVANCED_PG and ADVANCED_MYSQL engines options for databases,open,
+4586174709,"CON-13852, CON-13398: Expose CoreDNS Autoscaler toggle on DOKS cluster create/update","Adds a new opt-in/opt-out flag for the CoreDNS Autoscaler DOKS add-on:
+
+
+```
+doctl kubernetes cluster cluster create cluster_name --enable-coredns-autoscaler
+
+doctl kubernetes cluster update <cluster> --enable-coredns-autoscaler=true
+```",open,
+4580952912,bumping godo to v1.194.1,,closed,
+4576581719,v1.160.0 build fails,"Building with go 1.26.4 on linux/Chromebrew on `armv7l`, `i686`, `x86_64` using `go install github.com/digitalocean/doctl/cmd/doctl@v1.160.0`
+```
+go: downloading github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc
+go: downloading github.com/go-logr/stdr v1.2.2
+go: downloading github.com/modern-go/reflect2 v1.0.2
+go: downloading github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd
+# github.com/digitalocean/doctl/do
+/home/chronos/user/go/pkg/mod/github.com/digitalocean/doctl@v1.160.0/do/inference.go:26:57: undefined: godo.ChatCompletionNewParams
+/home/chronos/user/go/pkg/mod/github.com/digitalocean/doctl@v1.160.0/do/inference.go:26:89: undefined: godo.ChatCompletion
+/home/chronos/user/go/pkg/mod/github.com/digitalocean/doctl@v1.160.0/do/inference.go:27:66: undefined: godo.ChatCompletionNewParams
+/home/chronos/user/go/pkg/mod/github.com/digitalocean/doctl@v1.160.0/do/inference.go:27:98: undefined: godo.ChatCompletionStream
+/home/chronos/user/go/pkg/mod/github.com/digitalocean/doctl@v1.160.0/do/inference.go:28:52: undefined: godo.EmbeddingNewParams
+/home/chronos/user/go/pkg/mod/github.com/digitalocean/doctl@v1.160.0/do/inference.go:28:79: undefined: godo.CreateEmbeddingResponse
+/home/chronos/user/go/pkg/mod/github.com/digitalocean/doctl@v1.160.0/do/inference.go:29:50: undefined: godo.ImageGenerateParams
+/home/chronos/user/go/pkg/mod/github.com/digitalocean/doctl@v1.160.0/do/inference.go:29:78: undefined: godo.ImagesResponse
+/home/chronos/user/go/pkg/mod/github.com/digitalocean/doctl@v1.160.0/do/inference.go:30:59: undefined: godo.ImageGenerateParams
+/home/chronos/user/go/pkg/mod/github.com/digitalocean/doctl@v1.160.0/do/inference.go:30:87: undefined: godo.ImageGenerationStream
+/home/chronos/user/go/pkg/mod/github.com/digitalocean/doctl@v1.160.0/do/inference.go:30:87: too many errors
+```",closed,
+4564260507,Unhide support for NAT Gateways,"**What is the problem this feature would solve? Please describe.**
+<!-- A clear and concise description of what the problem is. Ex. I'm always frustrated when [...] -->
+
+It appears this feature was implemented in https://github.com/digitalocean/doctl/pull/1698, but even though the upstream feature is GA, this still appears to be a hidden feature.
+
+We use doctl as the main way to interact with DO APIs, so having support for this would be very useful for a feature that we are planning on building soon. 
+
+**Describe the solution you'd like**
+<!-- A clear and concise description of what you want to happen. -->
+
+Enable the hidden support for NAT Gateway APIs
+
+**Additional context**
+<!-- Add any other context about the feature request here. -->
+
+N/A",open,
+4542703913,Open Harness Server subcommands,,open,
+4526256441,--worker-subnet-uuid flag for kubernetes cluster create command,This setting is only available on creation and not on update.,closed,
+4523837195,fix(registry): use RepositoryV2 displayer for list-v2 commands,"## Summary
+
+- Register `displayers.RepositoryV2` for `registry repository list-v2` and `registries repository list-v2` so `--format` and `--no-header` use the correct column definitions.
+- Fix the `RepositoryV2` `Displayable` compile-time assertion.
+- Add a unit test that verifies `--format Name --no-header` output.
+
+## Problem
+
+`list-v2` registered the v1 `Repository` displayer while rendering v2 data. That caused `--format` help to list the wrong columns and prevented scripted output from honoring `--format` / `--no-header` as reported in #1797.
+
+## Test plan
+
+- [x] `go test ./commands/ -run TestRepositoryListV2 -count=1`
+- [ ] `doctl registry repository list-v2 --format Name --no-header` returns only repository names
+
+Fixes #1797",open,
+4522928521,mod: added support for autoscaling,"The aim of this PR is to add support for storage autoscale options for databases using doctl 
+
+Attaching the test evidences for the get and update calls for the same
+
+<img width=""2000"" height=""1182"" alt=""image"" src=""https://github.com/user-attachments/assets/1e875927-922f-489d-a666-02ca1da56e81"" />
+<br><br>
+
+**GET storage autoscale details**
+
+```
+./doctl databases storage-autoscale get \ 
+  <cluster_uuid> \
+  --api-url=https://api.digitalocean.com \
+  --access-token <token>
+```
+
+<img width=""1134"" height=""66"" alt=""image"" src=""https://github.com/user-attachments/assets/04f041b9-ee8a-4660-a11d-e01d8fd0be5d"" />
+
+<img width=""2560"" height=""1254"" alt=""image"" src=""https://github.com/user-attachments/assets/5e0953a9-a16f-4ec9-85f0-8c3f92900711"" />
+<br><br>
+
+
+**UPDATE storage autoscale details**
+
+```
+./doctl databases storage-autoscale update \
+   <cluster_uuid>\
+  --enabled true \
+  --threshold-percent 60 \
+  --increment-gib 40 \
+  --api-url=https://api.digitalocean.com \
+  --access-token <token>
+```
+
+<img width=""1054"" height=""80"" alt=""image"" src=""https://github.com/user-attachments/assets/cdd2c931-c95f-44fe-a386-98123c931274"" />
+
+<img width=""2566"" height=""1194"" alt=""image"" src=""https://github.com/user-attachments/assets/ba8f465d-5053-4a7f-9420-7e4e52434f41"" />
+
+
+",closed,
+4518010480,dummy demo,,closed,
+4517959580,WIP: Test,TODO,closed,
+4501592779,beta release pipeline,,closed,
+4493751394,Add serverless Inference endpoints support,,closed,
+4489592376,Add DI doctl command examples,"Improved CLI help examples for dedicated-inference create and dedicated-inference update
+Added --page and --per-page pagination flags to dedicated-inference list-accelerators",open,
+4480185974,make logging in 'kubernetes cluster kubeconfig exec-credential' condi…,"…tional upon --verbose flag
+
+Some customers find the added logging annoying, so, hide it by default behind the `--verbose` flag, but leave the logs as that can be helpful for debugging.
+Fixes https://github.com/digitalocean/doctl/issues/1843",closed,
+4475740443,1.159.0-release Using cached credential,"Every time I use kubectl to manage DO kubernetes clusters, doctl is bugging with the following messages:
+```
+doctl: 2026/05/19 11:25:44 Using cached credential
+```
+
+How do i get rid of them? I tried removing ~/.config/doctl/cache but it doesn't help.",closed,
+4402505638,"v1.158.0 cannot parse config files it writes — ""yaml: line 2228: did not find expected key""","## Summary
+
+doctl `v1.158.0` (released 2026-05-07 16:21 UTC) cannot read its own config files. Every doctl invocation fails at startup with:
+
+```
+doctl: 2026/05/07 21:08:20 Config initialization failed: While parsing config: yaml: line 2228: did not find expected key
+```
+
+`v1.157.0` reads the **same file** successfully — verified.
+
+## Reproduction
+
+1. Install doctl v1.158.0
+2. Run any doctl command (auth init, auth list, registry login, etc.)
+3. The first invocation may write a default config (37,883 bytes / 2,227 lines on Linux x86_64); subsequent invocations fail to read it.
+
+The error appears at line 2228 of a 2227-line file — i.e., doctl's parser expects more YAML content than the writer produced. The file ends mid-section with `vpcs.update.name: """"`.
+
+## Evidence the file itself is valid YAML
+
+`yaml.safe_load` (PyYAML) parses the file successfully:
+- 91 top-level keys
+- Well-formed structure (1-click, access-token, account, action, activations, agent, alert, api-url, apikeys, apps, ...)
+
+So the failure is in doctl's parser, not the file.
+
+## Evidence v1.157.0 reads the same file
+
+```bash
+$ wget https://github.com/digitalocean/doctl/releases/download/v1.157.0/doctl-1.157.0-linux-amd64.tar.gz
+$ tar xf doctl-1.157.0-linux-amd64.tar.gz
+$ ./doctl --config=/home/USER/.config/doctl/config.yaml auth list
+default (current)        # <-- success on the same file v1.158.0 fails on
+```
+
+## Suspected commit
+
+The v1.157.0 → v1.158.0 changelog has only 2 commits:
+
+- [#1835 DOKS SSO: per-cluster config, kubeconfig type](https://github.com/digitalocean/doctl/pull/1835) — explicitly modifies config schema structure
+- [#1839 Bump godo to v1.189.0](https://github.com/digitalocean/doctl/pull/1839) — internal HTTP client only, unlikely cause
+
+#1835 is the prime suspect — config schema additions can produce serialization output that the parser doesn't expect.
+
+## Impact
+
+- All CI runs using `digitalocean/action-doctl@v2` (which defaults to `version: 'latest'`) broke today within hours of the v1.158.0 release.
+- Workaround: pin to `version: '1.157.0'` in workflow input.
+- Long-term users with shared doctl config homes (e.g., self-hosted runners) are affected even after pinning, since the broken file persists until manually cleared. v1.157.0 reads the v1.158.0-written file fine, so the workaround does not require config cleanup.
+
+## Environment
+
+- doctl: v1.158.0
+- OS: Ubuntu (self-hosted GitHub Actions runner, Linux x86_64)
+- Action: `digitalocean/action-doctl@v2` with `version: 'latest'` (default)
+
+## Workaround applied on our side
+
+Pinning `version: '1.157.0'` in all `digitalocean/action-doctl@v2` callsites until v1.159.0 (or v1.158.x) ships a fix.
+
+Happy to provide the corrupted config file (with secrets redacted) on request.",open,
+4400719783,Fix link to GitHub installation page,,closed,
+4400008496,kubernetes exec-credential command for OIDC Authorization flow with PKCE,"Adds a set of flags to `doctl cluster kubernetes kubeconfig exec-credential` command to be able to handle OIDC authorization.
+Currently, `doctl kubernetes kubeconfig exec-credential` is used to fetch a DO PAT from DOKS API, and this PAT is used by kubectl to authenticate inside the k8s cluster.
+The additional flags enable  `doctl kubernetes kubeconfig exec-credential` to instead receive a token (ID token) from an OIDC idendity provider such as Okta, Auth0.
+
+The authorization flow implemented here is similar to how OSS kubectl plugins do it (e.g. https://github.com/int128/kubelogin) but with our own implementation we get seamless UX (users don't have to install and configure third-party plugins) and flexibility in adjusting & fixing any issies.",closed,
+4390889823,Bump godo to v1.189.0 to fix App Ingress authority empty-string match…,"Issue - (#1782)
+godo - https://github.com/digitalocean/godo/pull/994",closed,
+4365778576,Doks sso auth flow,,closed,
+4360117067,sshkeys: add example to ssh-key import help text,"This is responding to some ideas.digitalocean.com feedback from a confused user. Adds an example and some more description to `doctl compute ssh-key import`.
+
+## Summary
+
+- Add an `Examples:` block to `doctl compute ssh-key import --help`. Previously the subcommand had no example, while most neighbouring commands (e.g. `firewalls`, `kubernetes`, `volumes`, `monitoring`, `registry`) and newer commands (e.g. `spaces keys`) do.
+- Expand the long description to mention the `<key-name>` argument and the `--public-key-file` flag, matching the style used for the neighbouring `create` subcommand.
+
+## Help output
+
+Before:
+
+```
+Use this command to add a new SSH key to your account, using a local public key file.
+
+Note that importing a key to your account will not add it to any Droplets
+
+Usage:
+  doctl compute ssh-key import <key-name> [flags]
+...
+```
+
+After:
+
+```
+Use this command to add a new SSH key to your account, using a local public key file.
+
+Specify a `<key-name>` for the key, and set the `--public-key-file` flag to the path of a local public key file, such as `~/.ssh/id_ed25519.pub`.
+
+Note that importing a key to your account will not add it to any Droplets.
+
+Usage:
+  doctl compute ssh-key import <key-name> [flags]
+
+Aliases:
+  import, i
+
+Examples:
+doctl compute ssh-key import example-key --public-key-file ~/.ssh/id_ed25519.pub
+...
+```
+",open,
+4335520116,fixed go.sum which had patch version,running go mod tidy and go mod vendor post the release was stable fixed the issue,open,
+4324672384,"DOKS SSO: per-cluster config, kubeconfig type","A few related changes for DOKS SSO. The project is not available to the public yet, so, breaking changes in the sso-specific flags are okay.
+
+1. DOKS now expects per-cluster SSO configuration (i.e. each cluster gets an SSO client ID and issuer url). Adding the corresponding flags
+2. There's no more reason to differentiate between ""enabled"" and ""required"" values not being set by the customer vs being set to ""false"". Hence, these 2 fields are getting changed from bool pointer to regular bool
+3. Customers can request kubeconfigs with SSO as the auth method, rather than the token-based kubeconfigs. Added a flag ""type"" to the commands that fetch kubeconfigs.",closed,
+4321110548,Prevent archive link-based path traversal in extract package,"## Summary
+A crafted tar archive containing a hardlink or symlink pointing outside the extraction root can be used to overwrite arbitrary files on the host filesystem. Since extract.Extract is called on archives downloaded from the network during doctl serverless install/upgrade, this is exploitable in practice if a malicious archive is served.
+The existing HasPrefix path check only validates where a file is created, not where a link points to. This change adds validation of link targets for both hardlinks and symlinks before they are created on disk.
+
+## Test plan
+
+- [x] doctl serverless install-succeeds end-to-end with real archives
+- [x] Malicious archives (hardlink escape, symlink escape, write-through chains) are rejected without modifying files outside the extraction root
+- [x] Valid symlinks and hardlinks within the extraction root still work
+
+
+## Ticket 
+https://do-internal.atlassian.net/browse/VULN-3739",closed,
+4269995951,doctl apps spec get not returning authority correctly #1782,"Root Cause
+The bug is in the AppIngressSpecRuleStringMatch struct in godo (v1.184.0), defined in vendor/github.com/digitalocean/godo/apps.gen.go:
+
+
+type AppIngressSpecRuleStringMatch struct {
+    Prefix string `json:""prefix,omitempty""`
+    Exact  string `json:""exact,omitempty""`
+}
+
+Fix
+Changed Prefix and Exact from string to *string in AppIngressSpecRuleStringMatch
+
+Issue - https://github.com/digitalocean/doctl/issues/1782
+https://github.com/digitalocean/godo/issues/937
+",closed,
+4267923591,NfsAction - type inconsistency fix,,closed,
+4261126585,NFRNC-702: Update request and response schema to support custom model in Dedicated Inference,"NFRNC-702: Update request and response schema to support custom model in Dedicated Inference
+
+Jira: https://do-internal.atlassian.net/browse/NFRNC-702",closed,
+4255011406,Update request and response schema to support custom model in Dedicated Inference,"Update request and response schema to support custom model in Dedicated Inference
+
+https://do-internal.atlassian.net/browse/NFRNC-702",open,
+4185422373,Added new field is managed in list DI tokens,"Description:
+
+1) Added a new field isManaged in the response of list DI tokens.",closed,
+4175864393,nfs reassign,,closed,
+4171824201,droplets: add --public-networking flag to create command,"## Notes
+
+Requires:
+  - https://github.com/digitalocean/godo/pull/977",closed,
+4170138500,APPS: Set CNBBuilderImage_Heroku22 to v0.93.0,"## Details:
+
+This PR updates `CNBBuilderImage_Heroku22` to the latest stable `v0.93.0` tag.",open,
+4126307966,Dedicated inference functionalities,"# For Update:
+TestRunDedicatedInferenceUpdate - Updates an endpoint with a JSON spec file; verifies correct request is sent to the service
+TestRunDedicatedInferenceUpdate_WithHuggingFaceToken -Updates with both spec and and hugging face token, flag; verifies secrets are included in the request
+TestRunDedicatedInferenceUpdate_MissingID - Returns an error when no dedicated inference ID argument is provided
+# Update all commands
+**Update with a JSON spec**
+doctl dedicated-inference update <dedicated-inference-id> --spec spec.json
+**Update with a YAML spec and Hugging Face token**
+doctl dedicated-inference update <dedicated-inference-id> --spec spec.yaml --hugging-face-token ""<hugging-face-token>""
+**Update using stdin**
+cat spec.json | doctl dedicated-inference update <dedicated-inference-id> --spec -
+**Show only specific columns**
+doctl di u <dedicated-inference-id> --spec spec.yaml --format ID,Name,Status
+
+# For list:
+TestRunDedicatedInferenceList - Lists all endpoints with no filters (empty region/name)
+TestRunDedicatedInferenceList_WithRegion - Lists endpoints filtered by -- region nyc2
+TestRunDedicatedInferenceList_WithName - Lists endpoints filtered by --name
+# List commands
+**List all endpoints**
+doctl dedicated-inference list
+**Filter by region**
+doctl dedicated-inference list --region nyc2
+**Filter by name**
+doctl dedicated-inference list --name my-endpoint
+**Short alias with format**
+doctl di ls --format ID,Name,Region,Status
+
+# For CreateToken:
+TestRunDedicatedInferenceCreateToken - Creates an auth token with -- token name and verifies the correct request and token display
+TestRunDedicatedInferenceCreateToken_MissingID - Returns an error when no dedicated inference ID is provided
+# Create tokens commands
+**Create a new auth token**
+doctl dedicated-inference create-token <dedicated-inference-id> --token-name <token-name>
+**Show only ID and Value**
+doctl dedicated-inference create-token <dedicated-inference-id> --token-name <token-name> --format ID,Value
+
+# For ListTokens:
+TestRunDedicatedInferenceListTokens - Lists auth tokens for a given dedicated inference ID; verifies two tokens are displayed
+TestRunDedicatedInferenceListTokens_MissingID - Returns an error when no dedicated inference ID is provided
+# List token commands
+**List all tokens for an endpoint**
+doctl dedicated-inference list-tokens <dedicated-inference-id>
+**Show specific columns**
+doctl dedicated-inference list-tokens <dedicated-inference-id> --format ID,Name,CreatedAt
+
+# For RevokeTokens:
+TestRunDedicatedInferenceRevokeToken - Revokes a token with --force verifies both diID and tokenID  are passed to the service
+TestRunDedicatedInferenceRevokeToken_MissingArgs - Returns an error when no arguments are provided at all
+TestRunDedicatedInferenceRevokeToken_MissingTokenID - Returns an error when only the dedicated inference ID is provided (missing token ID)
+# Revoke token endpoints
+**Revoke a token (with confirmation prompt)**
+doctl dedicated-inference revoke-token <dedicated-inference-id> <token-id>
+**Revoke without confirmation**
+doctl dedicated-inference revoke-token <dedicated-inference-id> <token-id> --force
+
+# For GetSizes:
+TestRunDedicatedInferenceGetSizes - Retrieves GPU sizes; verifies the response includes GPU slug, pricing, regions, CPU, memory, and GPU details
+# Get sizes all commands
+**List all available GPU sizes and pricing**
+doctl dedicated-inference get-sizes
+**Using alias**
+doctl di gs
+**Show only slug, price, and regions**
+doctl dedicated-inference get-sizes --format GPUSlug,PricePerHour,Regions
+
+# for GetGPUModelConfig:
+TestRunDedicatedInferenceGetGPUModelConfig - Retrieves GPU model configs; verifies two models returned with slug, name, gated status, and compatible GPU slugs
+# GPU  all commands
+**List all supported GPU model configurations**
+doctl dedicated-inference get-gpu-model-config
+**Using alias**
+doctl di ggmc
+**Show only model slug and gated status**
+doctl dedicated-inference get-gpu-model-config --format ModelSlug,IsModelGated
+
+Also added the integration tests for all.",closed,
+4120724830,Fixes #1822: fix list-job-invocations command,"## Details:
+
+`--job-name` flag is used to send job-name as query_param in the API but it was also sedning empty strings, causing it to return no results.
+This PR adds an empty string check to fix this.
+
+<img width=""1369"" height=""236"" alt=""Screenshot 2026-03-23 at 6 33 48 PM"" src=""https://github.com/user-attachments/assets/56397c94-3b21-4786-a658-a987388e25f9"" />
+",closed,
+4120411159,Feature/update dedicated inference,"TestRunDedicatedInferenceUpdate - happy path with spec file
+TestRunDedicatedInferenceUpdate_WithHuggingFaceToken -  with optional HF token
+TestRunDedicatedInferenceUpdate_MissingID - error case
+",open,
+4110967460,doctl apps list-job-invocations returns empty results when invocations exist,"## Bug Report
+
+### doctl version
+`doctl version 1.152.0-release`
+
+### Description
+
+`doctl apps list-job-invocations <app-id> <job-name>` returns an empty table with no results, even when the job has many invocations recorded by the platform.
+
+### Steps to Reproduce
+
+1. Create an App Platform app with a scheduled job (kind: SCHEDULED)
+2. Wait for the job to be invoked (either by the scheduler or manually)
+3. Run `doctl apps list-job-invocations <app-id> <job-name>`
+
+### Expected Behavior
+
+The command should list all job invocations with their ID, phase, timestamps, etc.
+
+### Actual Behavior
+
+The command returns an empty table:
+
+```
+$ doctl apps list-job-invocations <app-id> cron-test
+ID    Job Name    Created At    Started At    Completed At    Phase
+```
+
+However, the underlying API returns data correctly:
+
+```
+$ curl -s -H ""Authorization: Bearer $TOKEN"" \
+  ""https://api.digitalocean.com/v2/apps/<app-id>/jobs/<job-name>/invocations"" | python3 -m json.tool
+```
+
+Returns 13 invocations, all with `phase: SUCCEEDED`.
+
+### Impact
+
+This bug masked the real issue with our scheduled jobs — we spent hours thinking the cron scheduler was never firing, when in fact jobs were being invoked and failing. The empty CLI output made it appear that no invocations had ever occurred.
+
+### Workaround
+
+Use the API directly via `curl`.
+
+### Environment
+- OS: macOS (Darwin 24.2.0)
+- doctl version: 1.152.0-release
+- Shell: zsh",closed,
+4108330624,Feature/list accelerators dedicated inference,"TestRunDedicatedInferenceListAccelerators -Happy path for list-accelerators without slug filter. Passes a UUID as the positional arg, does not set mocks ListAccelerators(id,,"""")to return two accelerators, and asserts no error. Verifies the empty slug is passed when the flag is omitted.
+
+TestRunDedicatedInferenceListAccelerators_WithSlug - Same setup but additionally sets [--slug] to ""gpu-mi300x1-192gb""
+
+TestRunDedicatedInferenceListAccelerators_MissingID - Arg validation for list-accelerators.",closed,
+4107861189,Feature/delete dedicated inference,"TestRunDedicatedInferenceDelete -happy path, Sets up a mock expectation that Delete will be called with the UUID ""00000000-0000-4000-8000-000000000000"" and returns nil, Asserts that [RunDedicatedInferenceDelete]completes without error.
+TestRunDedicatedInferenceDelete_MissingID - Provides no positional arguments at all, Asserts that [RunDedicatedInferenceDelete]returns an error ",closed,
+4107746215,Feature/get dedicated inference,"TestRunDedicatedInferenceGet - verifies that calling
+RunDedicatedInferenceGet - with a valid UUID retrieves the endpoint and displays it successfully.
+TestRunDedicatedInferenceGet_MissingID -verifies that omitting the ID argument returns an error.",closed,
+4106801770,Feature/create dedicated inference,"Adds CLI support for creating dedicated inference endpoints via
+doctl dedicated-inference create --spec spec.yaml
+doctl dedicated-inference create --spec spec.yaml --hugging-face-token ""hf_mytoken""
+
+TestDedicatedInferenceCommand - Verifies the command tree: dedicated-inference exists with create subcommand
+TestRunDedicatedInferenceCreate - Creates from a JSON spec file without secrets; asserts the correct DedicatedInferenceCreateRequest (spec with VPC, model deployments, accelerators) is passed to the service
+TestRunDedicatedInferenceCreate_WithHuggingFaceToken - Same as above but also sets hugging face token
+
+",closed,
+4094151653,added changes for 412 error handling,"Before the fix:
+```
+doctl registry repository list-v2
+# Error: failed to get registry: GET .../v2/registry: 412 (opaque error)
+```
+
+After the fix:
+```
+doctl registry repository list-v2
+# Error: multiple registries found. Please specify one with --registry <name>.
+# Available registries: registry1, registry2, registry3
+
+# User now knows what to do:
+doctl registry repository list-v2 --registry registry1
+```",closed,
+4087376847,"auth switch --context default writes bogus ""default: true"" into auth-contexts","## Description
+
+`doctl auth switch --context default` silently injects `default: ""true""` into the `auth-contexts` map in `~/.config/doctl/config.yaml`. This entry is not a real token — it's a side effect of how `RunAuthSwitch` validates the requested context.
+
+The bogus entry can break subsequent context switches because doctl may resolve the `default` context against `auth-contexts` (finding `""true""`) instead of the top-level `access-token`.
+
+## Steps to reproduce
+
+```bash
+# Start with a clean config that has a named context
+doctl auth init                              # sets top-level access-token
+doctl auth init --context teamadf            # adds teamadf under auth-contexts
+
+# Confirm no ""default"" key under auth-contexts
+grep -A3 '^auth-contexts:' ~/.config/doctl/config.yaml
+
+# Switch to default — this creates the bogus entry
+doctl auth switch --context default
+
+# Now check again
+grep -A3 '^auth-contexts:' ~/.config/doctl/config.yaml
+```
+
+**Expected:**
+```yaml
+auth-contexts:
+  teamadf: dop_v1_abc123...
+```
+
+**Actual:**
+```yaml
+auth-contexts:
+  default: ""true""
+  teamadf: dop_v1_abc123...
+```
+
+The `default: ""true""` entry appears every time you switch to the default context.
+
+## Root cause
+
+In [`commands/auth.go` → `RunAuthSwitch`](https://github.com/digitalocean/doctl/blob/main/commands/auth.go), the default context is temporarily added to the auth-contexts map for validation:
+
+```go
+contextsAvail := viper.GetStringMap(""auth-contexts"")
+contextsAvail[doctl.ArgDefaultContext] = true
+```
+
+Later, viper's state (now containing `default: true`) is serialized back to the config file via `writeConfig()`. The temporary validation entry is never removed before the write.
+
+## Impact
+
+- The `default` context resolves to the string `""true""` instead of the top-level `access-token`, which can cause API calls to silently use the wrong token or fail.
+- Users managing multiple contexts (e.g. switching between teams) get stale results because all contexts fall back to the same top-level token.
+- The entry reappears after every `doctl auth switch --context default`, so manually removing it doesn't stick.
+
+## Suggested fix
+
+Remove the `default` key from the map after validation, before writing the config. Something like:
+
+```go
+contextsAvail := viper.GetStringMap(""auth-contexts"")
+contextsAvail[doctl.ArgDefaultContext] = true  // for validation only
+
+// ... validation logic ...
+
+// Clean up before persisting
+delete(contextsAvail, doctl.ArgDefaultContext)
+```
+
+## Workaround
+
+Strip the bogus entry after switching:
+
+```bash
+# Wrapper function
+doswitch() {
+  local ctx=""${1:-default}""
+  doctl auth switch --context ""$ctx""
+  sed -i '/^  default: ""true""$/d' ""${HOME}/.config/doctl/config.yaml"" 2>/dev/null
+}
+```
+
+## Environment
+
+- doctl version: 1.110.0-release
+- OS: Linux (WSL2)
+- Shell: bash",open,
+4085860636,Corrects create-deployment help message.,The help message for the creation of a deployment shows the use of an invalid column. This small change corrects this issue.,open,
+4083976597,doks: sso 'enabled' and 'required' toggles,Bringing in toggles for DOKS SSO configuration.,closed,
+4074551973,`doctl registry` commands fail with 412 for multi-registry accounts without clear error or guidance,"
+
+### Description
+
+All `doctl registry` subcommands (`repository list-v2`, `repository list-manifests`, `repository delete-manifest`, etc.) fail with an opaque 412 error when the account has multiple container registries, even though the `--registry` flag is documented as ""optional.""
+
+This appears to be a server-side API change — these commands previously worked without `--registry`. There was no deprecation notice, changelog entry, or doctl release noting this breaking change.
+
+### Steps to Reproduce
+
+1. Have a DigitalOcean account with multiple container registries
+2. Run any registry command without `--registry`:
+
+```bash
+doctl registry repository list-v2 --output json
+```
+
+### Expected Behavior
+
+Either:
+- A clear CLI-level error message like: `Error: multiple registries found. Please specify one with --registry <name>. Available: reg1, reg2`
+- Or the command prompts the user to select a registry
+
+### Actual Behavior
+
+Raw API error passed through:
+
+```json
+{
+  ""errors"": [
+    {
+      ""detail"": ""failed to get registry: GET https://api.digitalocean.com/v2/registry: 412 (request \""...\"") This API is not supported if you have created multiple registries. Please use '/v2/registries/{registry_name}' instead. Refer to https://docs.digitalocean.com/reference/api/digitalocean/#tag/Container-Registry for more info.""
+    }
+  ]
+}
+```
+
+### Suggested Fix
+
+- Detect multi-registry accounts in doctl and surface a user-friendly error with available registry names
+- Update the `--registry` flag description — it's not truly ""optional"" for multi-registry accounts
+- Document this as a breaking change for users who previously had a single registry and later created a second one
+
+### Environment
+
+- `doctl` version: 1.151.0 (also reproduced with 1.141.0 via `digitalocean/action-doctl@v2`)
+- Affected commands: `registry get`, `registry repository list-v2`, `registry repository list-manifests`, `registry repository delete-manifest`, `registry garbage-collection start`
+
+### Impact
+
+This silently broke CI/CD pipelines (GitHub Actions cron jobs) that were using `doctl registry` commands without `--registry`. The workaround is to add `--registry <name>` to every command (or positional arg for `garbage-collection start`).
+",closed,
+4063111155,HA default true for cluster create,"Stop sending `ha: false` from `doctl kubernetes cluster create` when `--ha` is not passed. Instead, omit the `ha` field from the API request so the DOKS API can apply version-specific defaults:
+- **Kubernetes ≥ 1.36.0**: HA control plane enabled when `ha` is omitted
+- **Kubernetes < 1.36.0**: HA control plane disabled when `ha` is omitted
+
+Users can still override explicitly with `--ha`, `--ha=true`, or `--ha=false`.
+
+Validations done:
+built and validated cluster creation using local ./doctl with and without explicit ha flag.
+updated UTs and validated.
+go test ./commands/... -run ""Kubernetes"" -v -count=1
+go test ./integration/... -run ""TestRun/doctl/kubernetes"" -v -count=1
+
+testing using repo built doctl
+```
+ ./doctl kubernetes cluster create ha-defaultcluster \
+  --region sfo3 \
+  --version 1.36 \
+  --node-pool ""name=pool;size=s-1vcpu-2gb;count=1"" \
+  --trace
+doctl: 2026/05/12 11:49:49 [DEBUG] POST https://api.digitalocean.com/v2/kubernetes/clusters
+doctl: 2026/05/12 11:49:49 -> ""POST /v2/kubernetes/clusters HTTP/1.1\r\nHost: api.digitalocean.com\r\nUser-Agent: doctl/0.0.0-dev (darwin arm64) godo/1.189.0\r\nContent-Length: 236\r\nAccept: application/json\r\nContent-Type: application/json\r\nAccept-Encoding: gzip\r\n\r\n{\""name\"":\""ha-defaultcluster\"",\""region\"":\""sfo3\"",\""version\"":\""1.36\"",\""node_pools\"":[{\""name\"":\""pool\"",\""size\"":\""s-1vcpu-2gb\"",\""count\"":1}],\""maintenance_policy\"":{\""start_time\"":\""00:00\"",\""duration\"":\""\"",\""day\"":\""any\""},\""auto_upgrade\"":false,\""surge_upgrade\"":true}\n""
+doctl: 2026/05/12 11:49:51 <- ""HTTP/2.0 201 Created\r\nContent-Length: 1362\r\nCf-Cache-Status: DYNAMIC\r\nCf-Ray: 9fa750607a8260b0-BOM\r\nContent-Type: application/json; charset=utf-8\r\nDate: Tue, 12 May 2026 06:19:51 GMT\r\nDo-Upstream-Service-Time: 2026\r\nRatelimit-Limit: 5000\r\nRatelimit-Remaining: 4971\r\nRatelimit-Reset: 1778570145\r\nServer: cloudflare\r\nSet-Cookie: __cf_bm=SZUKXDP7eLp8kxSbp8GpAT7MHaRNwp8NUI4GaStotJ4-1778566789.1963725-1.0.1.1-aCe1zWSF45aqILY2IVvV4Fmcy1Hx3Ep5M9TBB9tC6L08ymVef457VOJzOMW309dXRo_dHpjEUQn8xWqchbksbF4fFraJZgwkpkSChCJvKSVNYs5rpRI90hMu7jQDdK9QTSY6odlM9u2u3.apPo4e7g; HttpOnly; SameSite=None; Secure; Path=/; Domain=digitalocean.com; Expires=Tue, 12 May 2026 06:49:51 GMT\r\nVary: Accept-Encoding\r\nX-Gateway: Edge-Gateway\r\nX-Request-Id: 6ae6eb3a-d2d9-46ee-95f6-0148c0ac9786\r\nX-Response-From: service\r\n\r\n{\""kubernetes_cluster\"":{\""id\"":\""7295dc31-7ff7-4226-9076-16db92335fbb\"",\""name\"":\""ha-defaultcluster\"",\""region\"":\""sfo3\"",\""version\"":\""1.36.0-do.0\"",\""cluster_subnet\"":\""10.152.0.0/16\"",\""service_subnet\"":\""10.124.96.0/19\"",\""vpc_uuid\"":\""c44e05d0-e9c1-4662-bf84-1bfd45818861\"",\""ipv4\"":\""\"",\""endpoint\"":\""\"",\""tags\"":[\""k8s\"",\""k8s:7295dc31-7ff7-4226-9076-16db92335fbb\""],\""node_pools\"":[{\""id\"":\""e66d60a6-f96e-41e8-b744-37d19c9da2fa\"",\""name\"":\""pool\"",\""size\"":\""s-1vcpu-2gb\"",\""count\"":1,\""tags\"":[\""k8s\"",\""k8s:7295dc31-7ff7-4226-9076-16db92335fbb\"",\""k8s:worker\""],\""labels\"":null,\""taints\"":[],\""auto_scale\"":false,\""min_nodes\"":0,\""max_nodes\"":0,\""nodes\"":[{\""id\"":\""a71b6ff2-4bf3-47e4-a1fa-d3fac52457c0\"",\""name\"":\""\"",\""status\"":{\""state\"":\""provisioning\""},\""droplet_id\"":\""\"",\""created_at\"":\""2026-05-12T06:19:51Z\"",\""updated_at\"":\""2026-05-12T06:19:51Z\""}]}],\""maintenance_policy\"":{\""start_time\"":\""00:00\"",\""duration\"":\""4h0m0s\"",\""day\"":\""any\""},\""auto_upgrade\"":false,\""status\"":{\""state\"":\""provisioning\"",\""message\"":\""provisioning\""},\""created_at\"":\""2026-05-12T06:19:51Z\"",\""updated_at\"":\""2026-05-12T06:19:51Z\"",\""surge_upgrade\"":true,\""registry_enabled\"":false,\""ha\"":true,\""supported_features\"":[\""cluster-autoscaler\"",\""docr-integration\"",\""ha-control-plane\""],\""routing_agent\"":{\""enabled\"":false},\""amd_gpu_device_plugin\"":{\""enabled\"":false},\""amd_gpu_device_metrics_exporter_plugin\"":{\""enabled\"":false},\""rdma_shared_dev_plugin\"":{\""enabled\"":false},\""nvidia_gpu_device_plugin\"":{\""enabled\"":false}}}\n""
+Notice: Cluster is provisioning, waiting for cluster to be running
+doctl: 2026/05/12 11:49:51 [DEBUG] GET https://api.digitalocean.com/v2/kubernetes/clusters/7295dc31-7ff7-4226-9076-16db92335fbb
+doctl: 2026/05/12 11:49:51 -> ""GET /v2/kubernetes/clusters/7295dc31-7ff7-4226-9076-16db92335fbb HTTP/1.1\r\nHost: api.digitalocean.com\r\nUser-Agent: doctl/0.0.0-dev (darwin arm64) godo/1.189.0\r\nAccept: application/json\r\nAccept-Encoding: gzip\r\n\r\n""
+doctl: 2026/05/12 11:49:51 <- ""HTTP/2.0 200 OK\r\nCf-Cache-Status: DYNAMIC\r\nCf-Ray: 9fa7506dcd0d60b0-BOM\r\nContent-Type: application/json; charset=utf-8\r\nDate: Tue, 12 May 2026 06:19:51 GMT\r\nDo-Upstream-Service-Time: 414\r\nRatelimit-Limit: 5000\r\nRatelimit-Remaining: 4970\r\nRatelimit-Reset: 1778570145\r\nServer: cloudflare\r\nSet-Cookie: __cf_bm=ycYIhzufWKpSFKUddRwFYLWWEjSJtXjdE0YBfHrihzs-1778566791.3246324-1.0.1.1-hRHYxbwEc4VMlOMQxAlp7m1Yvfr5YeJ6YO.9ZyMpxZo7sTqt9.budOiKJWkhYTVsiuL05idz2cXwjgwe0j2IEUyYhTlwE3kszftiu3i00s7M8sKWUmnex2ZrdkYjcYTaF1FB4YVLM4ZyxVAET_PFvQ; HttpOnly; SameSite=None; Secure; Path=/; Domain=digitalocean.com; Expires=Tue, 12 May 2026 06:49:51 GMT\r\nVary: Accept-Encoding\r\nX-Gateway: Edge-Gateway\r\nX-Request-Id: 36687167-7b94-41cc-8e1b-a80634f21462\r\nX-Response-From: service\r\n\r\n{\""kubernetes_cluster\"":{\""id\"":\""7295dc31-7ff7-4226-9076-16db92335fbb\"",\""name\"":\""ha-defaultcluster\"",\""region\"":\""sfo3\"",\""version\"":\""1.36.0-do.0\"",\""cluster_subnet\"":\""10.152.0.0/16\"",\""service_subnet\"":\""10.124.96.0/19\"",\""vpc_uuid\"":\""c44e05d0-e9c1-4662-bf84-1bfd45818861\"",\""ipv4\"":\""\"",\""endpoint\"":\""\"",\""tags\"":[\""k8s\"",\""k8s:7295dc31-7ff7-4226-9076-16db92335fbb\""],\""node_pools\"":[{\""id\"":\""e66d60a6-f96e-41e8-b744-37d19c9da2fa\"",\""name\"":\""pool\"",\""size\"":\""s-1vcpu-2gb\"",\""count\"":1,\""tags\"":[\""k8s\"",\""k8s:7295dc31-7ff7-4226-9076-16db92335fbb\"",\""k8s:worker\""],\""labels\"":null,\""taints\"":[],\""auto_scale\"":false,\""min_nodes\"":0,\""max_nodes\"":0,\""nodes\"":[{\""id\"":\""a71b6ff2-4bf3-47e4-a1fa-d3fac52457c0\"",\""name\"":\""\"",\""status\"":{\""state\"":\""provisioning\""},\""droplet_id\"":\""\"",\""created_at\"":\""2026-05-12T06:19:51Z\"",\""updated_at\"":\""2026-05-12T06:19:51Z\""}]}],\""maintenance_policy\"":{\""start_time\"":\""00:00\"",\""duration\"":\""4h0m0s\"",\""day\"":\""any\""},\""auto_upgrade\"":false,\""status\"":{\""state\"":\""provisioning\"",\""message\"":\""provisioning\""},\""created_at\"":\""2026-05-12T06:19:51Z\"",\""updated_at\"":\""2026-05-12T06:19:51Z\"",\""surge_upgrade\"":true,\""registry_enabled\"":false,\""ha\"":true,\""supported_features\"":[\""cluster-autoscaler\"",\""docr-integration\"",\""ha-control-plane\""],\""routing_agent\"":{\""enabled\"":false},\""amd_gpu_device_plugin\"":{\""enabled\"":false},\""amd_gpu_device_metrics_exporter_plugin\"":{\""enabled\"":false},\""rdma_shared_dev_plugin\"":{\""enabled\"":false},\""nvidia_gpu_device_plugin\"":{\""enabled\"":false}}}\n""
+^
+ ./doctl kubernetes cluster create ha-defaultcluster1 \
+  --region sfo3 \
+  --version 1.35 \
+  --node-pool ""name=pool;size=s-1vcpu-2gb;count=1"" \
+  --trace
+doctl: 2026/05/12 11:58:13 [DEBUG] POST https://api.digitalocean.com/v2/kubernetes/clusters
+doctl: 2026/05/12 11:58:13 -> ""POST /v2/kubernetes/clusters HTTP/1.1\r\nHost: api.digitalocean.com\r\nUser-Agent: doctl/0.0.0-dev (darwin arm64) godo/1.189.0\r\nContent-Length: 237\r\nAccept: application/json\r\nContent-Type: application/json\r\nAccept-Encoding: gzip\r\n\r\n{\""name\"":\""ha-defaultcluster1\"",\""region\"":\""sfo3\"",\""version\"":\""1.35\"",\""node_pools\"":[{\""name\"":\""pool\"",\""size\"":\""s-1vcpu-2gb\"",\""count\"":1}],\""maintenance_policy\"":{\""start_time\"":\""00:00\"",\""duration\"":\""\"",\""day\"":\""any\""},\""auto_upgrade\"":false,\""surge_upgrade\"":true}\n""
+doctl: 2026/05/12 11:58:15 <- ""HTTP/2.0 201 Created\r\nContent-Length: 1364\r\nCf-Cache-Status: DYNAMIC\r\nCf-Ray: 9fa75cae18cc3a40-BOM\r\nContent-Type: application/json; charset=utf-8\r\nDate: Tue, 12 May 2026 06:28:15 GMT\r\nDo-Upstream-Service-Time: 1812\r\nRatelimit-Limit: 5000\r\nRatelimit-Remaining: 4898\r\nRatelimit-Reset: 1778570145\r\nServer: cloudflare\r\nSet-Cookie: __cf_bm=Y3e.lLc81ujkgeFhnF1Re2FwuXggRx5VWFOsV_uBxu4-1778567293.1392646-1.0.1.1-TzmuXgAygcvN5KS_9yr2OATJbzPGPAQhoQUscWdNg.SGC98zk8xELO0qpmn0SBNtGwooQ3w3gVZMavh.8xlLKjnH7YE0LvNuLi4gjo.o2O9XAuMyU8jy_fSLTIQKT2ur603F1_ASrHek4WkKjxEwAw; HttpOnly; SameSite=None; Secure; Path=/; Domain=digitalocean.com; Expires=Tue, 12 May 2026 06:58:15 GMT\r\nVary: Accept-Encoding\r\nX-Gateway: Edge-Gateway\r\nX-Request-Id: 594e4a25-5b2e-4171-9a16-31e7871ea6af\r\nX-Response-From: service\r\n\r\n{\""kubernetes_cluster\"":{\""id\"":\""1fa6c05e-e75c-49aa-b7ce-b4d753368b16\"",\""name\"":\""ha-defaultcluster1\"",\""region\"":\""sfo3\"",\""version\"":\""1.35.1-do.5\"",\""cluster_subnet\"":\""10.125.0.0/16\"",\""service_subnet\"":\""10.124.32.0/19\"",\""vpc_uuid\"":\""c44e05d0-e9c1-4662-bf84-1bfd45818861\"",\""ipv4\"":\""\"",\""endpoint\"":\""\"",\""tags\"":[\""k8s\"",\""k8s:1fa6c05e-e75c-49aa-b7ce-b4d753368b16\""],\""node_pools\"":[{\""id\"":\""07300d00-6272-44e9-a8e7-56bcb6a21dca\"",\""name\"":\""pool\"",\""size\"":\""s-1vcpu-2gb\"",\""count\"":1,\""tags\"":[\""k8s\"",\""k8s:1fa6c05e-e75c-49aa-b7ce-b4d753368b16\"",\""k8s:worker\""],\""labels\"":null,\""taints\"":[],\""auto_scale\"":false,\""min_nodes\"":0,\""max_nodes\"":0,\""nodes\"":[{\""id\"":\""74afb7df-cdb1-449e-bf52-87ae79f58ed0\"",\""name\"":\""\"",\""status\"":{\""state\"":\""provisioning\""},\""droplet_id\"":\""\"",\""created_at\"":\""2026-05-12T06:28:15Z\"",\""updated_at\"":\""2026-05-12T06:28:15Z\""}]}],\""maintenance_policy\"":{\""start_time\"":\""00:00\"",\""duration\"":\""4h0m0s\"",\""day\"":\""any\""},\""auto_upgrade\"":false,\""status\"":{\""state\"":\""provisioning\"",\""message\"":\""provisioning\""},\""created_at\"":\""2026-05-12T06:28:15Z\"",\""updated_at\"":\""2026-05-12T06:28:15Z\"",\""surge_upgrade\"":true,\""registry_enabled\"":false,\""ha\"":false,\""supported_features\"":[\""cluster-autoscaler\"",\""docr-integration\"",\""ha-control-plane\""],\""routing_agent\"":{\""enabled\"":false},\""amd_gpu_device_plugin\"":{\""enabled\"":false},\""amd_gpu_device_metrics_exporter_plugin\"":{\""enabled\"":false},\""rdma_shared_dev_plugin\"":{\""enabled\"":false},\""nvidia_gpu_device_plugin\"":{\""enabled\"":false}}}\n""
+Notice: Cluster is provisioning, waiting for cluster to be running
+
+ ./doctl kubernetes cluster create ha-defaultcluster-true \
+  --region sfo3 \
+  --version 1.36 \
+  --node-pool ""name=pool;size=s-1vcpu-2gb;count=1"" \
+  --ha=true \
+∙ --trace
+doctl: 2026/05/12 12:00:19 [DEBUG] POST https://api.digitalocean.com/v2/kubernetes/clusters
+doctl: 2026/05/12 12:00:19 -> ""POST /v2/kubernetes/clusters HTTP/1.1\r\nHost: api.digitalocean.com\r\nUser-Agent: doctl/0.0.0-dev (darwin arm64) godo/1.189.0\r\nContent-Length: 251\r\nAccept: application/json\r\nContent-Type: application/json\r\nAccept-Encoding: gzip\r\n\r\n{\""name\"":\""ha-defaultcluster-true\"",\""region\"":\""sfo3\"",\""version\"":\""1.36\"",\""ha\"":true,\""node_pools\"":[{\""name\"":\""pool\"",\""size\"":\""s-1vcpu-2gb\"",\""count\"":1}],\""maintenance_policy\"":{\""start_time\"":\""00:00\"",\""duration\"":\""\"",\""day\"":\""any\""},\""auto_upgrade\"":false,\""surge_upgrade\"":true}\n""
+doctl: 2026/05/12 12:00:21 <- ""HTTP/2.0 201 Created\r\nContent-Length: 1367\r\nCf-Cache-Status: DYNAMIC\r\nCf-Ray: 9fa75fc35d13dab3-BOM\r\nContent-Type: application/json; charset=utf-8\r\nDate: Tue, 12 May 2026 06:30:21 GMT\r\nDo-Upstream-Service-Time: 1639\r\nRatelimit-Limit: 5000\r\nRatelimit-Remaining: 4872\r\nRatelimit-Reset: 1778570145\r\nServer: cloudflare\r\nSet-Cookie: __cf_bm=O0xriIIpMRH_fGzael3ENEcEA6Wh4lji0cFBkGLphD0-1778567419.4192672-1.0.1.1-n1QQkoM_z4L8h2dQ66113Zia5qY9l64yvrGzKGQr97usNvouy9vxf1bddAlvVg_1XHhDEV.cQ4.YslktWbPgmg6cyAXfK5RZS9dFGAwaSsGuWtiAq3Kafe9qlMU8b9PmoTVoFZexop6wG3Ovz6Pvgg; HttpOnly; SameSite=None; Secure; Path=/; Domain=digitalocean.com; Expires=Tue, 12 May 2026 07:00:21 GMT\r\nVary: Accept-Encoding\r\nX-Gateway: Edge-Gateway\r\nX-Request-Id: ae62e99e-af21-47b9-9295-fb5c306cc193\r\nX-Response-From: service\r\n\r\n{\""kubernetes_cluster\"":{\""id\"":\""90b03e5d-bae0-4318-a586-136d9327b61c\"",\""name\"":\""ha-defaultcluster-true\"",\""region\"":\""sfo3\"",\""version\"":\""1.36.0-do.0\"",\""cluster_subnet\"":\""10.151.0.0/16\"",\""service_subnet\"":\""10.124.64.0/19\"",\""vpc_uuid\"":\""c44e05d0-e9c1-4662-bf84-1bfd45818861\"",\""ipv4\"":\""\"",\""endpoint\"":\""\"",\""tags\"":[\""k8s\"",\""k8s:90b03e5d-bae0-4318-a586-136d9327b61c\""],\""node_pools\"":[{\""id\"":\""80b705c4-04d8-4cc9-87e1-d45810788c1b\"",\""name\"":\""pool\"",\""size\"":\""s-1vcpu-2gb\"",\""count\"":1,\""tags\"":[\""k8s\"",\""k8s:90b03e5d-bae0-4318-a586-136d9327b61c\"",\""k8s:worker\""],\""labels\"":null,\""taints\"":[],\""auto_scale\"":false,\""min_nodes\"":0,\""max_nodes\"":0,\""nodes\"":[{\""id\"":\""ee1fd77c-9795-4a30-87ab-24474c8d52b3\"",\""name\"":\""\"",\""status\"":{\""state\"":\""provisioning\""},\""droplet_id\"":\""\"",\""created_at\"":\""2026-05-12T06:30:21Z\"",\""updated_at\"":\""2026-05-12T06:30:21Z\""}]}],\""maintenance_policy\"":{\""start_time\"":\""00:00\"",\""duration\"":\""4h0m0s\"",\""day\"":\""any\""},\""auto_upgrade\"":false,\""status\"":{\""state\"":\""provisioning\"",\""message\"":\""provisioning\""},\""created_at\"":\""2026-05-12T06:30:21Z\"",\""updated_at\"":\""2026-05-12T06:30:21Z\"",\""surge_upgrade\"":true,\""registry_enabled\"":false,\""ha\"":true,\""supported_features\"":[\""cluster-autoscaler\"",\""docr-integration\"",\""ha-control-plane\""],\""routing_agent\"":{\""enabled\"":false},\""amd_gpu_device_plugin\"":{\""enabled\"":false},\""amd_gpu_device_metrics_exporter_plugin\"":{\""enabled\"":false},\""rdma_shared_dev_plugin\"":{\""enabled\"":false},\""nvidia_gpu_device_plugin\"":{\""enabled\"":false}}}\n""
+Notice: Cluster is provisioning, waiting for cluster to be running
+doctl: 2026/05/12 12:00:21 -> ""GET /v2/kubernetes/clusters/90b03e5d-bae0-4318-a586-136d9327b61c HTTP/1.1\r\nHost: api.digitalocean.com\r\nUser-Agent: doctl/0.0.0-dev (darwin arm64) godo/1.189.0\r\nAccept: application/json\r\nAccept-Encoding: gzip\r\n\r\n""
+
+ ./doctl kubernetes cluster create ha-defaultcluster-true1 \
+  --region sfo3 \
+  --version 1.35 \
+  --node-pool ""name=pool;size=s-1vcpu-2gb;count=1"" \
+  --ha=true \
+  --trace
+doctl: 2026/05/12 12:02:05 [DEBUG] POST https://api.digitalocean.com/v2/kubernetes/clusters
+doctl: 2026/05/12 12:02:05 -> ""POST /v2/kubernetes/clusters HTTP/1.1\r\nHost: api.digitalocean.com\r\nUser-Agent: doctl/0.0.0-dev (darwin arm64) godo/1.189.0\r\nContent-Length: 252\r\nAccept: application/json\r\nContent-Type: application/json\r\nAccept-Encoding: gzip\r\n\r\n{\""name\"":\""ha-defaultcluster-true1\"",\""region\"":\""sfo3\"",\""version\"":\""1.35\"",\""ha\"":true,\""node_pools\"":[{\""name\"":\""pool\"",\""size\"":\""s-1vcpu-2gb\"",\""count\"":1}],\""maintenance_policy\"":{\""start_time\"":\""00:00\"",\""duration\"":\""\"",\""day\"":\""any\""},\""auto_upgrade\"":false,\""surge_upgrade\"":true}\n""
+doctl: 2026/05/12 12:02:07 <- ""HTTP/2.0 201 Created\r\nContent-Length: 1368\r\nCf-Cache-Status: DYNAMIC\r\nCf-Ray: 9fa7625c6fd33fbb-BOM\r\nContent-Type: application/json; charset=utf-8\r\nDate: Tue, 12 May 2026 06:32:07 GMT\r\nDo-Upstream-Service-Time: 1765\r\nRatelimit-Limit: 5000\r\nRatelimit-Remaining: 4839\r\nRatelimit-Reset: 1778570145\r\nServer: cloudflare\r\nSet-Cookie: __cf_bm=9MrQQsAAFg5zcyhzJWQtVuk0sleNifdraQ_bzTsdpqE-1778567525.8297322-1.0.1.1-XS6IEwaMJ3MFn6_6_qq.JIJa6ORCXKBmMfJsCTcDSo7K8bJ72rCrML_qgPY8RDt2nTNacGNZm.86TjH191erawtiTzBFsWz8wfCBZaZgO26sTJzxKPftuZjMh4hiwifB5K.Avr2tPPbVZqNcm.Opbw; HttpOnly; SameSite=None; Secure; Path=/; Domain=digitalocean.com; Expires=Tue, 12 May 2026 07:02:07 GMT\r\nVary: Accept-Encoding\r\nX-Gateway: Edge-Gateway\r\nX-Request-Id: 7a5e17d9-e2bc-44d9-9251-fd27ffc59be2\r\nX-Response-From: service\r\n\r\n{\""kubernetes_cluster\"":{\""id\"":\""8eddb812-0625-477b-8874-0905de46dafe\"",\""name\"":\""ha-defaultcluster-true1\"",\""region\"":\""sfo3\"",\""version\"":\""1.35.1-do.5\"",\""cluster_subnet\"":\""10.152.0.0/16\"",\""service_subnet\"":\""10.124.96.0/19\"",\""vpc_uuid\"":\""c44e05d0-e9c1-4662-bf84-1bfd45818861\"",\""ipv4\"":\""\"",\""endpoint\"":\""\"",\""tags\"":[\""k8s\"",\""k8s:8eddb812-0625-477b-8874-0905de46dafe\""],\""node_pools\"":[{\""id\"":\""902c2ad6-c03c-47be-93fc-c36049613096\"",\""name\"":\""pool\"",\""size\"":\""s-1vcpu-2gb\"",\""count\"":1,\""tags\"":[\""k8s\"",\""k8s:8eddb812-0625-477b-8874-0905de46dafe\"",\""k8s:worker\""],\""labels\"":null,\""taints\"":[],\""auto_scale\"":false,\""min_nodes\"":0,\""max_nodes\"":0,\""nodes\"":[{\""id\"":\""9a239eea-c2bf-417f-abe7-288f286fa66f\"",\""name\"":\""\"",\""status\"":{\""state\"":\""provisioning\""},\""droplet_id\"":\""\"",\""created_at\"":\""2026-05-12T06:32:07Z\"",\""updated_at\"":\""2026-05-12T06:32:07Z\""}]}],\""maintenance_policy\"":{\""start_time\"":\""00:00\"",\""duration\"":\""4h0m0s\"",\""day\"":\""any\""},\""auto_upgrade\"":false,\""status\"":{\""state\"":\""provisioning\"",\""message\"":\""provisioning\""},\""created_at\"":\""2026-05-12T06:32:07Z\"",\""updated_at\"":\""2026-05-12T06:32:07Z\"",\""surge_upgrade\"":true,\""registry_enabled\"":false,\""ha\"":true,\""supported_features\"":[\""cluster-autoscaler\"",\""docr-integration\"",\""ha-control-plane\""],\""routing_agent\"":{\""enabled\"":false},\""amd_gpu_device_plugin\"":{\""enabled\"":false},\""amd_gpu_device_metrics_exporter_plugin\"":{\""enabled\"":false},\""rdma_shared_dev_plugin\"":{\""enabled\"":false},\""nvidia_gpu_device_plugin\"":{\""enabled\"":false}}}\n""
+Notice: Cluster is provisioning, waiting for cluster to be running
+doctl: 2026/05/12 12:02:07 [DEBUG] GET https://api.digitalocean.com/v2/kubernetes/clusters/8eddb812-0625-477b-8874-0905de46dafe
+doctl: 2026/05/12 12:02:07 -> ""GET /v2/kubernetes/clusters/8eddb812-0625-477b-8874-0905de46dafe HTTP/1.1\r\nHost: api.digitalocean.com\r\nUser-Agent: doctl/0.0.0-dev (darwin arm64) godo/1.189.0\r\nAccept: application/json\r\nAccept-Encoding: gzip\r\n\r\n""
+
+ ./doctl kubernetes cluster create ha-defaultcluster-false \
+  --region sfo3 \
+  --version 1.36 \
+  --node-pool ""name=pool;size=s-1vcpu-2gb;count=1"" \
+  --ha=false \
+  --trace
+doctl: 2026/05/12 12:03:13 [DEBUG] POST https://api.digitalocean.com/v2/kubernetes/clusters
+doctl: 2026/05/12 12:03:13 -> ""POST /v2/kubernetes/clusters HTTP/1.1\r\nHost: api.digitalocean.com\r\nUser-Agent: doctl/0.0.0-dev (darwin arm64) godo/1.189.0\r\nContent-Length: 253\r\nAccept: application/json\r\nContent-Type: application/json\r\nAccept-Encoding: gzip\r\n\r\n{\""name\"":\""ha-defaultcluster-false\"",\""region\"":\""sfo3\"",\""version\"":\""1.36\"",\""ha\"":false,\""node_pools\"":[{\""name\"":\""pool\"",\""size\"":\""s-1vcpu-2gb\"",\""count\"":1}],\""maintenance_policy\"":{\""start_time\"":\""00:00\"",\""duration\"":\""\"",\""day\"":\""any\""},\""auto_upgrade\"":false,\""surge_upgrade\"":true}\n""
+doctl: 2026/05/12 12:03:15 <- ""HTTP/2.0 201 Created\r\nContent-Length: 1370\r\nCf-Cache-Status: DYNAMIC\r\nCf-Ray: 9fa76400bb3d4226-BOM\r\nContent-Type: application/json; charset=utf-8\r\nDate: Tue, 12 May 2026 06:33:15 GMT\r\nDo-Upstream-Service-Time: 2216\r\nRatelimit-Limit: 5000\r\nRatelimit-Remaining: 4826\r\nRatelimit-Reset: 1778570145\r\nServer: cloudflare\r\nSet-Cookie: __cf_bm=_gpoucBJoadIqOQhVuRORhk8_29w3aE_cT4MDy_iUqc-1778567593.0752301-1.0.1.1-ankA30LECXQlLwtzxSE.HhRkwfd6jPwRn70IBfzYy8uwGwbL3qWs3wOEoR6Gce_a5i9R0ONwiwF.mlUdWCWB_hzjJ665Zm0ERO5uchbRrY3prlKUMspDu3j2F8129HuIo6GUHnUFX0utUMhSbcTK6w; HttpOnly; SameSite=None; Secure; Path=/; Domain=digitalocean.com; Expires=Tue, 12 May 2026 07:03:15 GMT\r\nVary: Accept-Encoding\r\nX-Gateway: Edge-Gateway\r\nX-Request-Id: 3441420e-36c6-4a7b-9d01-ccff5209c9d2\r\nX-Response-From: service\r\n\r\n{\""kubernetes_cluster\"":{\""id\"":\""55e91135-cebd-4562-9af2-7c1edbf53d45\"",\""name\"":\""ha-defaultcluster-false\"",\""region\"":\""sfo3\"",\""version\"":\""1.36.0-do.0\"",\""cluster_subnet\"":\""10.153.0.0/16\"",\""service_subnet\"":\""10.124.128.0/19\"",\""vpc_uuid\"":\""c44e05d0-e9c1-4662-bf84-1bfd45818861\"",\""ipv4\"":\""\"",\""endpoint\"":\""\"",\""tags\"":[\""k8s\"",\""k8s:55e91135-cebd-4562-9af2-7c1edbf53d45\""],\""node_pools\"":[{\""id\"":\""70aa111b-c72c-40d8-a024-dedde1094b5b\"",\""name\"":\""pool\"",\""size\"":\""s-1vcpu-2gb\"",\""count\"":1,\""tags\"":[\""k8s\"",\""k8s:55e91135-cebd-4562-9af2-7c1edbf53d45\"",\""k8s:worker\""],\""labels\"":null,\""taints\"":[],\""auto_scale\"":false,\""min_nodes\"":0,\""max_nodes\"":0,\""nodes\"":[{\""id\"":\""e454d57a-6463-490e-8304-7551459a4ae3\"",\""name\"":\""\"",\""status\"":{\""state\"":\""provisioning\""},\""droplet_id\"":\""\"",\""created_at\"":\""2026-05-12T06:33:15Z\"",\""updated_at\"":\""2026-05-12T06:33:15Z\""}]}],\""maintenance_policy\"":{\""start_time\"":\""00:00\"",\""duration\"":\""4h0m0s\"",\""day\"":\""any\""},\""auto_upgrade\"":false,\""status\"":{\""state\"":\""provisioning\"",\""message\"":\""provisioning\""},\""created_at\"":\""2026-05-12T06:33:15Z\"",\""updated_at\"":\""2026-05-12T06:33:15Z\"",\""surge_upgrade\"":true,\""registry_enabled\"":false,\""ha\"":false,\""supported_features\"":[\""cluster-autoscaler\"",\""docr-integration\"",\""ha-control-plane\""],\""routing_agent\"":{\""enabled\"":false},\""amd_gpu_device_plugin\"":{\""enabled\"":false},\""amd_gpu_device_metrics_exporter_plugin\"":{\""enabled\"":false},\""rdma_shared_dev_plugin\"":{\""enabled\"":false},\""nvidia_gpu_device_plugin\"":{\""enabled\"":false}}}\n""
+Notice: Cluster is provisioning, waiting for cluster to be running
+doctl: 2026/05/12 12:03:15 [DEBUG] GET https://api.digitalocean.com/v2/kubernetes/clusters/55e91135-cebd-4562-9af2-7c1edbf53d45
+doctl: 2026/05/12 12:03:15 -> ""GET /v2/kubernetes/clusters/55e91135-cebd-4562-9af2-7c1edbf53d45 HTTP/1.1\r\nHost: api.digitalocean.com\r\nUser-Agent: doctl/0.0.0-dev (darwin arm64) godo/1.189.0\r\nAccept: application/json\r\nAccept-Encoding: gzip\r\n\r\n""
+
+```",closed,
+4056038221,Typo correction in apps.go help text.,The URL for the github repository service incorrectly points to the gitlab URL. This small change fixes the typo.,open,
+4028573590,"Add list-events, cancel-event commands and event logs support for App Platform","## Summary
+- Add `doctl apps list-events <app-id>` command (alias `lse`) to list all events for an app
+- Add `doctl apps cancel-event <app-id> <event-id>` command (alias `ce`) to cancel autoscaling events
+- Add `--event-id` flag to `doctl apps logs` command for retrieving autoscaling event logs
+- Add `autoscale_event` as a recognized log type
+- Update vendored godo with new Event types and API methods
+- Add Events displayer and mock methods
+
+Depends on: [digitalocean/godo PR](https://github.com/digitalocean/godo/pull/959) for Event types",closed,
+4023412707,Fix mismatched command names in example strings,"## Summary
+
+Fixes several \`example\` strings that use incorrect command names, which prevents the docs site from parsing them correctly. The example field must use the exact command name matching the \`name\` field.
+
+### Changes
+
+- **\`network attachment create\`** ([partner_network_connect.go](https://github.com/digitalocean/doctl/blob/main/commands/partner_network_connect.go)): Changed \`doctl network connect create\` → \`doctl network attachment create\`
+- **\`network byoip-prefix resource\`** ([byoip_prefix.go](https://github.com/digitalocean/doctl/blob/main/commands/byoip_prefix.go)): Changed \`doctl network byoip-prefix resources\` → \`doctl network byoip-prefix resource\` (singular, matching the command name)
+- **\`security scans create\`** ([security.go](https://github.com/digitalocean/doctl/blob/main/commands/security.go)): Changed \`doctl security scan create\` → \`doctl security scans create\`
+- **\`security scans get\`** ([security.go](https://github.com/digitalocean/doctl/blob/main/commands/security.go)): Changed \`doctl security scan get\` → \`doctl security scans get\`
+- **\`security scans list\`** ([security.go](https://github.com/digitalocean/doctl/blob/main/commands/security.go)): Changed \`doctl security scan list\` → \`doctl security scans list\`",closed,

@@ -1,0 +1,1046 @@
+issue_id,title,description,status,ground_truth,predicted_label
+4576581719,v1.160.0 build fails,"Building with go 1.26.4 on linux/Chromebrew on `armv7l`, `i686`, `x86_64` using `go install github.com/digitalocean/doctl/cmd/doctl@v1.160.0`
+```
+go: downloading github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc
+go: downloading github.com/go-logr/stdr v1.2.2
+go: downloading github.com/modern-go/reflect2 v1.0.2
+go: downloading github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd
+# github.com/digitalocean/doctl/do
+/home/chronos/user/go/pkg/mod/github.com/digitalocean/doctl@v1.160.0/do/inference.go:26:57: undefined: godo.ChatCompletionNewParams
+/home/chronos/user/go/pkg/mod/github.com/digitalocean/doctl@v1.160.0/do/inference.go:26:89: undefined: godo.ChatCompletion
+/home/chronos/user/go/pkg/mod/github.com/digitalocean/doctl@v1.160.0/do/inference.go:27:66: undefined: godo.ChatCompletionNewParams
+/home/chronos/user/go/pkg/mod/github.com/digitalocean/doctl@v1.160.0/do/inference.go:27:98: undefined: godo.ChatCompletionStream
+/home/chronos/user/go/pkg/mod/github.com/digitalocean/doctl@v1.160.0/do/inference.go:28:52: undefined: godo.EmbeddingNewParams
+/home/chronos/user/go/pkg/mod/github.com/digitalocean/doctl@v1.160.0/do/inference.go:28:79: undefined: godo.CreateEmbeddingResponse
+/home/chronos/user/go/pkg/mod/github.com/digitalocean/doctl@v1.160.0/do/inference.go:29:50: undefined: godo.ImageGenerateParams
+/home/chronos/user/go/pkg/mod/github.com/digitalocean/doctl@v1.160.0/do/inference.go:29:78: undefined: godo.ImagesResponse
+/home/chronos/user/go/pkg/mod/github.com/digitalocean/doctl@v1.160.0/do/inference.go:30:59: undefined: godo.ImageGenerateParams
+/home/chronos/user/go/pkg/mod/github.com/digitalocean/doctl@v1.160.0/do/inference.go:30:87: undefined: godo.ImageGenerationStream
+/home/chronos/user/go/pkg/mod/github.com/digitalocean/doctl@v1.160.0/do/inference.go:30:87: too many errors
+```",closed,bug,bug
+4564260507,Unhide support for NAT Gateways,"**What is the problem this feature would solve? Please describe.**
+<!-- A clear and concise description of what the problem is. Ex. I'm always frustrated when [...] -->
+
+It appears this feature was implemented in https://github.com/digitalocean/doctl/pull/1698, but even though the upstream feature is GA, this still appears to be a hidden feature.
+
+We use doctl as the main way to interact with DO APIs, so having support for this would be very useful for a feature that we are planning on building soon. 
+
+**Describe the solution you'd like**
+<!-- A clear and concise description of what you want to happen. -->
+
+Enable the hidden support for NAT Gateway APIs
+
+**Additional context**
+<!-- Add any other context about the feature request here. -->
+
+N/A",open,enhancement,enhancement
+4074551973,`doctl registry` commands fail with 412 for multi-registry accounts without clear error or guidance,"
+
+### Description
+
+All `doctl registry` subcommands (`repository list-v2`, `repository list-manifests`, `repository delete-manifest`, etc.) fail with an opaque 412 error when the account has multiple container registries, even though the `--registry` flag is documented as ""optional.""
+
+This appears to be a server-side API change — these commands previously worked without `--registry`. There was no deprecation notice, changelog entry, or doctl release noting this breaking change.
+
+### Steps to Reproduce
+
+1. Have a DigitalOcean account with multiple container registries
+2. Run any registry command without `--registry`:
+
+```bash
+doctl registry repository list-v2 --output json
+```
+
+### Expected Behavior
+
+Either:
+- A clear CLI-level error message like: `Error: multiple registries found. Please specify one with --registry <name>. Available: reg1, reg2`
+- Or the command prompts the user to select a registry
+
+### Actual Behavior
+
+Raw API error passed through:
+
+```json
+{
+  ""errors"": [
+    {
+      ""detail"": ""failed to get registry: GET https://api.digitalocean.com/v2/registry: 412 (request \""...\"") This API is not supported if you have created multiple registries. Please use '/v2/registries/{registry_name}' instead. Refer to https://docs.digitalocean.com/reference/api/digitalocean/#tag/Container-Registry for more info.""
+    }
+  ]
+}
+```
+
+### Suggested Fix
+
+- Detect multi-registry accounts in doctl and surface a user-friendly error with available registry names
+- Update the `--registry` flag description — it's not truly ""optional"" for multi-registry accounts
+- Document this as a breaking change for users who previously had a single registry and later created a second one
+
+### Environment
+
+- `doctl` version: 1.151.0 (also reproduced with 1.141.0 via `digitalocean/action-doctl@v2`)
+- Affected commands: `registry get`, `registry repository list-v2`, `registry repository list-manifests`, `registry repository delete-manifest`, `registry garbage-collection start`
+
+### Impact
+
+This silently broke CI/CD pipelines (GitHub Actions cron jobs) that were using `doctl registry` commands without `--registry`. The workaround is to add `--registry <name>` to every command (or positional arg for `garbage-collection start`).
+",closed,bug,bug
+3874976892,Support of --since nad --until arguments in doctl,"**What is the problem this feature would solve? Please describe.**
+<!-- A clear and concise description of what the problem is. Ex. I'm always frustrated when [...] -->
+It is a bad UX that `doctl` doesn't support `--since` and `--until` arguments like docker does f.e. when querying logs from apps.
+
+**Describe the solution you'd like**
+<!-- A clear and concise description of what you want to happen. -->
+Support the before mentioned arguments. I have noticed that in `doctl apps logs <appid>` command.
+
+**Additional context**
+<!-- Add any other context about the feature request here. -->
+",open,enhancement,enhancement
+3816046322,--version flag,"**What is the problem this feature would solve? Please describe.**
+
+I want to know what version of `doctl` I'm running.
+
+**Describe the solution you'd like**
+
+Return the version when running `--version`
+
+**Additional context**
+
+I was affected by https://github.com/digitalocean/doctl/issues/1534 and I thought the culprit might have been that I was running an out of date version, since I had installed via AUR where that's not uncommon.
+",open,enhancement,enhancement
+3776825633,registry repository list-v2 ignores --format and --no-header flags,"**Describe the Issue:**
+
+The `--format` and `--no-header` flags are completely ignored by `doctl registry repository list-v2`. The command outputs all columns with headers regardless of the format specified.
+
+**Steps to reproduce:**
+
+```bash
+# Expected: Only repository names, no header
+doctl registry repository list-v2 --format Name --no-header
+
+# Actual output: Full table with all columns and header
+Name                       Latest Manifest                                                            Latest Tag    Tag Count    Manifest Count    Updated At
+my-app-prod                sha256:a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2    latest        2            3                 2025-12-04 06:57:34 +0000 UTC
+my-app-stg                 sha256:f6e5d4c3b2a1f6e5d4c3b2a1f6e5d4c3b2a1f6e5d4c3b2a1f6e5d4c3b2a1f6e5    latest        3            5                 2025-12-11 18:35:05 +0000 UTC
+```
+
+**Expected behavior:**
+
+```bash
+doctl registry repository list-v2 --format Name --no-header
+# Should output:
+my-app-prod
+my-app-stg
+...
+```
+
+**Workaround:**
+
+Using `--output json` with `jq` works correctly:
+```bash
+doctl registry repository list-v2 --output json | jq -r '.[].name'
+```
+
+**Environment:**
+ - doctl version: 1.148.0 (also reproduced on 1.141.0 in CI)
+ - OS: Ubuntu 22.04 / Ubuntu 24.04 (GitHub Actions)
+ - Installation method: GitHub Actions `digitalocean/action-doctl@v2`
+
+**Additional Details:**
+
+The same issue affects `doctl registry repository list` (non-v2). This breaks scripts that rely on `grep -Fxq` for exact matching since the full row is returned instead of just the name.
+
+Additional Note: We noticed this issue started to happen since December 27th
+",open,bug,bug
+3709905481,oauth2 support,"**What is the problem this feature would solve? Please describe.**
+It's annoying that I have to manually copy/paste the token
+
+**Describe the solution you'd like**
+Use oauth2 flow to fetch a token for me instead; like aws cli does
+
+**Additional context**
+",open,enhancement,enhancement
+3614870019,registries repository delete-tag returns success for images that don't exist,"**Describe the Issue:**
+
+<!-- Please provide a clear and concise description of the problem you are
+facing including the steps to reproduce the issue. -->
+
+Hi there, I'm seeing that `doctl registries repository delete-tag` always returns `Successfully deleted 1 tag(s)`, so long as the requested registry exists.
+
+I have made the following requests, all with the same output:
+
+Request delete on repository that doesn't exist:
+```
+> doctl registries repository delete-tag my-registry not-a-repository my-tag
+Successfully deleted 1 tag(s)
+```
+
+Request delete on tag that doesn't exist:
+```
+> doctl registries repository delete-tag my-registry my-repository not-a-tag
+Successfully deleted 1 tag(s)
+```
+
+The CLI does error when I request delete on a registry that doesn't exist:
+```
+> doctl registries repository delete-tag not-a-registry my-repository my-tag
+{""errors"":[{""detail"":""DELETE https://api.digitalocean.com/v2/registries/not-a-registry/repositories/my-repository/tags/my-tag: 404 (request \""requestId\"") registry does not exist""}]}
+```
+
+Could the CLI be modified to more closely resemble the [API definition](https://docs.digitalocean.com/reference/api/digitalocean/#tag/Container-Registry/operation/registry_delete_repositoryTag)? For example, it would be great if when delete is requested on a tag that doesn't exist, the CLI returned 404.
+
+As an aside, I notice there are `doctl registry` and `doctl registries` commands. Is there one that I should prefer over the other? For example, for `delete-tag`, I see these two versions:
+- https://docs.digitalocean.com/reference/doctl/reference/registry/repository/delete-tag/
+- https://docs.digitalocean.com/reference/doctl/reference/registries/repository/delete-tag/
+
+Of note, the `doctl registry` versions of the same commands simply return nothing in all of the following cases:
+- requesting delete on a tag that doesn't exist
+- requesting delete on a repository that doesn't exist
+- requesting delete on a tag that does exist
+   - In this case, the tag is correctly deleted. But I don't get any feedback in the CLI that deletion was successful.
+
+**Environment:**
+<!-- Please provide the following information: -->
+ - doctl version: <!-- The output of `doctl version` --> 1.147.0-release
+ - OS: <!-- E.g. macOS Catalina, Ubuntu 19.04, etc --> macOS Sequoia
+ - Installation method: <!-- E.g. Installed from source, Homebrew, Snap package, Docker, etc --> installed with `brew`
+
+**Additional Details:**
+
+<!-- Add any additional details that may be important for us to know.
+
+Tip: Running a command with the `--trace` flag will display details about the
+requests made to the DigitalOcean API and can help with debugging. Remember to
+check the output for any sensitive information before posting.
+-->",open,bug,bug
+3560869416,"Serverless cannot be installed: unknown command ""serverless"" for ""doctl""","**Describe the Issue:**
+
+`serverless` extension cannot be installed.
+
+**Environment:**
+ - doctl version: 1.146.0
+ - OS: Debian Trixie, running in Docker container
+ - Installation method: GitHub release download
+
+**Additional Details:**
+
+Using this simple `Dockerfile`:
+
+```
+FROM python:3.11
+ARG DOCTL_VERSION=1.46.0
+RUN \
+  wget https://github.com/digitalocean/doctl/releases/download/v${DOCTL_VERSION}/doctl-${DOCTL_VERSION}-linux-amd64.tar.gz -O doctl.tar.gz \
+  && tar xf doctl.tar.gz -C /usr/local/bin/ \
+  && rm doctl.tar.gz
+```
+
+won't allow installing `docker serverless`:
+
+```
+docker build -t tmp .
+docker run -it tmp /bin/bash
+> doctl serverless install
+Error: unknown command ""serverless"" for ""doctl""
+Run 'doctl --help' for usage.
+unknown command ""serverless"" for ""doctl""
+```
+",closed,bug,bug
+3539274736,doctl apps spec get not returning authority correctly,"**Describe the Issue:**
+I'm using `doctl apps spec get <id> --format json > spec.json` 
+
+I'm observing that the authority in the response is `{}`
+```
+  ""ingress"": {
+    ""rules"": [
+      {
+        ""match"": {
+          ""path"": {
+            ""prefix"": ""/""
+          },
+          ""authority"": {}
+        },
+        ""component"": {
+          ""name"": ""pixelate""
+        }
+      }
+    ]
+  },
+```
+But in the DigitalOcean Web UI there is an authority added on the app. 
+
+<img width=""476"" height=""334"" alt=""Image"" src=""https://github.com/user-attachments/assets/57878668-5e5f-4d47-a87a-46c26dea544e"" />
+
+I would expect the doctl apps spec get command to return the same values that are 
+displayed in the web UI.
+
+**Environment:**
+ - doctl version: 1.146.0-release
+ - OS: Tested both Windows 11 and ubuntu-latest via github actions.
+ - Installation method: winget, and `uses: digitalocean/action-doctl@v2`
+
+**Additional Details:**
+Also tested yaml with same results, the authority is not set in the spec. 
+
+This is a new app created by the Web UI, with deployment source “Container image”, pointing to a DigitalOcean Container Registry image. No manual changes have been done to the spec file. ",open,bug,bug
+3514506296,DigitalOcean Container Registry GET/DELETE API Calls Failing,"
+I’m running into a problem with **DigitalOcean Container Registries** using `doctl`.
+
+* Creating a registry (`doctl registry create`) works fine.
+* However, `doctl registry get` and `doctl registry delete` fail with a **412 error**:
+
+```
+Error retrieving container registry: GET https://api.digitalocean.com/v2/registry: 412
+This API is not supported if you have created multiple registries. Please use '/v2/registries' instead.
+```
+
+<img width=""1422"" height=""210"" alt=""Image"" src=""https://github.com/user-attachments/assets/f74d436a-996d-412f-9069-96925791b001"" />
+
+I also tested with Terraform — the same GET request fails there too. This confirms it’s an issue with the **DigitalOcean API**, not the tools or our configuration.
+
+**Environment:**
+
+doctl version 1.99.0-release
+OS: Win11
+
+**Additional Details:**
+
+* Tested with multiple Terraform registry configurations — same result.
+* Related GitHub issue: [https://github.com/digitalocean/doctl/issues/1723](https://github.com/digitalocean/doctl/issues/1723)
+",open,bug,bug
+3510328106,Incorrect Release Files - Breaking action-doctl@v2,"The latest release of doctl all have `beta` in the target release files.
+
+This is making `digitalocean/action-doctl@v2` error out with a 404 because it cannot find the corresponding release files
+
+<img width=""1986"" height=""870"" alt=""Image"" src=""https://github.com/user-attachments/assets/8e9399fc-850b-47ac-a0b6-3bc9b0c8cfc5"" />
+
+<img width=""2478"" height=""1948"" alt=""Image"" src=""https://github.com/user-attachments/assets/349d6098-c95e-4ac5-8a42-c44d34702d3a"" />
+
+@kishlay-singh-DO probably related to ae3b58a8aadaf4ed7a924fdf10e45502d18b3a6e or 85ea83f856390c565d15b19547355f77f44fc636",open,bug,bug
+3480103678,Non working example for doctl compute image create,"**Describe the Issue:**
+
+The doctl compute image create help right now shows
+The following example creates a custom image named `Example Image` from a URL and stores it in the `nyc1` region: doctl compute image create ""Example Image"" --image-url ""https://example.com/image.iso"" --region nyc1
+
+Although an iso image is not supported as of now. We should change this example to reflect the same
+
+
+
+",closed,bug,documentation
+3449624103,1.444.0 Release missing files,"**Describe the Issue:**
+
+The latest release is missing the target release files causing [action-doctl](https://github.com/digitalocean/action-doctl) to fail.
+
+Interestingly the GH action attempts to download previous versions and those seem to be failing as well not sure why
+
+1.443.0 vs 1.444.0
+
+<img width=""1858"" height=""1464"" alt=""Image"" src=""https://github.com/user-attachments/assets/354cc00a-dfd1-4ec6-8d0f-5079f14910e0"" />
+
+
+<img width=""1900"" height=""796"" alt=""Image"" src=""https://github.com/user-attachments/assets/0a637d28-9ec5-41a8-911c-45d741544ade"" />
+
+GH Action Error:
+
+<img width=""2260"" height=""706"" alt=""Image"" src=""https://github.com/user-attachments/assets/4db62571-ed0d-41b9-9f82-1d1b09fc2bc3"" />
+
+CC: @harshmaru7 ",closed,bug,bug
+3449621944,v1.144.0 missing builds,"**Describe the Issue:**
+
+The v1.144.0 version that was just released only has source files, breaking [digitalocean/action-doctl](https://github.com/digitalocean/action-doctl)
+
+**Environment:**
+
+ - doctl version: 1.144.0
+ - OS: Ubuntu 24.04
+ - Installation method: digitalocean/action-doctl GitHub action
+",closed,bug,bug
+3444032945,doctl databases pool create (fails when --user arg not provided),"**Describe the Issue:**
+
+1. According to the DO Dashboard, connection pools can have the user field (also known as `User privileges override (Optional)`) set to an empty string (which appears as `N/A` in the table shown on the Connection Pools tab for a Postgres database). The empty string corresponds to ""Use inbound user"" in the DO Dashboard. 
+
+2. The [DO API Reference to ""Add a New Connection Pool""](https://docs.digitalocean.com/reference/api/digitalocean/#tag/Databases/operation/databases_add_connectionPool) shows:
+- `name`, `mode`, `size` and `db` are **required**, but 
+- `user` is **not required**.
+
+3. When using `doctl databases pool create <database-cluster-id> <pool-name> --size 25 --db <a-database-name-that-exists-inside-database-cluster-id-provided> --mode transaction`, I see an error message appear:
+```
+Error: (pool.create.user) command is missing required arguments
+```
+**See ""Additional Details"" below for a possible fix.**
+
+
+
+
+**Environment:**
+<!-- Please provide the following information: -->
+ - doctl version: `1.142.0-release` (`Git commit hash: 4979b33d`)
+ - OS: Ubuntu 20.04.4 LTS
+ - Installation method: Installed binary from tarball (https://github.com/digitalocean/doctl/releases/download/v1.142.0/doctl-1.142.0-linux-amd64.tar.gz)
+
+**Additional Details:**
+
+Since the `--user` arg is not marked as a `requiredOpt()` in https://github.com/digitalocean/doctl/blob/c74c583764a12cc7ddb353acfe2733c5d20bc5d5/commands/databases.go#L1239-L1240
+I believe the problem lies with 
+https://github.com/digitalocean/doctl/blob/c74c583764a12cc7ddb353acfe2733c5d20bc5d5/commands/databases.go#L1344-L1348
+which probably needs to be modified so it doesn't throw an error if no `--user` arg is provided.
+
+",open,bug,bug
+3416865292,doctl registry garbage-collection start --force still asks for confirmation,"The -f, --force flag should run the `doctl registry garbage-collection-start` command without confirmation prompt.
+Bu when executing the command it still asks for confirmation
+
+```
+doctl registry garbage-collection start --force my-repository
+❯ Are you sure you want to run garbage collection -- this will put your registry in read-only mode until it finishes  yes ▸no
+```
+
+**Environment:**
+
+doctl version 1.142.0-release
+OS: macOS, Ubuntu 24.10
+Installation method: Homebrew, Github Actions
+",closed,bug,bug
+3408127036,--force flag doesn't work on delete-manifest,"**Describe the Issue:**
+
+When running
+```bash
+doctl registry repository delete-manifest example-registry/example-repository sha256:...
+```
+
+It's still prompting for confirmation - ignoring the `--force`
+
+https://docs.digitalocean.com/reference/doctl/reference/registry/repository/delete-manifest/
+
+**Environment:**
+<!-- Please provide the following information: -->
+ - doctl version: 1.142.0-release (Git commit hash: 4979b33d)
+ - OS: Ubuntu 24.04
+ - Installation method: Snap",closed,bug,bug
+3408120243,doctl list-tags flags no longer working,"**Describe the Issue:**
+Since the last update - we are having issues with `doctl registry repository list-tags`,  where flags such as `--format` and `--no-header`  are no longer working. 
+
+**Environment:**
+
+ - doctl version: 1.142.0-release
+ - OS: Ubuntu 22.04.2 LTS
+ - Installation method: 
+
+**Additional Details:**
+Options such as --format and --no-header are not behaving as expected. 
+
+As example:
+```
+doctl registry repository list-tags NAME --format Tag  | head -n1
+Tag                                Compressed Size    Updated At                       Manifest Digest
+```
+
+Whereas I would expect to see:
+```
+Tag
+```
+
+Tested with the previous version without issue. 
+
+
+
+
+",open,bug,bug
+3307953988,droplet-autoscale create/update --user-data-file,"It seems like `--user-data-file` is missing when doing `droplet-autoscale` commands. It is hard to use the `--user-data`, so having `--user-data-file` would be nice her.
+",open,enhancement,enhancement
+3301188389,Latest release doesn't include binaries?,"The latest [release](https://github.com/digitalocean/doctl/releases/tag/v1.136.0) doesn't include the prebuilt binaries usually included which for me is breaking the doctl github action which seems to expect those binaries to exist - for ref this is the debug output from my github action: 
+
+```
+Run digitalocean/action-doctl@v2
+  
+##[debug]isExplicit: 1.136.0
+##[debug]explicit? true
+##[debug]checking cache: /opt/hostedtoolcache/doctl/1.136.0/x64
+##[debug]not found
+##[debug]doctl download url: https://github.com/digitalocean/doctl/releases/download/v1.136.0/doctl-1.136.0-linux-amd64.tar.gz
+##[debug]Downloading https://github.com/digitalocean/doctl/releases/download/v1.136.0/doctl-1.136.0-linux-amd64.tar.gz
+##[debug]Destination /home/runner/work/_temp/10d8bcb4-90d9-4fc1-8cff-0a59ebe11055
+##[debug]Failed to download from ""https://github.com/digitalocean/doctl/releases/download/v1.136.0/doctl-1.136.0-linux-amd64.tar.gz"". Code(404) Message(Not Found)
+Error: Unexpected HTTP response: 404
+```",closed,bug,bug
+3247939533,doctl registry with multiple registry,"I've encountered an issue when attempting to use `doctl `with multiple DigitalOcean Container Registries. Previously, I relied on doctl to retrieve registry information and untag unused images. However, with the presence of multiple registries in my account, using commands that implicitly target a single registry (e.g., doctl registry get) now results in the following error:
+
+> `Error: failed to get registry: GET https://api.digitalocean.com/v2/registry: 412 (request <id>) This API is not supported if you have created multiple registries. Please use ‘/v2/registries/{registry_name}’ instead. Refer to https://docs.digitalocean.com/reference/api/digitalocean/#tag/Container-Registry for more info.
+> `
+
+This prevents me from performing essential registry management tasks via doctl for any of my registries, as I cannot specify which registry I intend to interact with for these general commands. I am effectively blocked from using doctl for my registry workflows.
+
+
+Environment:
+
+- doctl version: 1.133.0-release
+- OS: macOS 15.5
+- Installation method: Homebrew",open,bug,bug
+3230501081,feature request: store the token in the keyring,"**What is the problem this feature would solve? Please describe.**
+
+I would like to avoid the token being stored on my disk. To prevent a rogue script from reading it.
+
+For most people, their keyring is unlocked when they log-in so the ""protection"" could be limited. In my case I'm using keepassxc which has a prompt every time the keyring is read.
+
+**Describe the solution you'd like**
+
+Store the token in the keyring.
+
+**Additional context**
+<!-- Add any other context about the feature request here. -->
+",open,enhancement,enhancement
+3138056964,Error getting terminal size: The handle is invalid,"**Describe the Issue:**
+
+When attempting to connect to an app platform terminal using doctl the following is received:
+`Error: error getting terminal size: The handle is invalid.`
+
+**Environment:**
+<!-- Please provide the following information: -->
+ - doctl version: 1.130.0-release
+ - OS: Windows 11 24H2
+ - Installation method: Github Release
+
+**Additional Details:**
+
+Steps to replicate:
+ 1. `doctl auth init`
+ 2. `doctl apps console <app id> <component name>`
+
+I've attempted both via powershell and cmd, the issue persists with both.
+",open,bug,bug
+3069784764,Updates App create description with repo access instruction,"Resolves [PDOCS-2951](https://do-internal.atlassian.net/browse/PDOCS-2951). Updates App create command description to provide links that give AP access to various services.
+
+[PDOCS-2951]: https://do-internal.atlassian.net/browse/PDOCS-2951?atlOrigin=eyJpIjoiNWRkNTljNzYxNjVmNDY3MDlhMDU5Y2ZhYzA5YTRkZjUiLCJwIjoiZ2l0aHViLWNvbS1KU1cifQ",closed,documentation,documentation
+3038268679,"unknown field ""authority"" reported when validating example spec from DO documentation","**Describe the Issue:**
+
+If you try to validate the example spec provided here: https://docs.digitalocean.com/products/app-platform/how-to/manage-domains/#use-subdomain-routing
+
+You get the following error:
+
+```
+Error: parsing app spec: json: unknown field ""authority""
+```
+
+**Environment:**
+<!-- Please provide the following information: -->
+ - doctl version: doctl version 1.125.0-release
+ - OS: macOS Sequoia 15.3.2 (24D81)
+ - Installation method: brew
+
+**Additional Details:**
+
+I've tried with both JSON and YAML and get the same result
+
+I also have a support ticket open (10497705)
+",closed,bug,bug
+2988981513,doctl compute action list is SLOW,"**Describe the Issue:**
+`doctl compute action list --after=2025-04-11T00:00:00.00Z` is VERY slow ~5 minutes. (Note: this is for <1 day of actions at time of posting)
+
+**Environment:**
+ - doctl version: doctl version 1.124.0-release
+ - OS: MacOS Sequoia Version 15.4 (24E248)
+ - Installation method: Homebrew
+
+**Additional Details:**
+I can't post the `--trace` here, it's FAR too big. But, when I run it with `--trace` it shows that it's trying to recursively loop over every single paginated API request (Ex: `GET /v2/actions?page=126&per_page=200`). We have a LOT of actions; 52,292 according to the output. That means that it's making 262 asynchronous API requests. Even if I pass an `--action-type=power_off`, it still makes the same non-filtered request. I now realize I'm probably barking up the wrong tree _here_ because looking at the API docs, this seems to be an API limitation as there's no way to filter actions (except pagination). 
+
+Is there any _other_ way to find the date a droplet was powered off via the CLI? 
+
+(edit) It looks like there's no super reliable way even using the action list. There are a handful of servers that we have that are powered off that NEVER got the `power_off` action logged. Some were powered off to be re-sized years ago but were actually powered off the other day. ",open,bug,bug
+2978276050,"doctl compute droplet create - starting two extra droplets, both named true","**Describe the Issue:**
+
+doctl compute droplet create - starting two extra droplets, both named true
+
+~~~bash
+doctl compute droplet create 'server.domain.com' \
+  --size s-1vcpu-512mb-10gb \
+  --image ubuntu-24-04-x64 \
+  --region sfo3 \
+  --enable-monitoring true \
+  --enable-private-networking true \
+  --ssh-keys 2916 \
+  --tag-name webserver \
+  --wait
+
+ID           Name                       Public IPv4       Private IPv4    Public IPv6    Memory    VCPUs    Disk    Region    Image                     VPC UUID                                Status    Tags         Features                                       Volumes
+*******41    true                       24.***.***.152    10.***.***.3                     512       1        10      sfo3      Ubuntu 24.04 (LTS) x64    ********-479f-43b8-ab34-************    active    webserver    monitoring,droplet_agent,private_networking
+*******38    true                       64.***.***.127     10.***.***.4                     512       1        10      sfo3      Ubuntu 24.04 (LTS) x64    ********--479f-43b8-ab34--************    active    webserver    monitoring,droplet_agent,private_networking
+*******39    server.domain.com    64.***.***.135     10.***.***.5                     512       1        10      sfo3      Ubuntu 24.04 (LTS) x64    ********--479f-43b8-ab34--************    active    webserver    monitoring,droplet_agent,private_networking
+~~~
+
+**Environment:**
+
+ - doctl version: doctl version 1.124.0-release
+                             Git commit hash: f218d201
+
+ - OS: Ubuntu 24.04
+ - Installation method: Snap package
+
+**Additional Details:**
+
+Will try with --trace next time. It's done it three times.
+",closed,bug,bug
+2883700862,Allow Interacting with spaces,"**What is the problem this feature would solve? Please describe.**
+Currently documentation asks to install different tools for interacting with spaces.
+
+**Describe the solution you'd like**
+ It would be great if it was a single doctl utility.
+",open,enhancement,enhancement
+2878626520,1.122 installed via Homebrew on MacOS is flagged by antivirus,"**Describe the Issue:**
+
+Avast antivirus has flagged the tarball downloaded by Homebrew and the installed `doctl` binary for 1.122.0 as a `MacOS:Agent-APC [Tool]`.
+
+However, [VirusTotal does not flag](https://www.virustotal.com/gui/url/139e51555f65e8d5f29a89b8e0c2f334540926f2f7f2b4a2eed47b4400e6503d) the tarball referenced by [the Homebrew definition](https://github.com/Homebrew/homebrew-core/blob/e16f727206c25158db8b557fbf0cbcd18f1093fc/Formula/d/doctl.rb).
+
+**Additional Details:**
+
+Avast version: 16.0.0a
+Avast virus definition: 25022502
+",open,bug,security
+2834150959,doctl fail to install serverless when using docker,"I am trying to use the **docker** version of doctl and:
+
+1. sadly the image was created without serverless support already installed (why?) (also mentioned here #1559)
+2. it fails when running `docker run --rm -it --env=DIGITALOCEAN_ACCESS_TOKEN=??? digitalocean/doctl serverless install`. Error is: `stat /root/.config/doctl: no such file or directory`
+3. unable to access container's shell to check for the correct path and fix it with the install option `-c`
+
+**Environment:**
+<!-- Please provide the following information: -->
+ - doctl version: 
+```
+    REPOSITORY               TAG       IMAGE ID       CREATED         SIZE
+    digitalocean/doctl       latest    02672a76bc47   2 hours ago     50MB
+
+    doctl version 1.121.0-release
+    Git commit hash: a24ecf6c
+```
+ - OS: linux debian 
+ - Installation method: docker
+",open,bug,bug
+2813950832,Add ability of connecting recovery iso to droplet.,"Thanks for your effort in developing doctl.
+
+Using the digital ocean web interface, one can connect a recovery iso, and change if a droplet is booting from disk or from iso.
+This functionality is not currently exposed using doctl.",open,enhancement,enhancement
+2805475209,Clarifies create and update commands for App Platform,"Resolves [PDOCS-2922](https://do-internal.atlassian.net/browse/PDOCS-2922). Clarifies App Platform create and update commands to explicitly state when the create and update workflows pull from source.
+
+[PDOCS-2922]: https://do-internal.atlassian.net/browse/PDOCS-2922?atlOrigin=eyJpIjoiNWRkNTljNzYxNjVmNDY3MDlhMDU5Y2ZhYzA5YTRkZjUiLCJwIjoiZ2l0aHViLWNvbS1KU1cifQ",closed,documentation,documentation
+2803198369,"deploying serverless from ubuntu with python dependencies hangs, fails, is generally unclear","**Describe the Issue:**
+
+I am trying to deploy a very simple python script with a handful of dependencies via doctl and I just keep running into issue after issue:
+
+- It seems the only way to install dependencies is to include a build script. However it is not clear without a ton of digging that snap installations will not let you build locally
+- the deploy when building remotely appears to hang because there is no output whatsoever until the build is complete
+- installing just 3 dependencies seems impossible. The build times out (and there's no way to change that timeout) every time
+- If I add the --verbose-build flag then I get some stout back, but only so much before I just get `413 Payload Too Large` instead.
+- I also got an out of memory error once for the build. It's literally just running pip.
+- --verbose and --trace don't change the output at all
+
+**Environment:**
+ - doctl version:
+doctl version 1.120.2-release
+Git commit hash: 34e9fbbe
+ - OS: Ubuntu 24.04 LTS
+ - Installation method: snap
+
+**Additional Details:**
+
+my requirements.txt:
+```
+pyiceberg[s3fs]==0.8.1
+aiobotocore==2.17.0
+polars==1.20.0
+```
+
+my build.sh
+```shell
+#!/bin/bash
+
+set -e
+
+virtualenv --without-pip virtualenv
+pip install -r requirements.txt --target virtualenv/lib/python3.11/site-packages
+```
+",open,bug,bug
+2781995197,functions: runtime of go:1.20 ignored ,"**Describe the Issue:**
+
+Can't create Digital Ocean Go Function with `go:1.20` instead I get `go:1.17`. 
+
+```yaml
+packages:
+  - name: webhooks
+    functions:
+      - name: notifier2
+        runtime: go:1.20
+        web: false
+```
+
+```
+doctl serverless deploy packages/webhooks
+```
+
+```
+Deploying '/Users/kyle.davies/Desktop/DigitalOcean-Function-Discord-Webhook/packages/webhooks'
+  to namespace 'fn-141fc203-4469-40e6-9931-7291b69433b9'
+  on host 'https://faas-ams3-2a2df116.doserverless.co'
+Nothing deployed
+```
+
+I also can't understand why it states `Nothing Deployed` but creates the function anyway?
+
+<img width=""1057"" alt=""Screenshot 2025-01-11 at 16 16 34"" src=""https://github.com/user-attachments/assets/38a71b6c-0436-4321-ab07-363c631619a3"" />
+
+
+**Environment:**
+<!-- Please provide the following information: -->
+ - doctl version: doctl version 1.120.1-release
+ - OS: Apple MacOS 15.0 (24A335)
+ - Installation method: homebrew 
+
+**Additional Details:**
+
+<!-- Add any additional details that may be important for us to know.
+
+Tip: Running a command with the `--trace` flag will display details about the
+requests made to the DigitalOcean API and can help with debugging. Remember to
+check the output for any sensitive information before posting.
+-->
+",open,bug,bug
+2770159284,"Document permissions for ""doctl compute droplet create"" optional flags","###  Issue
+
+I'm utilizing the official [digitalocean/action-doctl@v2](https://github.com/digitalocean/action-doctl) Github action. I initialize the `doctl` client by passing an API key.
+
+I'm trying to create a droplet with the following `doctl` command:
+
+```
+doctl compute droplet create \
+  ""$DROPLET_NAME"" \
+  --region ""nyc3"" \
+  --size ""s-1vcpu-1gb"" \
+  --image ""ubuntu-22-04-x64"" \
+  --ssh-keys ""$SSH_KEY"" \
+  --project-id ""$PROJECT_ID"" \
+  --wait
+```
+
+This command successfully exits if I use an API key that has all permissions (`Full Access`).
+
+When I create & use an API key that only has the 4 CRUD permissions for `droplet`:
+
+<img width=""293"" alt=""Screenshot 2025-01-06 at 11 26 59 AM"" src=""https://github.com/user-attachments/assets/cc2a86ad-10b2-4cb1-aaaf-fafeb2fe6dcc"" />
+
+I get the following error with exit code 1:
+
+```
+Error: POST https://api.digitalocean.com/v2/projects/<some-long-uuid-thing>/resources: 403 (request ""e1efed05-8592-491a-aeb3-e8bb968e6592"") You are not authorized to perform this operation
+```
+
+Looking at the dashboard, I can verify that the droplet actually does end up being created.
+
+I've tried to guess the missing permissions by adding the `actions:read` permissions & `account:read` permissions with no success.
+
+According to the [official API reference docs](https://docs.digitalocean.com/reference/api/api-reference/#operation/droplets_create) `droplet:create` is the only permission required for creating droplets.
+
+The [official CLI reference docs](https://docs.digitalocean.com/reference/doctl/reference/compute/droplet/create/) doesn't provide any additional information on what API permissions are required to create a droplet.
+
+### Question
+
+What is the narrowest set of API permissions I can use to successfully create (& exit code 0) a droplet using the CLI?
+
+<!-- Please provide a clear and concise description of the problem you are
+facing including the steps to reproduce the issue. -->
+
+**Environment:**
+<!-- Please provide the following information: -->
+ - doctl version: `1.120.0 x64`
+ - OS: `ubuntu-24.04`
+ - OS Version: `20241215.1.0`
+ - Installation method: Pre-installed via [digitalocean/action-doctl@v2](https://github.com/digitalocean/action-doctl).
+
+**Additional Details:**
+
+I'm running the example above as part of a pipeline in GitHub Actions.
+
+<!-- Add any additional details that may be important for us to know.
+
+Tip: Running a command with the `--trace` flag will display details about the
+requests made to the DigitalOcean API and can help with debugging. Remember to
+check the output for any sensitive information before posting.
+-->
+",closed,bug,documentation
+2753769726,Deployment failure: `sh: 1: tsc: Permission denied`,"**Describe the Issue:**
+
+When using NodeJS 18 I can reproduce a consistent failure to deploy with a brand new function.
+
+Repro steps:
+```
+doctl serverless init test --language ts
+<change runtime to nodejs:18>
+doctl serverless deploy test
+doctl serverless deploy test --remote-build
+```
+```
+> build
+> tsc -b
+
+sh: 1: tsc: Permission denied
+```
+
+It specifically happens when building locally then building remotely. If I change my NPM build command to `chmod +x node_modules/.bin/tsc && tsc -b` or `npm ci && tsc -b` it will work properly. If I delete the `node_modules` folder after building locally it works again. It appears to only happen with NodeJS 18, not default/14.
+
+My wild theory is that `doctl` is uploading my local `node_modules` folder and attempting to run that on the server. I'm on a Windows machine so the tsc script doesn't have the execute permission that Unix systems require.
+
+**Environment:**
+<!-- Please provide the following information: -->
+ - doctl version: 1.119.1-release fdec25bc
+ - OS: Windows 10 22H2
+ - Installation method: winget",open,bug,bug
+2721437189,Updates Firewalls create example with tags,Addresses [user feedback](https://ideas.digitalocean.com/documentation/p/more-detail-needed-in-the-create-firewall-docs) about how to use tags when creating a firewall.,closed,documentation,documentation
+2721373252,doctl .deb package,"**What is the problem this feature would solve? Please describe.**
+<!-- A clear and concise description of what the problem is. Ex. I'm always frustrated when [...] -->
+The current installation process involves multiple manual actions and completely avoids any sort of package management.
+
+**Describe the solution you'd like**
+<!-- A clear and concise description of what you want to happen. -->
+Create a .deb release artifact would allow it to be installed with a single command, just as remove/update the package more easily
+
+**Additional context**
+<!-- Add any other context about the feature request here. -->
+For example, railway's CLI is released as a deb package and installing that is way more convenient than fiddling with the binary directly",open,enhancement,enhancement
+2698430103,bug: fail to create a kube cluster,"**Describe the Issue:**
+I've been using a `doctl` script to create a cluster for months. Today it failed to work with the error below
+
+<!-- Please provide a clear and concise description of the problem you are
+facing including the steps to reproduce the issue. -->
+Error: POST https://api.digitalocean.com/v2/kubernetes/clusters: 422 (request ""fe2ff026-6ef3-43f7-afd3-9f75464815f9"") validation error: autoscale desired max nodes exceed limits, 24 additional nodes but not enough available droplet limit
+
+**Environment:**
+<!-- Please provide the following information: -->
+ - doctl version: <!-- The output of `doctl version` --> 1.119.1-release
+ - OS: <!-- E.g. macOS Catalina, Ubuntu 19.04, etc --> Ubuntu 24.04
+ - Installation method: <!-- E.g. Installed from source, Homebrew, Snap package, Docker, etc --> binary
+
+**Additional Details:**
+
+<!-- Add any additional details that may be important for us to know.
+
+Tip: Running a command with the `--trace` flag will display details about the
+requests made to the DigitalOcean API and can help with debugging. Remember to
+check the output for any sensitive information before posting.
+-->
+doctl kubernetes cluster create $1 \
+--region $region \
+--vpc-uuid $vpcUUID \
+--version $kube_version \
+--maintenance-window $maintainWindow \
+--node-pool ""name=$2;size=$size;auto-scale=true;min-nodes=$minNodes;max-nodes=$maxNodes;tag=$owner;tag=$tag;label=ownedBy=$owner;label=managedBy=$managedBy;label=env=$tag""",closed,bug,bug
+2684160416,doctl manual,"**What is the problem this feature would solve? Please describe.**
+manuals are standard with alot of cli tools.  doctl does not have a manual entry .  this feature would solve my problem of having to open a browser to find commands.  additionally the doctl --help interface is not as easy to use as a man command. 
+
+
+**Describe the solution you'd like**
+```bash
+man doctl
+``` 
+create a manual entry for doctl
+I would  benefit from a doctl manual entry so I dont have to google
+
+
+
+would be nice to see.  i understand you guys are building alot at a fast pace and this may not be implemented.  
+
+anyways thanks for contributing to a great platform
+",open,enhancement,enhancement
+2680658893,Adds example for database configuration,Adds example for database configuration and links to API docs for fields.,closed,documentation,documentation
+2666092230,Reference an app by name instead of ID,"**What is the problem this feature would solve? Please describe.**
+
+Apps in the UI are listed by name but in doctl I always have to figure out the UUID by going to the UX and copy-pasting it. 
+
+Add support to using names instead of IDs in doctl.
+
+**Describe the solution you'd like**
+
+Currently to tail my logs I do this:
+
+```
+doctl apps logs uuid -f
+```
+
+I'd like to do this :
+
+```
+doctl apps logs app-name -f
+```
+
+**Additional context**
+
+```
+$ doctl version
+doctl version 1.117.0-release
+```",closed,enhancement,enhancement
+2666090576,doctl apps logs id -f quietly quits,"**Describe the Issue:**
+
+1. Using `doctl apps logs id -f` often quietly quits. 
+2. A redeployment of the app doesn't switch to the new running container.
+
+**Environment:**
+
+ - doctl version: `doctl version 1.117.0-release`
+ - OS: `Darwin 23.6.0 Darwin Kernel Version 23.6.0: Fri Jul  5 17:55:37 PDT 2024; root:xnu-10063.141.1~2/RELEASE_ARM64_T6030 arm64`
+ - Installation method: `homebrew`
+
+**Additional Details:**
+
+I'd expect a tail function to always maintain a connection to the live app.",open,bug,bug
+2625420884,[Windows ARM64] 404 error on `doctl serverless install`,"**Describe the Issue:**
+
+When I run this in Powershell, I get an error:
+
+```
+doctl.exe serverless install
+Downloading...Error: received status code 404 attempting to download from https://nodejs.org/dist/v18.17.1/node-v18.17.1-win-arm64.zip
+```
+
+**Environment:**
+<!-- Please provide the following information: -->
+ - doctl version:  1.117.0
+ - OS: Windows 11 64 bit ARM (Snapdragon X Elite X1E80100)
+ - Installation method: `winget install DigitalOcean.Doctl`
+
+**Additional Details:**
+
+I checked the nodejs web directory and it looks like they don't provide an arm64 nodejs binary for node 18. I manually tried the win-x64 binary and it runs fine, under emulation I'm assuming, maybe you can have doctl download that instead.
+",open,bug,bug
+2615659617,Error: unexpected end of JSON input,"I suddenly can't deploy anymore with `doctl`. 
+
+I'm just doing
+`./doctl serverless deploy --remote-build --verbose-build .`
+
+and am getting the following error:
+`Error: unexpected end of JSON input`.
+
+I tried:
+
+- Update to the newest version via `brew` (I'm on macOS)
+- Downloading the macOS binary and running `./doctl`
+- Switched to my Ubuntu machine and downloaded the latest `doctl` and tried the same. Same error.
+
+I'd really like to deploy the fixes to my server less function but I can't.",open,bug,bug
+2598768039,Some inconsistencies in enum argument descriptions,"**Describe the Issue:**
+
+I have done some more investigation related to this PR: https://github.com/digitalocean/doctl/pull/1595, and I found more related issues / inconsistencies.
+
+For instance in **doctl databases topics update**:
+
+```
+ --cleanup-policy string              Specifies the retention policy to use on log segments: Possible values are 'delete', 'compact_delete', 'compact' (default ""delete"")
+ --compression-type string            Specifies the compression type for a kafka topic: Possible values are 'producer', 'gzip', 'snappy', 'Iz4', 'zstd', 'uncompressed' (default ""producer"")
+```
+
+but in **doctl databases create** and most other places:
+
+```
+--engine pg                          The database's engine. Possible values are: pg, `mysql`, `redis`, `mongodb`, `kafka` and `opensearch`. (default ""pg"")
+```
+
+In the first example, apostrophes don't interfere with command argument type generation and it stays defined as **string**.
+In the second example, backticks are causing to use first value (**pg**) as data type for argument, which can be confusing.
+
+I would be happy to create PR to fix this, however, I am not sure whether there's any reason attached to using backticks versus apostrophes. I am also not sure why default value is in quotes.
+
+One possible solution is to introduce **enum** data type, and then argument descriptions could look like this:
+
+```
+--engine enum                          The database's engine. Possible enum values are: `pg`, `mysql`, `redis`, `mongodb`, `kafka` and `opensearch`. (default ""pg"")
+```
+
+",open,bug,documentation
+2597312565,Option descriptions not printed correctly.,"**Describe the Issue:**
+
+I have noticed that option descriptions are not printed exactly as defined in the code. For instance, the code is:
+
+	AddStringFlag(cmdKubeClusterCreate, doctl.ArgClusterVersionSlug, """", ""latest"",
+		""A `slug` indicating which Kubernetes version to use when creating the cluster. Use the `doctl kubernetes options versions` command for a list of options"")
+
+
+and we get following output:
+
+      --version slug                                       A slug indicating which Kubernetes version to use when creating the cluster. Use the `doctl kubernetes options versions` command for a list of options (default ""latest"")
+
+
+Or incase of registry, **slug** is not quoted in the source code:
+
+		""A slug indicating which datacenter region the registry reside in. For a list of supported region slugs, use the `doctl registry options available-regions` command"")
+	cmdRunRegistryCreate.Example = `The following example creates a registry named ` + ""`"" + `example-registry` + ""`"" + ` in the NYC3 region: doctl registry create example-registry --region=nyc3`
+
+and instead quotes around **doctl registry options available-regions** are removed as below:
+
+      --region doctl registry options available-regions               A slug indicating which datacenter region the registry reside in. For a list of supported region slugs, use the doctl registry options available-regions command
+
+It looks like first pair of quotes `...` is always removed from every option.
+
+**Environment:**
+
+doctl version 0.0.0-dev
+release 1.115.0 is available, check it out!
+
+**Additional Details:**
+
+",closed,bug,bug
+2513262134,Dependency inconsistency caused by `replace`,"**What is the problem this feature would solve? Please describe.**
+Currently `doctl` depends on `github.com/digitalocean/godo v1.121.0` but do not follow to use the replace directive declared in `godo's` go.mod as below.  Repo `godo` uses replace directive to pin `github.com/stretchr/objx` to version `v0.2.0` and `golang.org/x/crypto` to version `v0.0.0-20200420201142-3c4aac89819a`.
+
+```
+replace github.com/stretchr/objx => github.com/stretchr/objx v0.2.0
+replace golang.org/x/crypto => golang.org/x/crypto v0.0.0-20200420201142-3c4aac89819a
+```
+
+According to [Go Modules wikis](https://go.dev/doc/modules/gomod-ref#replace-notes), `replace` directives in modules other than the main module are ignored when building the main module. It means such replace usage in go.mod cannot be inherited by downstream projects automatically.  Consequently, `doctl's` version of `github.com/stretchr/objx` and `golang.org/x/crypto` is different from the pinned version `github.com/digitalocean/godo` needed.
+
+**Possible Solution.**
+1. Remove the replace usage in `github.com/digitalocean/godo`.
+2. Add the same replace rule to your go.mod
+```
+replace github.com/stretchr/objx => github.com/stretchr/objx v0.2.0
+replace golang.org/x/crypto => golang.org/x/crypto v0.0.0-20200420201142-3c4aac89819a
+```
+
+
+
+
+
+",closed,enhancement,bug
+2441903710,Doctl registry repository list-tags failing with 404 ,"**Describe the Issue:**
+
+I get 404 errors using the doctl tool to list tags in a repository. I use the command:
+` doctl registry repository list-tags <repo>/<path>` and it returns 404, it was working before Tuesday 30th July. 
+
+**Environment:**
+
+ - doctl version:  1.110.0-release
+ - OS: macos and ubuntu latest (github action)
+ - Installation method: brew and github action (digitalocean/action-doctl@v2)
+
+**Additional Details:**
+
+When running:
+ 
+ `doctl registry repository list-tags <repo>/<path>`
+ 
+ I get this error:
+ 
+ ```                                                                                                                                                                                                              
+Error: GET https://api.digitalocean.com/v2/registry/******-docker-registry/repositories/******%2F********/tags?page=1&per_page=200: 404 Your request could not be routed.
+```
+
+This was working at the beginning of the week. We have changed nothing in our Github actions for months, so nothing on our end would justify this error. Nothing has been modified in our account, either, related to container registry.
+
+Trace:
+```
+doctl: 2024/08/01 11:00:04 [DEBUG] GET https://api.digitalocean.com/v2/registry
+doctl: 2024/08/01 11:00:04 -> ""GET /v2/registry HTTP/1.1\r\nHost: api.digitalocean.com\r\nUser-Agent: doctl/1.110.0-release (darwin arm64) godo/1.118.0\r\nAccept: application/json\r\nAccept-Encoding: gzip\r\n\r\n""
+doctl: 2024/08/01 11:00:04 <- ""HTTP/2.0 200 OK\r\nCf-Cache-Status: DYNAMIC\r\nCf-Ray: 8ac4a2bdca6524c2-ZRH\r\nContent-Type: application/json; charset=utf-8\r\nDate: Thu, 01 Aug 2024 09:00:04 GMT\r\nRatelimit-Limit: 5000\r\nRatelimit-Remaining: 4998\r\nRatelimit-Reset: 1722506238\r\nServer: cloudflare\r\nSet-Cookie: __cf_bm=HCchEg.M.7dNlI_A7fAZJjQOESZg9O670_yuh845WXQ-1722502804-1.0.1.1-st5AaqE02k45Sqk..IKOKkIYF_APQgtUz8B6IApK8bhfU4hn5QUYwpPJeII7TJ7uytbBbQi4kcjAG3zYlE0HTy74x9eEW2wYGK35GMIZphc; path=/; expires=Thu, 01-Aug-24 09:30:04 GMT; domain=.digitalocean.com; HttpOnly; Secure; SameSite=None\r\nVary: Accept-Encoding\r\nX-Gateway: Edge-Gateway\r\nX-Request-Id: 9df8a226-3f27-4d69-80a2-d8a7bbd54775\r\nX-Response-From: service\r\n\r\n{\""registry\"":{\""name\"":\""*******-docker-registry\"",\""created_at\"":\""2020-07-13T18:24:02Z\"",\""region\"":\""fra1\"",\""storage_usage_bytes\"":4463006720,\""storage_usage_updated_at\"":\""2024-07-29T18:29:31Z\"",\""max_repositories_override\"":0,\""read_only\"":false},\""subscription\"":{\""tier\"":{\""name\"":\""Basic\"",\""slug\"":\""basic\"",\""included_repositories\"":5,\""included_storage_bytes\"":5368709120,\""allow_storage_overage\"":true,\""included_bandwidth_bytes\"":5368709120,\""monthly_price_in_cents\"":500,\""storage_overage_price_in_cents\"":2},\""created_at\"":\""2020-07-13T18:24:02Z\"",\""updated_at\"":\""2020-10-20T20:14:36Z\""}}\n""
+doctl: 2024/08/01 11:00:04 [DEBUG] GET https://api.digitalocean.com/v2/registry/*******-docker-registry/repositories/******%2F********/tags?page=1&per_page=200
+doctl: 2024/08/01 11:00:04 -> ""GET /v2/registry/********-docker-registry/repositories/******%2F********/tags?page=1&per_page=200 HTTP/1.1\r\nHost: api.digitalocean.com\r\nUser-Agent: doctl/1.110.0-release (darwin arm64) godo/1.118.0\r\nAccept: application/json\r\nAccept-Encoding: gzip\r\n\r\n""
+doctl: 2024/08/01 11:00:04 <- ""HTTP/2.0 404 Not Found\r\nCf-Cache-Status: DYNAMIC\r\nCf-Ray: 8ac4a2c10e8124c2-ZRH\r\nContent-Type: application/json\r\nDate: Thu, 01 Aug 2024 09:00:04 GMT\r\nServer: cloudflare\r\nSet-Cookie: __cf_bm=iS5nwUHNS05abcV1_ABT2k1dDs6AGbFTt.sP3BaRNJ8-1722502804-1.0.1.1-ohhLfWrM6XuKOUsX7E1x7rzmxjS3RQ5EpAsCmCfa_VVeoWyPN6FE9Bmba0OBe_4qp0.7IsmpY1Omo9uAjSxEEs0oycLPKUOu.GTW_lFVibw; path=/; expires=Thu, 01-Aug-24 09:30:04 GMT; domain=.digitalocean.com; HttpOnly; Secure; SameSite=None\r\nX-Gateway: Edge-Gateway\r\nX-Response-From: Edge-Gateway\r\n\r\n{\""id\"":\""not_found\"",\""message\"":\""Your request could not be routed.\""}""
+Error: GET https://api.digitalocean.com/v2/registry/******-docker-registry/repositories/*******%2F******/tags?page=1&per_page=200: 404 Your request could not be routed.
+```
+",closed,bug,bug

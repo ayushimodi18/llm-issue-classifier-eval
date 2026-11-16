@@ -1,0 +1,751 @@
+issue_id,title,gpt4o_prediction,gpt41_prediction,gpt51_prediction,gpt4o_raw_output,gpt41_raw_output,gpt51_raw_output
+4595327740,add support for advanced pg and advanced mysql engines in database options,enhancement,enhancement,other,enhancement,enhancement,enh
+4586174709,"CON-13852, CON-13398: Expose CoreDNS Autoscaler toggle on DOKS cluster create/update",enhancement,enhancement,other,enhancement,enhancement,enh
+4580952912,bumping godo to v1.194.1,enhancement,enhancement,other,enhancement,enhancement,enh
+4542703913,Open Harness Server subcommands,other,other,other,other,other,enh
+4526256441,--worker-subnet-uuid flag for kubernetes cluster create command,enhancement,enhancement,other,enhancement,enhancement,enh
+4523837195,fix(registry): use RepositoryV2 displayer for list-v2 commands,bug,bug,bug,bug,bug,bug
+4522928521,mod: added support for autoscaling,enhancement,enhancement,other,enhancement,enhancement,enh
+4518010480,dummy demo,other,other,other,other,other,other
+4517959580,WIP: Test,other,other,other,other,other,other
+4501592779,beta release pipeline,other,other,other,other,other,other
+4493751394,Add serverless Inference endpoints support,enhancement,enhancement,other,enhancement,enhancement,enh
+4489592376,Add DI doctl command examples,documentation,documentation,other,documentation,documentation,enh
+4480185974,make logging in 'kubernetes cluster kubeconfig exec-credential' condi…,enhancement,enhancement,other,enhancement,enhancement,enh
+4475740443,1.159.0-release Using cached credential,question,question,question,question,question,question
+4402505638,"v1.158.0 cannot parse config files it writes — ""yaml: line 2228: did not find expected key""",bug,bug,bug,bug,bug,bug
+4400719783,Fix link to GitHub installation page,documentation,documentation,documentation,documentation,documentation,documentation
+4400008496,kubernetes exec-credential command for OIDC Authorization flow with PKCE,enhancement,enhancement,other,enhancement,enhancement,enh
+4390889823,Bump godo to v1.189.0 to fix App Ingress authority empty-string match…,enhancement,bug,other,enhancement,bug,enh
+4365778576,Doks sso auth flow,other,other,question,other,other,question
+4360117067,sshkeys: add example to ssh-key import help text,documentation,documentation,documentation,documentation,documentation,documentation
+4335520116,fixed go.sum which had patch version,bug,bug,bug,bug,bug,bug
+4324672384,"DOKS SSO: per-cluster config, kubeconfig type",enhancement,enhancement,other,enhancement,enhancement,enh
+4321110548,Prevent archive link-based path traversal in extract package,security,security,security,security,security,security
+4269995951,doctl apps spec get not returning authority correctly #1782,bug,bug,bug,bug,bug,bug
+4267923591,NfsAction - type inconsistency fix,bug,bug,bug,bug,bug,bug
+4261126585,NFRNC-702: Update request and response schema to support custom model in Dedicated Inference,enhancement,enhancement,other,enhancement,enhancement,enh
+4255011406,Update request and response schema to support custom model in Dedicated Inference,enhancement,enhancement,other,enhancement,enhancement,enh
+4185422373,Added new field is managed in list DI tokens,enhancement,enhancement,other,enhancement,enhancement,enh
+4175864393,nfs reassign,other,other,other,other,other,other
+4171824201,droplets: add --public-networking flag to create command,enhancement,enhancement,other,enhancement,enhancement,enh
+4170138500,APPS: Set CNBBuilderImage_Heroku22 to v0.93.0,enhancement,enhancement,other,enhancement,enhancement,enh
+4126307966,Dedicated inference functionalities,enhancement,enhancement,other,enhancement,enhancement,enh
+4120724830,Fixes #1822: fix list-job-invocations command,bug,bug,bug,bug,bug,bug
+4120411159,Feature/update dedicated inference,enhancement,enhancement,other,enhancement,enhancement,enh
+4110967460,doctl apps list-job-invocations returns empty results when invocations exist,bug,bug,bug,bug,bug,bug
+4108330624,Feature/list accelerators dedicated inference,enhancement,enhancement,other,enhancement,enhancement,enh
+4107861189,Feature/delete dedicated inference,enhancement,bug,other,enhancement,bug,enh
+4107746215,Feature/get dedicated inference,enhancement,enhancement,other,enhancement,enhancement,enh
+4106801770,Feature/create dedicated inference,enhancement,enhancement,other,enhancement,enhancement,enh
+4094151653,added changes for 412 error handling,enhancement,bug,other,enhancement,bug,enh
+4087376847,"auth switch --context default writes bogus ""default: true"" into auth-contexts",bug,bug,bug,bug,bug,bug
+4085860636,Corrects create-deployment help message.,documentation,documentation,bug,documentation,documentation,bug
+4083976597,doks: sso 'enabled' and 'required' toggles,enhancement,enhancement,other,enhancement,enhancement,enh
+4063111155,HA default true for cluster create,enhancement,enhancement,other,enhancement,enhancement,enh
+4056038221,Typo correction in apps.go help text.,documentation,documentation,documentation,documentation,documentation,documentation
+4028573590,"Add list-events, cancel-event commands and event logs support for App Platform",enhancement,enhancement,other,enhancement,enhancement,enh
+4023412707,Fix mismatched command names in example strings,documentation,documentation,documentation,documentation,documentation,documentation
+4017774577,Added workflow-uuid for gradientai agent create,enhancement,enhancement,other,enhancement,enhancement,enh
+3953959375,PDOCS-3233: Add permissions note to various serverless command descriptions,documentation,documentation,documentation,documentation,documentation,documentation
+3934313183,security: add commands for cspm scanning preview,enhancement,enhancement,other,enhancement,enhancement,enh
+3931016844,switch performance tier of nfs share,enhancement,enhancement,question,enhancement,enhancement,question
+3922808055,apps: Update godo to latest version,enhancement,enhancement,other,enhancement,enhancement,enh
+3915932221,switch performance tier of nfs share,enhancement,enhancement,other,enhancement,enhancement,enh
+3905456817,APPS: Set CNBBuilderImage_Heroku22 to v0.92.1,enhancement,enhancement,other,enhancement,enhancement,enh
+3845915368,deprecate region from nfs apis,enhancement,enhancement,other,enhancement,enhancement,enh
+3815913598,Renaming GenAI to GradientAI,enhancement,enhancement,other,enhancement,enhancement,enh
+3728972861,document binlog retention configuration updates for MySQL,documentation,documentation,documentation,documentation,documentation,documentation
+3698986984,add flags to enable/disable GPU doks cluster options,enhancement,enhancement,other,enhancement,enhancement,enh
+3669083774,README.md: fix link to Nix package,documentation,documentation,documentation,documentation,documentation,documentation
+3667362035,Added cancel-job-invocation apps command,enhancement,enhancement,other,enhancement,enhancement,enh
+3645059277,build(deps): bump golang.org/x/crypto from 0.36.0 to 0.45.0,enhancement,security,security,enhancement,security,security
+3596290441,build(deps): bump github.com/containerd/containerd from 1.7.27 to 1.7.29,enhancement,security,security,enhancement,security,security
+3595077087,Update godo version v1.168.0,enhancement,enhancement,other,enhancement,enhancement,enh
+3591815920,Support gateway default route,enhancement,enhancement,other,enhancement,enhancement,enh
+3585634578,added support for attach and detach endpoints,enhancement,enhancement,other,enhancement,enhancement,enh
+3550113783,Fix/registry api 1776,bug,bug,bug,bug,bug,bug
+3548103503,[WIP]  Implement --access-key flag and serverless keys commands,enhancement,enhancement,other,enhancement,enhancement,enh
+3529581472,docs: improve README structure with proper table of contents. ,documentation,documentation,documentation,documentation,documentation,documentation
+3529527949,"Revert ""Progressive deployment for releases (#1771)""",bug,bug,other,bug,bug,other
+3529307735,databases: require --user for pool create (fixes #1763),bug,bug,other,bug,bug,enh
+3518039685,LBAAS-3995: add project id support to nat gateway in doctl,enhancement,enhancement,other,enhancement,enhancement,enh
+3515525662,MNFS-165: Adding MNFS APIs,enhancement,enhancement,other,enhancement,enhancement,enh
+3510150139,Removing release from release name,other,enhancement,other,other,enhancement,enh
+3507015588,chore: expand typo detection and add CLI cheat sheet to README,enhancement,documentation,documentation,enhancement,documentation,documentation
+3502402537,Add filtration,enhancement,enhancement,other,enhancement,enhancement,enh
+3495719468,Progressive deployment for releases,enhancement,enhancement,other,enhancement,enhancement,enh
+3495576161,Update GitHub actions to their latest version,enhancement,enhancement,other,enhancement,enhancement,enh
+3494444052,fix: https://github.com/digitalocean/doctl/issues/915,bug,bug,bug,bug,bug,bug
+3494329820,fix: https://github.com/digitalocean/doctl/issues/1749,bug,bug,bug,bug,bug,bug
+3492616250,Make --user flag optional for database pool creation,enhancement,bug,bug,enhancement,bug,bug
+3492442255,fix(databases): make --user optional for pool create (#1758),enhancement,bug,bug,enhancement,bug,bug
+3492322754,Update droplets.go,enhancement,other,other,enhancement,other,enh
+3492161989,fix: replace .iso with .img in image create help example,documentation,bug,documentation,documentation,bug,documentation
+3459267632,changed go mod version,enhancement,enhancement,other,enhancement,enhancement,other
+3459253136,"Revert ""Adding support for beta tag automation""",bug,bug,other,bug,bug,other
+3441258238,Adding support for beta tag automation,enhancement,enhancement,other,enhancement,enhancement,enh
+3433162818,adds tests cases regarding registry delete-tag and registry delete-ma…,enhancement,enhancement,other,enhancement,enhancement,enh
+3429902978,Adding integration tests as a pre requirement for releases,enhancement,enhancement,other,enhancement,enhancement,enh
+3421796004,Jobs Indexing Operations,enhancement,enhancement,other,enhancement,enhancement,enh
+3414467719,distinguish subcommands with overrideNS,bug,bug,bug,bug,bug,bug
+3410725074,Added commands to get scheduled job invocations,enhancement,enhancement,other,enhancement,enhancement,enh
+3406011779,Partner network connect | list remote route - removed id field,bug,bug,bug,bug,bug,bug
+3402270610,Gen-ai KnowledgeBase TestCases,bug,bug,other,bug,bug,enh
+3396784440,List remote routes | fixed displayer type,bug,bug,bug,bug,bug,bug
+3379650054,GenAI | added ListIndexingJobs,enhancement,enhancement,other,enhancement,enhancement,enh
+3354360456,Add byoip update method,enhancement,enhancement,other,enhancement,enhancement,enh
+3343138475,Unhide nat-gateway doctl options,enhancement,enhancement,other,enhancement,enhancement,enh
+3338491551,CON-12680 - add amd gpu device (metrics exporter) plugin cluster options,enhancement,enhancement,other,enhancement,enhancement,enh
+3331177525,"Revert ""Fix failing integration tests for multi-registry functionality""",bug,bug,other,bug,bug,other
+3330825167,Fix failing integration tests for multi-registry functionality,bug,bug,bug,bug,bug,bug
+3321962959,[DO NOT MERGE] fix(DOCR-1637): Fixes the integration tests for registry,bug,bug,bug,bug,bug,bug
+3308734970,Updated minServerlessVersion to 5.0.22,enhancement,enhancement,other,enhancement,enhancement,enh
+3302898284,"Revert ""Updated minServerlessVersion to 5.0.22 (#1727)""",bug,other,other,bug,other,other
+3302587572,Reverting tag regex changes,bug,bug,bug,bug,bug,bug
+3301333101,Fixing vendoring issues in doctl,enhancement,bug,bug,enhancement,bug,bug
+3292478368,Added Support for Valkey Configuration,enhancement,enhancement,other,enhancement,enhancement,enh
+3290259473,Enable output of current context token,enhancement,enhancement,other,enhancement,enhancement,enh
+3288884169,Updated minServerlessVersion to 5.0.22,enhancement,enhancement,other,enhancement,enhancement,enh
+3281059853,Update CNBBuilderImage to v0.87.0,enhancement,enhancement,other,enhancement,enhancement,enh
+3274447710,Fix databases maintenance-window get example command,documentation,documentation,bug,documentation,documentation,bug
+3268264558,Updated minServerlessVersion to 5.0.22,enhancement,enhancement,other,enhancement,enhancement,enh
+3256293407,DOCR: Multi-registry support,enhancement,enhancement,other,enhancement,enhancement,enh
+3254788249,OpenAI Keys Implementation,enhancement,enhancement,other,enhancement,enhancement,enh
+3254765344,Implemented GenAI Additional Operations,enhancement,enhancement,other,enhancement,enhancement,enh
+3245133536,🔧 Integrate golangci-lint for Static Code Analysis,enhancement,enhancement,other,enhancement,enhancement,enh
+3240803502,Updating godo with a new release,enhancement,enhancement,other,enhancement,enhancement,enh
+3234859214,Add /app to $PATH in Dockerfile,enhancement,enhancement,other,enhancement,enhancement,enh
+3227505041,Function Routes for GenAI ,enhancement,enhancement,other,enhancement,enhancement,enh
+3223133141,Added Agent route operations,enhancement,enhancement,other,enhancement,enhancement,enh
+3189056830,Apikeys agent,other,other,question,other,other,question
+3186404761,fix(realease): correct tag regex to strictly match SemVer vX.Y.Z format.,bug,bug,bug,bug,bug,bug
+3176260185,Fix vpc nat gateway default timeout values,enhancement,bug,other,enhancement,bug,enh
+3169270079,Added byoip prefix commands,enhancement,enhancement,other,enhancement,enhancement,enh
+3160974643,Update ci.yml,other,enhancement,other,other,enhancement,enh
+3143687199,[VPC-4604] doctl: PNC HA support,enhancement,enhancement,other,enhancement,enhancement,enh
+3129618202,projects: Add support for retrieving floating IPv6 from URN,enhancement,enhancement,other,enhancement,enhancement,enh
+3124240185,SERVERLESS-3399: update minimum serverless version to 5.0.21,enhancement,enhancement,other,enhancement,enhancement,enh
+3118038701,Add instance alias for /apps/id/instances alias,enhancement,enhancement,other,enhancement,enhancement,enh
+3105157029,Update godo version to v1.150.0 to include edge control settings,enhancement,enhancement,other,enhancement,enhancement,enh
+3103949886,expose DOKS custom cluster-autoscaler expanders,enhancement,enhancement,other,enhancement,enhancement,enh
+3100731478,Partner Network Connect: Add support for redundancy zone,enhancement,enhancement,other,enhancement,enhancement,enh
+3100650393,godo: upgrade to v1.149.0,enhancement,enhancement,other,enhancement,enhancement,enh
+3100572871,Gen AI Knowledge Base Implementation,enhancement,enhancement,other,enhancement,enhancement,enh
+3096664929,Doctl gen ai agent,enhancement,enhancement,other,enhancement,enhancement,enh
+3070899919,fix arbitrary file write extracting an archive containing symbolic links,security,security,security,security,security,security
+3070898773,fix suspicious characters in a regular expression,bug,bug,bug,bug,bug,bug
+3069887247,Introduce vpc nat gateways api,enhancement,enhancement,other,enhancement,enhancement,enh
+3067527505,dbaas: support displaying Valkey options,enhancement,enhancement,other,enhancement,enhancement,enh
+3065857797,fix: Pull RunImage only if cnb-builder image exists,bug,bug,bug,bug,bug,bug
+3061039469,k8s: Update default size slug,enhancement,enhancement,other,enhancement,enhancement,enh
+3060408898,Feat: Add command to get current running instance of an app,enhancement,enhancement,other,enhancement,enhancement,enh
+3052363061,update godo dependency to 1.146.0,enhancement,enhancement,other,enhancement,enhancement,enh
+3046958986,Enhancement: Pull ubuntu-18 builder image only when the app requires ubuntu-18,enhancement,enhancement,other,enhancement,enhancement,enh
+3040647199,Update godo dependency to v1.145.0,enhancement,enhancement,other,enhancement,enhancement,enh
+3027827076,Use cnb-local-builder to v0.83.0,enhancement,enhancement,other,enhancement,enhancement,enh
+3020095265,LBAAS: add tls cipher policy as load balanacer arg,enhancement,enhancement,other,enhancement,enhancement,enh
+3019948613,Apps exec in specific instance,enhancement,enhancement,other,enhancement,enhancement,enh
+3012205111,Add lb tls cipher policy,enhancement,enhancement,other,enhancement,enhancement,enh
+3000981761,build(deps): bump golang.org/x/net from 0.36.0 to 0.38.0,enhancement,enhancement,other,enhancement,enhancement,enh
+2988415216,Check for --project-id before droplet creation,bug,bug,bug,bug,bug,bug
+2953842634,unhide partner network connect,enhancement,enhancement,other,enhancement,enhancement,enh
+2953444275,VPC-4391: rename to partner attachments,enhancement,enhancement,other,enhancement,enhancement,enh
+2945699836,APPS-10741: Get stack run image from CNB Builder Image,enhancement,enhancement,other,enhancement,enhancement,enh
+2945378017,Refactor PIA to PNC commands,enhancement,enhancement,other,enhancement,enhancement,enh
+2943510080,Upgrade godo and fix pia integration,bug,bug,other,bug,bug,enh
+2943445852,"Revert ""Refactor partner network connect commands (#1674)""",bug,bug,other,bug,bug,other
+2942998055,Refactor partner network connect commands,enhancement,enhancement,other,enhancement,enhancement,enh
+2942549463,Adds filter by region while listing volume snapshots,enhancement,enhancement,other,enhancement,enhancement,enh
+2938592931,Bump Go version to v1.24,enhancement,enhancement,other,enhancement,enhancement,enh
+2934135297,Update doctl to support Spaces Keys API Updated,enhancement,enhancement,other,enhancement,enhancement,enh
+2926677398,build(deps): bump github.com/containerd/containerd from 1.7.11 to 1.7.27,enhancement,enhancement,other,enhancement,enhancement,enh
+2916673810,fix typo in flag doc,documentation,documentation,documentation,documentation,documentation,documentation
+2915562334,build(deps): bump golang.org/x/net from 0.33.0 to 0.36.0,enhancement,enhancement,other,enhancement,enhancement,enh
+2897885200,Support domains column for GLB,enhancement,enhancement,other,enhancement,enhancement,enh
+2875254614,add bgp auth key field,enhancement,bug,bug,enhancement,bug,bug
+2862587411,[VPC-3917] Support PIA get service key operation,enhancement,enhancement,other,enhancement,enhancement,enh
+2862524594,[VPC-4215] Support PIA Get BGP auth key and regenerate service key,enhancement,enhancement,other,enhancement,enhancement,enh
+2862275005,"[VPC-3917]  Support PIA Regenerate Service key, Get Service key and Get bgp auth key",enhancement,enhancement,other,enhancement,enhancement,enh
+2861401814,add option to enable/disable routing-agent plugin,enhancement,enhancement,other,enhancement,enhancement,enh
+2858106290,k8s: update upgrade command documentation,documentation,documentation,documentation,documentation,documentation,documentation
+2857408766,[VPC-3918] List PIA remote routes,question,bug,question,question,bug,question
+2851758597,APPS-10498: Update Cnb Builder to v0.79.0,enhancement,enhancement,other,enhancement,enhancement,enh
+2833766975,monitoring: remove beta label,enhancement,enhancement,other,enhancement,enhancement,enh
+2831346689,k8s: fix autoscaler integration test cases,bug,bug,bug,bug,bug,bug
+2830566964,add Created field to images command,enhancement,enhancement,other,enhancement,enhancement,enh
+2820260624,reserved-ipv6: unhide reserved IPv6 command in the CLI,enhancement,enhancement,other,enhancement,enhancement,enh
+2816847272,load-balancers: make network-stack flag consistent,enhancement,enhancement,other,enhancement,enhancement,enh
+2816827074,add pr description template,enhancement,enhancement,other,enhancement,enhancement,enh
+2814166909,add cluster autoscaler configuration for cluster create and update,enhancement,enhancement,other,enhancement,enhancement,enh
+2813965669,LBAAS-3620: support load balancers network_stack,enhancement,enhancement,other,enhancement,enhancement,enh
+2813084721,create partner interconnect attachment support,enhancement,enhancement,other,enhancement,enhancement,enh
+2799536056,Fix: Ensure constant format strings in fmt and printf calls,bug,bug,other,bug,bug,enh
+2794610894,Update doctl to support Spaces Keys API,enhancement,enhancement,other,enhancement,enhancement,enh
+2791028895,build(deps): bump golang.org/x/crypto from 0.22.0 to 0.31.0,enhancement,enhancement,other,enhancement,enhancement,enh
+2791028893,build(deps): bump golang.org/x/net from 0.24.0 to 0.33.0,enhancement,enhancement,other,enhancement,enhancement,enh
+2791005461,Upgrade godo,enhancement,enhancement,other,enhancement,enhancement,enh
+2788060779,databases: support displaying URI and Created in list with format flag,enhancement,enhancement,other,enhancement,enhancement,enh
+2772934028,"doctl: get, list, update and delete interconnect attachment",enhancement,enhancement,other,enhancement,enhancement,enh
+2767698028,Implement get and list ,enhancement,enhancement,other,enhancement,enhancement,enh
+2766136404,Enable droplet-autoscaler commands,enhancement,enhancement,other,enhancement,enhancement,enh
+2748660476,remove sembump tool as no longer installable with go tools,enhancement,enhancement,other,enhancement,enhancement,enh
+2733583116,refactor: move assign/unassign actions to reserved-ipv6 command,enhancement,enhancement,other,enhancement,enhancement,enh
+2724734978,Remove remaining reference to Travis CI.,enhancement,documentation,other,enhancement,documentation,enh
+2724733256,[WIP] Fix: registry login test failing on OSX.,bug,bug,bug,bug,bug,bug
+2724706080,Added support getting logs for an app by name.,enhancement,enhancement,other,enhancement,enhancement,enh
+2724653922,fix: remove duplicate config init,bug,bug,bug,bug,bug,bug
+2719356641,reserved-ipv6: Add reserved IPv6 commands,enhancement,enhancement,other,enhancement,enhancement,enh
+2718236691,APPS: Add an --update-sources parameter to create and update app,enhancement,enhancement,other,enhancement,enhancement,enh
+2715970032,LBAAS: display LBs firewall rules,enhancement,enhancement,other,enhancement,enhancement,enh
+2698747385,LBAAS: display LBs IPv6,enhancement,enhancement,other,enhancement,enhancement,enh
+2679927373,Fix conflicting aliases in apps commands,enhancement,enhancement,other,enhancement,enhancement,enh
+2659208856,Doctl Changes for MySQL Log Output and other missing configs,enhancement,enhancement,other,enhancement,enhancement,enh
+2655269121,APPS-9859 Add doctl apps console command to start a console session to a component,enhancement,enhancement,other,enhancement,enhancement,enh
+2652450846,DOCR: Add support for multiple-registry open beta endpoints,enhancement,enhancement,other,enhancement,enhancement,enh
+2648027863, Improve `CONTRIBUTING.md` and `README.md` Files,documentation,documentation,documentation,documentation,documentation,documentation
+2636250517,[droplets]: add support for droplet backup policy,enhancement,enhancement,other,enhancement,enhancement,enh
+2635657461,APPS-9765 Add command to restart apps,enhancement,enhancement,other,enhancement,enhancement,enh
+2635622672,Use cnb builder v0.75.2,enhancement,enhancement,other,enhancement,enhancement,enh
+2627764608,Introduce support for droplet autoscaler,enhancement,enhancement,other,enhancement,enhancement,enh
+2625049382,LBAAS: remove beta notes on LBaaS fields,enhancement,documentation,other,enhancement,documentation,enh
+2618166660,Don't set APP_CACHE_DIR if --no-cache is passed with apps dev build,bug,bug,bug,bug,bug,bug
+2614654249,droplets: support listing GPU Droplets.,enhancement,enhancement,other,enhancement,enhancement,enh
+2614250585,Fixing positional resource id descriptions,enhancement,documentation,other,enhancement,documentation,enh
+2611960394,Bump godo to v1.128.0.,enhancement,enhancement,other,enhancement,enhancement,enh
+2608910911,droplets: update help text to accurately describe default backup plan.,documentation,documentation,documentation,documentation,documentation,documentation
+2598402770,Add Database Replica Integration Tests,enhancement,enhancement,other,enhancement,enhancement,enh
+2597327804,Fixing not properly displayed options,bug,bug,bug,bug,bug,bug
+2591809985,doks: fix panic during create,bug,bug,bug,bug,bug,bug
+2589046496,[feat:] Add `--wait` Flag to doctl databases migrate Command,enhancement,enhancement,other,enhancement,enhancement,enh
+2573598976,ISSUE: 1585 | Add --wait flag to databases resize command,enhancement,enhancement,other,enhancement,enhancement,enh
+2566994849,Update godo that uses opensearch ism_history_max_docs correct int64 type,enhancement,enhancement,other,enhancement,enhancement,enh
+2557362232,[databases]: add support for Opensearch advanced configuration,enhancement,enhancement,other,enhancement,enhancement,enh
+2550704008,[databases]: add support for Kafka advanced configuration,enhancement,enhancement,other,enhancement,enhancement,enh
+2548983803,doks: add custom subnets flags,enhancement,enhancement,other,enhancement,enhancement,enh
+2548170795,Add --wait flag to databases resize command,enhancement,enhancement,other,enhancement,enhancement,enh
+2548142233,Add --wait flag to databases migrate command,enhancement,enhancement,other,enhancement,enhancement,enh
+2534665994,dbaas: Fix typo and add additional detail in config update help.,documentation,documentation,documentation,documentation,documentation,documentation
+2534166892,[databases]: add support for MongoDB advanced configuration,enhancement,enhancement,other,enhancement,enhancement,enh
+2533648162,upgrade godo,enhancement,enhancement,other,enhancement,enhancement,enh
+2520026535,databases: add get-ca to retrieve db certificate,enhancement,enhancement,other,enhancement,enhancement,enh
+2519806881,[DBAAS] | Add API endpoint for applying cluster patches,enhancement,enhancement,other,enhancement,enhancement,enh
+2519391330,APPS-8398: Remove list and get app tiers,enhancement,enhancement,other,enhancement,enhancement,enh
+2517546985,Update Releasing section in contributing,documentation,documentation,documentation,documentation,documentation,documentation
+2516698861,misc: use 'go install' in _install_github_release_notes make target,bug,bug,bug,bug,bug,bug
+2513714102,Update DOCTL to include new OpenSearch acl changes,enhancement,enhancement,other,enhancement,enhancement,enh
+2503440759,Update cnb builder tags,bug,bug,bug,bug,bug,bug
+2495143969,"Can `dockerSocketPath` be configurable, issues when socket is in different location.",enhancement,question,other,enhancement,question,enh
+2491858123,Databases: Add OpenSearch index CRUD support,enhancement,enhancement,other,enhancement,enhancement,enh
+2464203904,"Clean up build scripts, make targets, and Dockerfile for snap.",enhancement,enhancement,other,enhancement,enhancement,enh
+2463822806,Droplet: Add SizeSlug as format flag,enhancement,enhancement,other,enhancement,enhancement,enh
+2461944721,Use Go 1.22.x in release builds,enhancement,enhancement,other,enhancement,enhancement,enh
+2461929305,snap: use snapcore/action-build for release build,enhancement,enhancement,other,enhancement,enhancement,enh
+2461879111,snap: use snapcore/action-build for candidate builds,enhancement,enhancement,other,enhancement,enhancement,enh
+2461506778,volumes: fifteen volumes may be attached to a Droplet,documentation,documentation,documentation,documentation,documentation,documentation
+2458407172,apps: deprecate tier get/list,enhancement,enhancement,other,enhancement,enhancement,enh
+2447803924,Fix CI badge,enhancement,documentation,documentation,enhancement,documentation,documentation
+2442976828,build(deps): bump github.com/docker/docker from 24.0.9+incompatible to 25.0.6+incompatible,enhancement,enhancement,other,enhancement,enhancement,enh
+2437487919,build(deps): bump github.com/docker/docker from 24.0.9+incompatible to 26.1.4+incompatible,enhancement,enhancement,other,enhancement,enhancement,enh
+2428018103,go: upgrade to 1.22,enhancement,enhancement,other,enhancement,enhancement,enh
+2426207223,databases: update connection pool,enhancement,enhancement,other,enhancement,enhancement,enh
+2419782169,APPS-8731: Update CNB Builder image,enhancement,enhancement,other,enhancement,enhancement,enh
+2416675926,Enable control plane firewall pointer arguments and trim spaces,enhancement,enhancement,other,enhancement,enhancement,enh
+2413966895,misc: clean up additional typos found in CI.,documentation,documentation,documentation,documentation,documentation,documentation
+2412209209,ci: spellcheck github action,enhancement,enhancement,other,enhancement,enhancement,enh
+2411663208,ci: Configure crate-ci/typos and auto fix what I can,enhancement,enhancement,other,enhancement,enhancement,enh
+2411347287,Fix spelling in firewall documentation,documentation,documentation,documentation,documentation,documentation,documentation
+2410566850,Improve description of Firewall arguments related to tags,documentation,documentation,documentation,documentation,documentation,documentation
+2408335095,Fix typo in DOKS 1-click example text,documentation,documentation,documentation,documentation,documentation,documentation
+2404139107,doctl auth list: respect json output flag,enhancement,bug,other,enhancement,bug,enh
+2395220873,Unhide VPC Peerings Command,enhancement,enhancement,other,enhancement,enhancement,enh
+2384711284,Update for goreleaser 2.0,enhancement,enhancement,other,enhancement,enhancement,enh
+2371200599,build(deps): bump github.com/hashicorp/go-retryablehttp from 0.7.5 to 0.7.7,enhancement,enhancement,other,enhancement,enhancement,enh
+2352712360,build(deps): bump github.com/creack/pty from 1.1.11 to 1.1.21,enhancement,enhancement,other,enhancement,enhancement,enh
+2352302359,Add optional flags for DOKS control plane firewall feature,enhancement,enhancement,other,enhancement,enhancement,enh
+2351367934,fix: VPC Peering delete cli message,bug,bug,bug,bug,bug,bug
+2335951893,Support load balancers network type,enhancement,enhancement,other,enhancement,enhancement,enh
+2300599410,[VPC-3359] Implemented vpc peering methods,enhancement,enhancement,other,enhancement,enhancement,enh
+2298549540,droplet-actions: add necessary scopes to doctl description (poc),enhancement,documentation,other,enhancement,documentation,enh
+2295884076,Droplets: Add Windows Powershell example,documentation,documentation,documentation,documentation,documentation,documentation
+2295657455,Fix useless error check in extractTarGz,bug,bug,bug,bug,bug,bug
+2286629188,Add support for GLB active-passive failover config,enhancement,enhancement,other,enhancement,enhancement,enh
+2245799219,Add support for database events in Doctl,enhancement,enhancement,other,enhancement,enhancement,enh
+2240464262,Add support for opensearch,enhancement,enhancement,other,enhancement,enhancement,enh
+2221539591,Add config options for creating global load balancers,enhancement,enhancement,other,enhancement,enhancement,enh
+2206083715,Update Patched Fix Classic builder cache poisoning,security,security,security,security,security,security
+2205336486,Update cnb run-image tag,bug,bug,bug,bug,bug,bug
+2200801498,K8s: Update Node Pool documentation,documentation,documentation,documentation,documentation,documentation,documentation
+2198112926,build(deps): bump github.com/docker/docker from 24.0.7+incompatible to 24.0.9+incompatible,enhancement,security,security,enhancement,security,security
+2185067819,build(deps): bump google.golang.org/protobuf from 1.31.0 to 1.33.0,enhancement,enhancement,other,enhancement,enhancement,enh
+2176720588,kubernetes: improve usage message,enhancement,enhancement,other,enhancement,enhancement,enh
+2172061061,kubernetes: remove backquotes from flag descriptions,enhancement,documentation,other,enhancement,documentation,enh
+2161330451,[NETPROD-3585] Added name filter in doctl for certificates,enhancement,enhancement,other,enhancement,enhancement,enh
+2153955105,Add kafka acl option to user create,enhancement,enhancement,other,enhancement,enhancement,enh
+2137103231,image: update help output to be accurate.,documentation,documentation,documentation,documentation,documentation,documentation
+2124455756,"Why do we have to SSH into a droplet, and then install the Droplet Agent?  Why can't you just pre-install it?",enhancement,enhancement,other,enhancement,enhancement,enh
+2119045487,Update cnb builder image,enhancement,enhancement,other,enhancement,enhancement,enh
+2111120769,build(deps): bump github.com/opencontainers/runc from 1.1.7 to 1.1.12,security,security,security,security,security,security
+2111119841,build(deps): bump github.com/containerd/containerd from 1.7.2 to 1.7.11,enhancement,enhancement,other,enhancement,enhancement,enh
+2111112703,build(deps): bump github.com/moby/buildkit from 0.11.4 to 0.12.5,enhancement,security,security,enhancement,security,security
+2102752243,droplets: refactor how to assign resources,enhancement,enhancement,other,enhancement,enhancement,enh
+2101229938,droplet create: assign to project after create,enhancement,enhancement,other,enhancement,enhancement,enh
+2066347516,ssh: add retries,enhancement,enhancement,other,enhancement,enhancement,enh
+2062854810,LBAAS-2899: doctl not removing LB firewall rules on update,bug,bug,other,bug,bug,enh
+2056513986,Docs audit: Droplets,documentation,documentation,documentation,documentation,documentation,documentation
+2056440708,Docs audit: Functions,documentation,documentation,documentation,documentation,documentation,documentation
+2056439295,Docs audit: Firewalls,documentation,documentation,documentation,documentation,documentation,documentation
+2052350282,Update tag for CNBBuilderImage,bug,bug,bug,bug,bug,bug
+2051310145,Docs audit: Domains,documentation,documentation,documentation,documentation,documentation,documentation
+2049579967,apps: Set default apps dev build image to `CNBBuilderImage_Heroku22`.,enhancement,enhancement,other,enhancement,enhancement,enh
+2049458329,build(deps): bump github.com/containerd/containerd from 1.6.18 to 1.6.26,enhancement,enhancement,other,enhancement,enhancement,enh
+2047644956,build(deps): bump golang.org/x/crypto from 0.14.0 to 0.17.0,enhancement,enhancement,security,enhancement,enhancement,security
+2033022572,release workflow: goreleaser --rm-dist deprecated in favor of --clean.,enhancement,enhancement,other,enhancement,enhancement,enh
+2031636180,Resolve conflict with alert configurations by overriding command namespace,bug,bug,other,bug,bug,enh
+2031136767,apps: Add log type for restarted containers,enhancement,enhancement,other,enhancement,enhancement,enh
+2031092363,"Apps: Display ""phase"" for apps get-deployments",enhancement,enhancement,other,enhancement,enhancement,enh
+2031089407,Upgrade godo to 1.107.0,enhancement,enhancement,other,enhancement,enhancement,enh
+2024955341,Add check to prevent focused tests being committed.,enhancement,enhancement,other,enhancement,enhancement,enh
+2000040840,Re-enable integration tests.,bug,bug,bug,bug,bug,bug
+1999451469,APP-Platform: Update CNB builder image,enhancement,enhancement,other,enhancement,enhancement,enh
+1973307159,DBAAS Kafka Topics Support,enhancement,enhancement,other,enhancement,enhancement,enh
+1968686215,build(deps): bump github.com/docker/docker from 24.0.5+incompatible to 24.0.7+incompatible,enhancement,enhancement,other,enhancement,enhancement,enh
+1966661054,Add update configuration subcommand to databases,enhancement,enhancement,other,enhancement,enhancement,enh
+1964495458,Support scalable storage for PostgreSQL/MySQL databases,enhancement,enhancement,other,enhancement,enhancement,enh
+1963161014,all: replace 'interface{}' with 'any',enhancement,enhancement,other,enhancement,enhancement,enh
+1959859978,domain records: Support displaying flags and tag.,enhancement,enhancement,other,enhancement,enhancement,enh
+1956052966,Add app spec validate-offline (Resolves #1449),enhancement,enhancement,other,enhancement,enhancement,enh
+1955867179,docs(cdn): add examples for `compute cdn flush` command,documentation,documentation,documentation,documentation,documentation,documentation
+1952606104,commands: strconv.Atoi instead of strconv.ParseInt for ints,enhancement,enhancement,other,enhancement,enhancement,enh
+1952466912,"builder,integration: Replace path import with path/filepath",enhancement,enhancement,other,enhancement,enhancement,enh
+1947561692,APPS-7325 - bump godo to v1.105.0,enhancement,enhancement,other,enhancement,enhancement,enh
+1947128961,test: Simplify asserts by using ElementsMatch,enhancement,enhancement,other,enhancement,enhancement,enh
+1945434391,Bump GitHub actions; enable dependabot for github-actions,enhancement,enhancement,other,enhancement,enhancement,enh
+1941733238,commands: Fix typos in descriptions,documentation,documentation,documentation,documentation,documentation,documentation
+1939840484,commands: fix RunServerlessStatus displaying credentials,bug,bug,bug,bug,bug,bug
+1939787491,Fix missing error handling,bug,bug,other,bug,bug,enh
+1938907450,Bump golang.org/x/net from 0.7.0 to 0.17.0,enhancement,enhancement,other,enhancement,enhancement,enh
+1936359057,uptime alerts: add crud methods,enhancement,enhancement,other,enhancement,enhancement,enh
+1935675165,Bump godo to v1.104.0,enhancement,enhancement,other,enhancement,enhancement,enh
+1935436111,databases: Fix DatabaseOptions.KV function,bug,bug,bug,bug,bug,bug
+1935403214,"commands: Use godo.PtrTo instead of deprecated godo.Int, godo.String",enhancement,enhancement,other,enhancement,enhancement,enh
+1932225726,feat: add uptime alerts commands,enhancement,enhancement,other,enhancement,enhancement,enh
+1931455427,Add. Configuration subcommand to databases,enhancement,enhancement,other,enhancement,enhancement,enh
+1928868717,Alerts: Expand on Monitoring Alerts Doc,documentation,documentation,documentation,documentation,documentation,documentation
+1925850215,Add missing closing response body,bug,bug,bug,bug,bug,bug
+1925771090,"Fix typos in command descriptions, comments, and tests",documentation,documentation,documentation,documentation,documentation,documentation
+1924895797,commands: fix test asserts,bug,bug,bug,bug,bug,bug
+1924881310,databases: Display Kafka options.,enhancement,enhancement,other,enhancement,enhancement,enh
+1924824825,Replace deprecated package io/ioutil with io and os,enhancement,enhancement,other,enhancement,enhancement,enh
+1924428630,doit: simplify tests by using t.Setenv,enhancement,enhancement,other,enhancement,enhancement,enh
+1921325230,Replace deprecated command with environment file,enhancement,enhancement,other,enhancement,enhancement,enh
+1921301124,Replace deprecated `set-output` command with environment file,enhancement,enhancement,other,enhancement,enhancement,enh
+1903393923,Bump node version for serverless plugin to v18.17.1,enhancement,enhancement,other,enhancement,enhancement,enh
+1887948769,"Docs Audit: App Platform, Serverless Activations, etc...",documentation,documentation,documentation,documentation,documentation,documentation
+1878064641,databases: Support displaying private connection.,enhancement,enhancement,other,enhancement,enhancement,enh
+1877969486,databases: Support setting tags a create time.,enhancement,enhancement,other,enhancement,enhancement,enh
+1872405589,Bump Go version to v1.21.0,enhancement,enhancement,other,enhancement,enhancement,enh
+1872161207,Miscellaneous load balancer create command improvements,enhancement,enhancement,other,enhancement,enhancement,enh
+1871731862,Support LB type param on doctl,enhancement,enhancement,other,enhancement,enhancement,enh
+1859891666,Update docker to v24,bug,bug,other,bug,bug,enh
+1856984715,Add support for retrying failed requests.,enhancement,enhancement,other,enhancement,enhancement,enh
+1856812744,Bump godo to v1.102.1,enhancement,enhancement,other,enhancement,enhancement,enh
+1850487648,Bump godo to v1.102.0,enhancement,enhancement,other,enhancement,enhancement,enh
+1850257924,DOCTL Audit: Test updates,other,other,other,other,other,other
+1845320446,Bump godo to v1.101.0,enhancement,enhancement,other,enhancement,enhancement,enh
+1837009042,docs: typo fix on comments,documentation,documentation,documentation,documentation,documentation,documentation
+1832045281,Adds support for ubuntu-22 stack,enhancement,enhancement,other,enhancement,enhancement,enh
+1832040071,Adds ubuntu 22 stack support,enhancement,enhancement,other,enhancement,enhancement,enh
+1831731890,Adds local build support for arm64,enhancement,enhancement,other,enhancement,enhancement,enh
+1818658062,auth: init recognizes --access-token,enhancement,enhancement,other,enhancement,enhancement,enh
+1817511309,Fix typo causing incorrect token highlighting,bug,bug,bug,bug,bug,bug
+1810638751,Replace github.com/golang/mock with Uber's version,enhancement,enhancement,other,enhancement,enhancement,enh
+1810203726,registry: prevent panic in list v2,bug,bug,bug,bug,bug,bug
+1791935749,uptime: move under monitoring,enhancement,enhancement,other,enhancement,enhancement,enh
+1789847775,registry: add default expiry to login command,enhancement,enhancement,other,enhancement,enhancement,enh
+1786654216,Update Cobra and Organize Help Command Output,enhancement,enhancement,other,enhancement,enhancement,enh
+1783085199,uptime checks: add crud methods,enhancement,enhancement,other,enhancement,enhancement,enh
+1779188063,account: protect against panic in user context.,bug,bug,bug,bug,bug,bug
+1727967536,databases: fix replica promote doc string,documentation,documentation,other,documentation,documentation,enh
+1715974183,allow read-only creds for container registry login,enhancement,enhancement,other,enhancement,enhancement,enh
+1714270230,databases: prevent potential panic on db create,bug,bug,bug,bug,bug,bug
+1712083830,doit: include latest release in version json,enhancement,enhancement,other,enhancement,enhancement,enh
+1710597851,doit: respect json output flag,enhancement,enhancement,other,enhancement,enhancement,enh
+1706529732,Bump github.com/docker/distribution from 2.8.1+incompatible to 2.8.2+incompatible,enhancement,enhancement,security,enhancement,enhancement,security
+1706408133,"Testing for Prodsec, please ignore",other,other,other,other,other,other
+1692696629,AppPlatform:update builder image to v0.58.0,enhancement,enhancement,other,enhancement,enhancement,enh
+1692684121,AppPlatform: update cnb builder image to v0.58.0,enhancement,enhancement,other,enhancement,enhancement,enh
+1683311488,Update go version and deps,enhancement,enhancement,other,enhancement,enhancement,enh
+1681739314,Remove beta support for tokens API,enhancement,enhancement,other,enhancement,enhancement,enh
+1677000080,added docs for zsh autocomplete,documentation,documentation,documentation,documentation,documentation,documentation
+1655356891,spam link,other,other,other,other,other,other
+1649917118,"Auth ""init"", ""switch"", ""remove"" Forces Lowercase",bug,bug,bug,bug,bug,bug
+1645978060,Bump github.com/opencontainers/runc from 1.1.3 to 1.1.5,enhancement,security,security,enhancement,security,security
+1617534004,bump godo to v1.98.0,enhancement,enhancement,other,enhancement,enhancement,enh
+1614139021,Bump github.com/moby/buildkit from 0.10.4 to 0.11.4,enhancement,security,security,enhancement,security,security
+1612599972,Bump github.com/containerd/containerd from 1.6.3-0.20220401172941-5ff8fce1fcc6 to 1.6.18,enhancement,security,security,enhancement,security,security
+1603796567,add trimpath flag to build,enhancement,enhancement,other,enhancement,enhancement,enh
+1602211399,"databases: add ""fork"" feature",enhancement,enhancement,other,enhancement,enhancement,enh
+1590191444,Bump golang.org/x/net from 0.4.0 to 0.7.0,enhancement,enhancement,other,enhancement,enhancement,enh
+1583012506,App Platform: fix race on Create/Update --wait flag,bug,bug,bug,bug,bug,bug
+1580476948,Added promote replica support,enhancement,enhancement,other,enhancement,enhancement,enh
+1576820204,Bump godo to v1.96.0,enhancement,enhancement,other,enhancement,enhancement,enh
+1576740469,APICLI-1692: Add backup-restore functionality to db create,enhancement,enhancement,other,enhancement,enhancement,enh
+1553339492,serverless: fix hint for creating functions namespace.,bug,bug,bug,bug,bug,bug
+1550133260,Fixes how webSecure project property gets marshaled to yaml,bug,bug,bug,bug,bug,bug
+1532908243,Fix warm/cold start categorization.,bug,bug,bug,bug,bug,bug
+1522968435,Adding the replica ID to the display,enhancement,enhancement,other,enhancement,enhancement,enh
+1521480721,Modernize auth init prompt.,enhancement,enhancement,other,enhancement,enhancement,enh
+1519421775,commands: Load Balancer updates,enhancement,enhancement,other,enhancement,enhancement,enh
+1511282374,--wait does not wait for cloud-init to finish,bug,bug,bug,bug,bug,bug
+1508510640,"Revert ""commands/auth: stop printing the token to stdout""",bug,bug,other,bug,bug,other
+1508360805,commands/auth: stop printing the token to stdout,security,security,security,security,security,security
+1497151553,auth: Use OAuth token info endpoint to validate token.,enhancement,enhancement,other,enhancement,enhancement,enh
+1495177102,Implement tokens sub-commands.,enhancement,enhancement,other,enhancement,enhancement,enh
+1492437932,Add firewall support for Loadbalancers,enhancement,enhancement,other,enhancement,enhancement,enh
+1490109962,"Implement the --no-triggers flag, and other functions-deployer improvements",enhancement,enhancement,other,enhancement,enhancement,enh
+1486892879,Allow container image installs and 'doctl sls get-metadata' to run without credentials,enhancement,enhancement,other,enhancement,enhancement,enh
+1480069677,"add ""singular"" aliases for ""plural"" serverless commands",enhancement,enhancement,other,enhancement,enhancement,enh
+1479022088,Include label in credentials store and status msg,enhancement,enhancement,other,enhancement,enhancement,enh
+1477287348,Delete packages when cleaning a namespace via 'undeploy --all',bug,bug,bug,bug,bug,bug
+1477025700,Add 'syd' region and 'syd1' data center to allowed values for namespace create,enhancement,enhancement,other,enhancement,enhancement,enh
+1466819529,function triggers: Use displayer for get sub-command and set displayer type.,enhancement,enhancement,other,enhancement,enhancement,enh
+1460521761,Adds subcommands to enable/disable a trigger,enhancement,enhancement,other,enhancement,enhancement,enh
+1460500605,Fix bug: web=false was ignored on remote build,bug,bug,bug,bug,bug,bug
+1455966431,k8s list: Support formating with non-default columns.,enhancement,enhancement,other,enhancement,enhancement,enh
+1454007560,Support http metric alerts for load balancers,enhancement,enhancement,other,enhancement,enhancement,enh
+1452383513,Lbaas 2430 support http idle timeout,enhancement,enhancement,other,enhancement,enhancement,enh
+1451761222,kubernetes: unhide high availability flag,enhancement,enhancement,other,enhancement,enhancement,enh
+1450399691,LBAAS-2450 Support project id for loadbalancers,enhancement,enhancement,other,enhancement,enhancement,enh
+1449718848,Minor fixes to serverless deploy,enhancement,enhancement,other,enhancement,enhancement,enh
+1444617501,doctl/commands: Load Balancers updates,enhancement,enhancement,other,enhancement,enhancement,enh
+1438936282,Updates the triggers API endpoint and structure to use the new API.,enhancement,enhancement,other,enhancement,enhancement,enh
+1438234470,changes to support usage in serverless backend development,enhancement,enhancement,other,enhancement,enhancement,enh
+1434823436,Add more support for project_id in doctl,enhancement,enhancement,other,enhancement,enhancement,enh
+1430505012,"apps: build versioning, add `list-buildpacks` and `upgrade-buildpack`",enhancement,enhancement,other,enhancement,enhancement,enh
+1427431924,droplet: Remove mention of region being required.,documentation,documentation,documentation,documentation,documentation,documentation
+1426187238,Adds better output for long running functions invoked synchronously,enhancement,enhancement,other,enhancement,enhancement,enh
+1422613719,Implement sls undeploy in native golang,enhancement,enhancement,other,enhancement,enhancement,enh
+1421408813,Use the smaller deployer-only plugin instead of the original one,enhancement,enhancement,other,enhancement,enhancement,enh
+1419974521,Remove extra 's' from `doctl compute image-action`'s long description,documentation,documentation,documentation,documentation,documentation,documentation
+1419737778,Fix copy-and-paste error in comment,bug,bug,documentation,bug,bug,documentation
+1419307465,Remove broken link to AUR package,documentation,bug,documentation,documentation,bug,documentation
+1419288430,Note that --region is required for doctl compute droplet create,documentation,documentation,documentation,documentation,documentation,documentation
+1416984626,Various improvements to 'doctl serverless',enhancement,enhancement,other,enhancement,enhancement,enh
+1416960447,Main incorporation (deja vu all over again),bug,bug,other,bug,bug,other
+1416664051,Incorporate main in feature,enhancement,other,other,enhancement,other,other
+1416479550,Fix bugs in credentials directory management and connection checking,bug,bug,bug,bug,bug,bug
+1413469848,apps: Nest dev-config settings under 'dev',bug,bug,bug,bug,bug,bug
+1413451760,Interactive namespace selection,enhancement,enhancement,other,enhancement,enhancement,enh
+1410445110,Recode doctl sls init in pure golang,enhancement,enhancement,other,enhancement,enhancement,enh
+1409991625,Re-writes activations logs command subtree in Go,enhancement,enhancement,other,enhancement,enhancement,enh
+1406052694,CON-5657 (Re-)expose public HA enablement flags in doctl,enhancement,enhancement,other,enhancement,enhancement,enh
+1405367852,"add dbaas to valid alert policy types, tests",enhancement,enhancement,other,enhancement,enhancement,enh
+1405069761,Re-writes activations list command subtree in Go,enhancement,enhancement,other,enhancement,enhancement,enh
+1402253664,Remove extra comma in documentation,documentation,documentation,documentation,documentation,documentation,documentation
+1402163879,Automate dependency checks with dependabot,enhancement,enhancement,other,enhancement,enhancement,enh
+1402162132,Add a Dependabot to Automate dependency checks,enhancement,enhancement,other,enhancement,enhancement,enh
+1401868134,Feature/add wait flag to database create,enhancement,enhancement,other,enhancement,enhancement,enh
+1397994101,functions: action.Exec.Code is nil when saving env.,bug,bug,bug,bug,bug,bug
+1396362064,Avoid plugin in serverless activations [ get | result ],enhancement,enhancement,other,enhancement,enhancement,enh
+1396290604,"commands: Consistent aliases for ""list"" and ""delete""",enhancement,enhancement,other,enhancement,enhancement,enh
+1393366271,Add --wait flag to load_balancer create,enhancement,enhancement,other,enhancement,enhancement,enh
+1393011332,Migrate existing confirmation dialogs to use confirm charm.,enhancement,enhancement,other,enhancement,enhancement,enh
+1392556809,pkg/extract error handling refactoring,enhancement,enhancement,other,enhancement,enhancement,enh
+1392335530,Fix possible failures in undeploy,bug,bug,bug,bug,bug,bug
+1390872534,appdev: update cnb builder image to v0.50.4,enhancement,enhancement,other,enhancement,enhancement,enh
+1390603706,Reveal trigger support,enhancement,enhancement,other,enhancement,enhancement,enh
+1389984831,appdev: correct source_dir and dockerfile_path interaction,enhancement,bug,other,enhancement,bug,enh
+1389660145,appdev: remove app_name from workspace config,enhancement,enhancement,other,enhancement,enhancement,enh
+1388063269,Latest improvements to serverless,enhancement,enhancement,other,enhancement,enhancement,enh
+1388050870,unhide the appdev command subtree,enhancement,enhancement,other,enhancement,enhancement,enh
+1387955692,Merge latest `main` changes into `feature/serverless`,other,other,other,other,other,other
+1385802836,Finish eliminating plugin usage in 'doctl sls functions' + testing improvements,enhancement,enhancement,other,enhancement,enhancement,enh
+1384442667,"appdev: require git workspaces, update example config file",enhancement,enhancement,other,enhancement,enhancement,enh
+1384424766,"appdev: update flag documentation, scope timeout flag to actual build",documentation,documentation,documentation,documentation,documentation,documentation
+1384377054,appdev: clearer copying workspace to container message,enhancement,enhancement,other,enhancement,enhancement,enh
+1384209421,check component type for http port when printing run info,enhancement,enhancement,other,enhancement,enhancement,enh
+1384170500,disable stdin from `app dev build` command,enhancement,enhancement,other,enhancement,enhancement,enh
+1384018578,Bump godo to v1.86.0,enhancement,enhancement,other,enhancement,enhancement,enh
+1382854707,Update github.com/containerd/containerd and github.com/docker/distribution,enhancement,security,security,enhancement,security,security
+1382597316,appdev: an assortment of ux updates,enhancement,enhancement,other,enhancement,enhancement,enh
+1380639070, Improve help texts taking into account multiple namespaces,documentation,documentation,other,documentation,documentation,enh
+1380627905,Improve help texts taking into account multiple namespaces,documentation,documentation,other,documentation,documentation,enh
+1379722469,appdev: pull required container images,other,enhancement,other,other,enhancement,enh
+1379597747,Merge main into feature/serverless,other,other,other,other,other,other
+1379468118,support for windows docker-for-desktop,enhancement,enhancement,other,enhancement,enhancement,enh
+1378691860,Ntate/appdev/rebased,enhancement,enhancement,other,enhancement,enhancement,enh
+1378599822,upgrade to support go 1.19 & 1.18,enhancement,enhancement,other,enhancement,enhancement,enh
+1378075933,Ntate/appdev/macossupport,enhancement,enhancement,other,enhancement,enhancement,enh
+1376429364,droplets: Region is no longer a required value.,enhancement,enhancement,other,enhancement,enhancement,enh
+1376322875,reserved IPs: allow setting project_id on create.,enhancement,enhancement,other,enhancement,enhancement,enh
+1374604110,Add doctl serverless trigger support (for scheduled functions),enhancement,enhancement,other,enhancement,enhancement,enh
+1373630251,appdev: intercept ctrl-c to exit cleanly,enhancement,enhancement,other,enhancement,enhancement,enh
+1373589473,appdev: static site builds,other,other,other,other,other,enh
+1373552423,"appdev: handle user cancellation, log pager styling updates",enhancement,enhancement,other,enhancement,enhancement,enh
+1368969638,Connect ReadProject service to the get-metadata command to support testing and further progress,enhancement,enhancement,other,enhancement,enhancement,enh
+1365594633,Add apps detect command,enhancement,enhancement,other,enhancement,enhancement,enh
+1365003029,Eliminate plugin usage in 'doctl sls fn invoke',enhancement,enhancement,other,enhancement,enhancement,enh
+1364468408,Add support for typescript in the nodejs runtime,enhancement,enhancement,other,enhancement,enhancement,enh
+1363694698,serverless: work-a-round for installing in snap build.,enhancement,bug,other,enhancement,bug,enh
+1363265653,Unhide the multiple namespaces feature,enhancement,enhancement,other,enhancement,enhancement,enh
+1359276983,Support for multiple namespaces (+ fixes and misc improvements),enhancement,enhancement,other,enhancement,enhancement,enh
+1352575339,Update feature/serverless with latest changes from main,enhancement,other,other,enhancement,other,other
+1350072555,"appdev: config updates: add hierarchy and per-component overrides, updated env-file handling",enhancement,enhancement,other,enhancement,enhancement,other
+1350005416,Update feature/serverless with intervening main branch changes,enhancement,enhancement,other,enhancement,enhancement,other
+1347305310,add support for local cnb caching,enhancement,enhancement,other,enhancement,enhancement,enh
+1347048407,"appdev: support cnb versioning, clean up build env output",enhancement,enhancement,other,enhancement,enhancement,enh
+1346942902,Add snap support for docker interface for app dev builds,enhancement,enhancement,other,enhancement,enhancement,enh
+1344934726,Add copy on write support for CNB builds,enhancement,enhancement,other,enhancement,enhancement,enh
+1344887005,appdev: charm framework cleanup,enhancement,enhancement,other,enhancement,enhancement,enh
+1344731893,Add support for build command overrides,enhancement,enhancement,other,enhancement,enhancement,enh
+1344689580,appdev: confirm & input components ,other,other,other,other,other,enh
+1344657083,Add support for build environment variables,enhancement,enhancement,other,enhancement,enhancement,enh
+1343570537,Add support for an app dev config and management,enhancement,enhancement,other,enhancement,enhancement,enh
+1343487073,appdev: extract pager component and improve build log output,enhancement,enhancement,other,enhancement,enhancement,enh
+1342313009,bump dockerfile version 1.16 -> 1.18,enhancement,enhancement,other,enhancement,enhancement,enh
+1342290716,Set user as optional field in calls to databases pool,enhancement,enhancement,other,enhancement,enhancement,enh
+1342044919,Feature/appdev,enhancement,enhancement,other,enhancement,enhancement,enh
+1342022225,Sync main branch,enhancement,other,other,enhancement,other,other
+1339292868,Incorporate package.json in serverless plugin,enhancement,enhancement,other,enhancement,enhancement,enh
+1336434746,Filter AP namespaces from all ListNamespaces responses,bug,bug,other,bug,bug,enh
+1335308993,Add support for listing database options,enhancement,enhancement,other,enhancement,enhancement,enh
+1334832522,databases: Mention mongodb in help text.,enhancement,documentation,documentation,enhancement,documentation,documentation
+1334098722,Add full type declarations for projects and reader support,enhancement,enhancement,other,enhancement,enhancement,enh
+1328897041,Update vendored dependencies.,enhancement,enhancement,other,enhancement,enhancement,enh
+1322201423,Support multiple namespaces,enhancement,enhancement,other,enhancement,enhancement,enh
+1319906636,Remove duplicate suggestions,bug,bug,bug,bug,bug,bug
+1318675456,Open a direct path to the serverless backend using the OpenWhisk API,enhancement,enhancement,other,enhancement,enhancement,enh
+1310604187,Rename 'sandbox' to 'serverless' in the code,enhancement,enhancement,other,enhancement,enhancement,enh
+1299314238,auth remove example,documentation,documentation,documentation,documentation,documentation,documentation
+1294101893,Refactor sandbox service for better encapsulation,enhancement,enhancement,other,enhancement,enhancement,enh
+1290666278,snap: Update build env to use go 1.18,enhancement,bug,bug,enhancement,bug,bug
+1290328187,Merge current feature/serverless contents preparatory to a release,enhancement,enhancement,other,enhancement,enhancement,enh
+1287954017,account: Display team name.,enhancement,enhancement,other,enhancement,enhancement,enh
+1285609719,Store serverless credentials directly instead of invoking the plugin with auth/login,enhancement,enhancement,other,enhancement,enhancement,enh
+1280016022,Set a distinct user agent header for doctl serverless,enhancement,enhancement,other,enhancement,enhancement,enh
+1272821868,Fix Snap publishing in workflows.,bug,bug,bug,bug,bug,bug
+1264870649,sizes: Output the description field.,enhancement,enhancement,other,enhancement,enhancement,enh
+1258909483,auth: Add integration tests for --access-token flag usage during init.,enhancement,enhancement,other,enhancement,enhancement,enh
+1256115363,Rename sandbox to serverless,enhancement,enhancement,other,enhancement,enhancement,enh
+1253702389,Change 'actions' to 'functions' in externals where feasible,enhancement,enhancement,other,enhancement,enhancement,enh
+1251904556,Bring feature/serverless in line with fixes applied to main,enhancement,enhancement,other,enhancement,enhancement,enh
+1250138897,sandbox: Support running when installed as a Snap.,enhancement,enhancement,other,enhancement,enhancement,enh
+1249772581,Add warning language when installing under snap,enhancement,documentation,other,enhancement,documentation,enh
+1247892540,Fix bug in handling --param values with colons,bug,bug,bug,bug,bug,bug
+1245699189,Deprecate floating-ip commands in favor of reserved-ip.,enhancement,enhancement,other,enhancement,enhancement,enh
+1245276868,Vendor github.com/digitalocean/godo v1.80.0,enhancement,enhancement,other,enhancement,enhancement,enh
+1240437380,Fix project.yml templating of multi-line variables,bug,bug,bug,bug,bug,bug
+1235329806,Add AppPlatformApp to Projects documentation,documentation,documentation,documentation,documentation,documentation,documentation
+1234542061,account: ratelimit command should not error when limit exhausted.,enhancement,bug,other,enhancement,bug,enh
+1234396222,Unhide the sandbox and remove beta indicator,enhancement,enhancement,other,enhancement,enhancement,enh
+1231580289,Improve friendliness of the languages table,enhancement,enhancement,other,enhancement,enhancement,enh
+1230952602,Switch from GET to POST when connecting to sandbox,enhancement,security,other,enhancement,security,enh
+1227169448,Add version info to 'sandbox status',enhancement,enhancement,other,enhancement,enhancement,enh
+1224413292,Increment nim version (improves error reporting),enhancement,enhancement,other,enhancement,enhancement,enh
+1221784263,"Revert ""Fix two small bugs (1) handling of arch=386, (2) sbx init adds unsupported config""",bug,bug,other,bug,bug,other
+1218784412,Move the sandbox feature to the main branch,enhancement,enhancement,other,enhancement,enhancement,enh
+1217815873,"Fix two small bugs (1) handling of arch=386, (2) sbx init adds unsupported config",bug,bug,bug,bug,bug,bug
+1216335782,Make serverless and sls aliases of sandbox,enhancement,enhancement,other,enhancement,enhancement,enh
+1212412282,Fixes to (individually) small bugs,bug,bug,bug,bug,bug,bug
+1209553248,Fail early and cleanly when the sandbox was never connected,enhancement,enhancement,other,enhancement,enhancement,enh
+1207423671,Store API host with different final domain segment,enhancement,enhancement,other,enhancement,enhancement,enh
+1206227595,Support e2e tests with added env vars,enhancement,enhancement,other,enhancement,enhancement,enh
+1203381876,go 1.18,enhancement,enhancement,other,enhancement,enhancement,enh
+1202279665,Increment to nim version 3.0.4 to obtain better remote build behavior,enhancement,enhancement,other,enhancement,enhancement,enh
+1200354268,Fix potential loop in `apps update --wait`,bug,bug,bug,bug,bug,bug
+1200311397,`apps update --wait` may hang forever when the deployment is a no-op,bug,bug,bug,bug,bug,bug
+1188474968,Improvements to error output display,enhancement,enhancement,other,enhancement,enhancement,enh
+1188259088,Remove outdated release note docs,documentation,documentation,documentation,documentation,documentation,documentation
+1188174178,"APPS-5270: bump godo for App Platform ""features"" support",enhancement,enhancement,other,enhancement,enhancement,enh
+1188173286,Fix bug in sandbox activations logs --follow,bug,bug,bug,bug,bug,bug
+1185205632,Additional testing of credential handling.,enhancement,other,other,enhancement,other,enh
+1182656755,Maintain sandbox credentials on per-DO-token basis,enhancement,enhancement,other,enhancement,enhancement,enh
+1180908301,Update dependencies,enhancement,enhancement,other,enhancement,enhancement,enh
+1179952118,Use new simplified API to get sandbox namespace,enhancement,enhancement,other,enhancement,enhancement,enh
+1177294979,Update golang.org/x/crypto (fixes: #1130).,enhancement,bug,other,enhancement,bug,enh
+1174061083,tags: Support applying and removing tags from resources.,enhancement,enhancement,other,enhancement,enhancement,enh
+1174030389,Add ability to get 'app' project resources,enhancement,enhancement,other,enhancement,enhancement,enh
+1172994089,Incorporate a newer Nimbella CLI version with a bug fix,enhancement,enhancement,other,enhancement,enhancement,enh
+1171421530,Update vendored godo to v1.77.0 for apps protos updates,enhancement,enhancement,other,enhancement,enhancement,enh
+1167288090,Improvements to flag handling and include/exclude for 'web',enhancement,enhancement,other,enhancement,enhancement,enh
+1164541641,sandbox: Support Windows node downloads.,enhancement,enhancement,other,enhancement,enhancement,enh
+1164267316,sandbox: Use Go native libs to extract archives.,enhancement,enhancement,other,enhancement,enhancement,enh
+1164036344,"Adopt nim 2.3.9, which fixes two bugs",bug,bug,other,bug,bug,enh
+1163838794,Increment the 'nim' version to 2.3.9,enhancement,bug,other,enhancement,bug,enh
+1160652451,Reject 'doctl sbx init --language' value if the backend has no runtime for it.,enhancement,enhancement,other,enhancement,enhancement,enh
+1158618381,docr: add region support,enhancement,enhancement,other,enhancement,enhancement,enh
+1157659971,goreleaser: Don't use release label for snapshots.,bug,bug,other,bug,bug,enh
+1155789719,Upgrade node version to 16.13.0,enhancement,enhancement,other,enhancement,enhancement,enh
+1155783342,Upgrade node version to 16.13.0,enhancement,enhancement,other,enhancement,enhancement,enh
+1154547932,Add an 'undeploy' command,enhancement,enhancement,other,enhancement,enhancement,enh
+1149397585,Correct behavior for 'sandbox actv logs --poll',bug,bug,bug,bug,bug,bug
+1148303068,Fix lint errors in new sources on feature/sandbox,enhancement,bug,other,enhancement,bug,enh
+1147287879,Fix doctl sandbox connect and support additional options,enhancement,enhancement,other,enhancement,enhancement,enh
+1140574535,Versioning and update for 'doctl sandbox',enhancement,enhancement,other,enhancement,enhancement,enh
+1138813612,Run PR workflow for feature branches.,enhancement,enhancement,other,enhancement,enhancement,enh
+1137970952,sandbox: Add additional tests.,enhancement,enhancement,other,enhancement,enhancement,enh
+1128900326,Added link for database size slugs,documentation,documentation,documentation,documentation,documentation,documentation
+1125403668,test: use `T.TempDir` to create temporary test directory,enhancement,enhancement,other,enhancement,enhancement,enh
+1124929671,Add sandbox command,enhancement,enhancement,other,enhancement,enhancement,enh
+1124692495,Strip leading 'v' before setting ldflags.,bug,bug,bug,bug,bug,bug
+1124658465,Update scripts/version.sh to output desired snap version.,enhancement,enhancement,other,enhancement,enhancement,enh
+1123539613,remove v from snap name:,enhancement,enhancement,other,enhancement,enhancement,enh
+1123521108,Snap Version Fix,enhancement,enhancement,other,enhancement,enhancement,enh
+1120940489,fixed the instructions for auto-completions on zsh,documentation,documentation,documentation,documentation,documentation,documentation
+1116400633,Bump godo version to v1.75.0,enhancement,enhancement,other,enhancement,enhancement,enh
+1113197395,Update godo to support new app component type,enhancement,enhancement,other,enhancement,enhancement,enh
+1087197865,Database Resize Command Clarification,documentation,documentation,documentation,documentation,documentation,documentation
+1085067383,APICLI-528: adding option to pick context name in 'kubeconfig save',enhancement,enhancement,other,enhancement,enhancement,enh
+1080109893,ensuring error status 1 occurs when deployment fails,bug,bug,other,bug,bug,enh
+1073815418,pagination: updated pagination to give deterministic and natural ordering,enhancement,bug,bug,enhancement,bug,bug
+1073738613,registry: Add support for ListRepositoriesV2 and ListManifests commands.,enhancement,enhancement,other,enhancement,enhancement,enh
+1073692633,registry: Revoke API token on log out.,enhancement,enhancement,other,enhancement,enhancement,enh
+1073610787,Update github.com/opencontainers/image-spec and golang.org/x/net,enhancement,enhancement,other,enhancement,enhancement,enh
+1067375542,Update godo to v1.72.0,enhancement,enhancement,other,enhancement,enhancement,enh
+1050003530,Update vendored k8s.io libraries.,enhancement,security,other,enhancement,security,enh
+1049967356,Update godo to v1.71.0.,enhancement,enhancement,other,enhancement,enhancement,enh
+1045287608,Fix `doctl auth list` command’s help,documentation,documentation,documentation,documentation,documentation,documentation
+1041245218,Update README: actualize doctl help info,documentation,documentation,documentation,documentation,documentation,documentation
+1040487928,Fix probable bugs when unhandled errors,bug,bug,bug,bug,bug,bug
+1040482018,Refactor: get rid of redundant type conversion,enhancement,enhancement,other,enhancement,enhancement,enh
+1040481053,Refactor: introduce the error errOperationAborted,enhancement,enhancement,other,enhancement,enhancement,enh
+1040473063,Refactor: replace raw regexp with google/uuid,enhancement,enhancement,other,enhancement,enhancement,enh
+1040469462,Fix typos in variables and functions,documentation,bug,documentation,documentation,bug,documentation
+1039772514,Use Cobra's default completion commands.,enhancement,enhancement,other,enhancement,enhancement,enh
+1038357613,"Fix ""Comment of exported element starts with the incorrect name""",bug,bug,bug,bug,bug,bug
+1037946685,"`apps create --upsert`: safe type assertion, add missing error return",bug,bug,bug,bug,bug,bug
+1037940007,readme: use `go install` instead of `go get`,documentation,documentation,documentation,documentation,documentation,documentation
+1037515612,Refactor: preallocate slices,enhancement,enhancement,other,enhancement,enhancement,enh
+1037414289,Grammar and typo fixes in comments and tests,documentation,documentation,documentation,documentation,documentation,documentation
+1036578166,Remove reference to TravisCI,enhancement,documentation,documentation,enhancement,documentation,documentation
+1031680319,Adds dynamic completions for auth contexts,enhancement,enhancement,other,enhancement,enhancement,enh
+1026620955,"Ensure Snap name is ""doctl""",enhancement,bug,other,enhancement,bug,enh
+1021930967,Add Fedora to Installing doctl section,enhancement,documentation,documentation,enhancement,documentation,documentation
+1016579893,k8s/doctl: remove ha flag from update command,enhancement,enhancement,other,enhancement,enhancement,enh
+1015359057,doctl/load-balancers: add flag to toggle automatic DNS record creation for certs attached to load balancers,enhancement,enhancement,other,enhancement,enhancement,enh
+1014778620,feat(apps): added upsert flag to create subcommand,enhancement,enhancement,other,enhancement,enhancement,enh
+1013742240,Add Go 1.17 to the tests and release,enhancement,enhancement,other,enhancement,enhancement,enh
+1011272690,k8s: add support for ha flag,enhancement,enhancement,other,enhancement,enhancement,enh
+1008545565,"Add ""Supported Features"" field in version options",enhancement,enhancement,other,enhancement,enhancement,enh
+1005551573,load-balancers: Add size-unit to commands.,enhancement,enhancement,other,enhancement,enhancement,enh
+1000100903,Upgrades Cobra dependency,enhancement,enhancement,other,enhancement,enhancement,enh
+996055075,Remove unused Travis config.,enhancement,enhancement,other,enhancement,enhancement,enh
+984069424,Domain records update ttl put to patch per #1020,enhancement,documentation,documentation,enhancement,documentation,documentation
+983131388,droplet 1-click: Fix copy-pasta error in help string.,documentation,bug,bug,documentation,bug,bug
+981433013,fixing typo in apps create-deployment per #1024,documentation,documentation,documentation,documentation,documentation,documentation
+980575131,Update domain record without changing TTL (#1020),enhancement,bug,other,enhancement,bug,enh
+980556618,updating doc to make --droplet-agent=false more clear per #1018,documentation,documentation,documentation,documentation,documentation,documentation
+965640809,Add support for App Alerts,enhancement,enhancement,other,enhancement,enhancement,enh
+964320485,workflow/github-release: Build with Go 1.16.x,enhancement,bug,other,enhancement,bug,enh
+964315547,workflow/snapcraft-stable: Fetch all tags.,bug,bug,bug,bug,bug,bug
+964058926,droplet: Add droplet-agent flag.,enhancement,enhancement,other,enhancement,enhancement,enh
+958294063,"database firewall rule type ""app""",documentation,documentation,documentation,documentation,documentation,documentation
+955188353,Fix snap candidate naming issue,bug,bug,bug,bug,bug,bug
+955083940,go get -u && go mod vendor,security,security,security,security,security,security
+954251663,Adds release workflow,enhancement,enhancement,other,enhancement,enhancement,enh
+954199294,updating kubernetes cluster kubeconfig save doc,documentation,documentation,documentation,documentation,documentation,documentation
+948011090,monitoring: add CRUD commands for alert policies,enhancement,enhancement,other,enhancement,enhancement,enh
+942371849,Adds release workflow,enhancement,enhancement,other,enhancement,enhancement,enh
+939243851,apps: Add --tail flag to support tailing live application logs,enhancement,enhancement,other,enhancement,enhancement,enh
+938099244,goreleaser: Release stable source tarball (fixes: #1001).,enhancement,bug,other,enhancement,bug,enh
+935001206,Support removing default context (access-token),enhancement,bug,other,enhancement,bug,enh
+931646870,Fix auth key mangling when switching contexts,bug,bug,bug,bug,bug,bug
+921759816,adding the --wait flag to the apps create command,enhancement,enhancement,other,enhancement,enhancement,enh
+917551049,adding the --wait flag to the apps create command,bug,question,question,bug,question,question
+914542474,Allow node-pool args to be empty,enhancement,enhancement,other,enhancement,enhancement,enh
+890431171,Add support for DOKS as Firewalls peers,enhancement,enhancement,other,enhancement,enhancement,enh
+875835441,Add integration test for new remove auth command,enhancement,enhancement,other,enhancement,enhancement,enh
+874050419,Database User Auth Reset support for All DB Engines,enhancement,enhancement,other,enhancement,enhancement,enh
+873062476,go.mod: remove uneeded replace,enhancement,enhancement,other,enhancement,enhancement,enh
+869089079,Update README with the appropriate command to remove configuration,documentation,documentation,documentation,documentation,documentation,documentation
+868853536,New Command - remove account from config file,enhancement,enhancement,other,enhancement,enhancement,enh
+857268758,Fix fish documentation,documentation,documentation,documentation,documentation,documentation,documentation
+854860422,apps: Support pagination.,enhancement,enhancement,other,enhancement,enhancement,enh
+838087600,Upgrade to Go 1.16,enhancement,enhancement,other,enhancement,enhancement,enh
+835191703,feat: wait flag for apps create-deployment command,enhancement,enhancement,other,enhancement,enhancement,enh
+825084688,Fix integration test focus.,bug,bug,bug,bug,bug,bug
+825024230,registry - generate a DOSecret operator friendly secret manifest,enhancement,enhancement,other,enhancement,enhancement,enh
+820259933,Categorize doctl commands for help output (APICLI-86),documentation,enhancement,other,documentation,enhancement,enh
+813825637,travis: Use main for Snap candidate builds.,bug,bug,bug,bug,bug,bug
+813744908,k8s list-associated-resources: Output strings.,bug,bug,bug,bug,bug,bug
+813669552,whitesource: set vulnerableCheckRunConclusionLevel to success,enhancement,enhancement,other,enhancement,enhancement,enh
+812660930,apps logs: Use websocket connection for reading logs.,enhancement,enhancement,other,enhancement,enhancement,enh
+811548343,apps: Improve help for create-deployment.,documentation,documentation,documentation,documentation,documentation,documentation
+809788861,Doctl support for name in kubernetes associated resources,enhancement,enhancement,other,enhancement,enhancement,enh
+808872164,kubernetes - enable surge upgrade by default during cluster creation,enhancement,enhancement,other,enhancement,enhancement,enh
+805888536,Documentation Update,documentation,documentation,documentation,documentation,documentation,documentation
+799297125,Doctl support for database firewalls management,enhancement,enhancement,other,enhancement,enhancement,enh
+795742512,kubernetes: support getting kubernetes cluster details with projects command,enhancement,enhancement,other,enhancement,enhancement,enh
+793554971,1-clicks in existing k8s cluster,enhancement,bug,other,enhancement,bug,enh
+792348525,Fix gofmt_check makefile target.,bug,bug,bug,bug,bug,bug
+792261579,Adding compute volume-action list cli,enhancement,enhancement,other,enhancement,enhancement,enh
+791163701,apps: disallow unknown fields during spec parsing,enhancement,enhancement,other,enhancement,enhancement,enh
+791118787,update godo to version 1.57.0,enhancement,enhancement,other,enhancement,enhancement,enh
+790227159,master to main,bug,enhancement,other,bug,enhancement,enh
+790132217,travis: Log into Docker before pulling images.,enhancement,enhancement,other,enhancement,enhancement,enh
+790098522,Add GET operations to volume-actions doctl,enhancement,enhancement,other,enhancement,enhancement,enh
+789339412,master to main,other,enhancement,other,other,enhancement,other
+788656738,kubernetes: add support for optional cascading deletes,enhancement,enhancement,other,enhancement,enhancement,enh
+782284787,Bump godo to v1.56.0 (Fixes: #934).,enhancement,enhancement,other,enhancement,enhancement,enh
+770432765,Bump k8s.io dependencies to v0.20.0.,enhancement,enhancement,other,enhancement,enhancement,enh
+770174103,Better Error Messaging in Droplet Actions,enhancement,enhancement,other,enhancement,enhancement,enh
+759879654,"apps: add `apps propose` command, expand spec validation",enhancement,enhancement,other,enhancement,enhancement,enh
+757222328,registry: confirm user wishes to start garbage collection,enhancement,enhancement,other,enhancement,enhancement,enh
+756263261,apps: display tier units in base-1024,enhancement,enhancement,other,enhancement,enhancement,enh
+749966485,registry: add support for garbage collection types,enhancement,enhancement,other,enhancement,enhancement,enh
+746789614,Migrate tests to GitHub Actions,enhancement,enhancement,other,enhancement,enhancement,enh
+746761836,Add GitHub actions workflow,enhancement,enhancement,other,enhancement,enhancement,enh
+744066763,completion/zsh: Use correct word boundary pattern for BusyBox sed,bug,bug,bug,bug,bug,bug
+743543210,Update fish auto completion document,documentation,documentation,documentation,documentation,documentation,documentation
+740007581,bump godo to v1.52.0,enhancement,enhancement,other,enhancement,enhancement,enh
+739331571,apps: add the option to force build a new deployment,enhancement,enhancement,other,enhancement,enhancement,enh
+739219899,"kubernetes: Stop using ""master"" to describe the control plane",documentation,documentation,documentation,documentation,documentation,documentation
+735658029,Support subscription tiers for DOCR,enhancement,enhancement,other,enhancement,enhancement,enh
+735616878,apps: remove EA prefix from registry commands,enhancement,enhancement,other,enhancement,enhancement,enh
+733433927,Check error in RoundTrip.,bug,bug,bug,bug,bug,bug
+732616989,Upgrade to Go 1.15,enhancement,enhancement,other,enhancement,enhancement,enh
+732437640,Improve error messaging when more args than expected are passed.,enhancement,enhancement,other,enhancement,enhancement,enh
+731892834,Describe --auto-upgrade flag more clearly,documentation,documentation,documentation,documentation,documentation,documentation
+731831353,"apps: add region, tier, and instance size retrieval commands",enhancement,enhancement,other,enhancement,enhancement,enh
+731770699,vpc: modify vpc update cmd to enable users to only pass arguments that they intend to update,enhancement,enhancement,other,enhancement,enhancement,enh
+730064267,registry: implement garbage collection subcommands,enhancement,enhancement,other,enhancement,enhancement,enh
+729841651,vpc: add default option to vpc update,enhancement,enhancement,other,enhancement,enhancement,enh
+729810820,Only show SSH public key for list operation,enhancement,enhancement,other,enhancement,enhancement,enh
+729167210,registry: improve formatting on repositories long desc,enhancement,enhancement,other,enhancement,enhancement,enh
+728829569,Add support for getting Droplets by name,enhancement,enhancement,other,enhancement,enhancement,enh
+728532601,Perf: Make use of cached binary instead of downloading,enhancement,enhancement,other,enhancement,enhancement,enh
+728492785,SSH Key: make public key accessible,enhancement,bug,other,enhancement,bug,enh
+726893540,Fix Whitesource issues by upgrading dependencies ,enhancement,enhancement,other,enhancement,enhancement,enh
+726746764,Use godo v1.49.0,enhancement,enhancement,other,enhancement,enhancement,enh
+725037241,Add the size unit to volume-actions help,documentation,documentation,documentation,documentation,documentation,documentation
+724189766,kubernetes - add commands related to docr integration,enhancement,enhancement,other,enhancement,enhancement,enh
+723767579,Upgrade godo to v1.48.0,enhancement,enhancement,other,enhancement,enhancement,enh
+723606950,go get -u github.com/Microsoft/hcsshim/osversion,enhancement,other,other,enhancement,other,enh
+723581999,kubernetes: Add expiry-seconds flag to kubeconfig show and save commands.,enhancement,enhancement,other,enhancement,enhancement,enh
+723557877,vendor: github.com/digitalocean/godo@v1.48.0,other,other,question,other,other,question
+721902339,vendor: github.com/digitalocean/godo@v1.47.0,other,other,question,other,other,question
+717611599,app logs: Protect against panic when no deployment is found.,bug,bug,other,bug,bug,enh
+715233796,Un-hide the apps command.,enhancement,enhancement,other,enhancement,enhancement,enh
+715231012,Improved apps docstrings,documentation,documentation,documentation,documentation,documentation,documentation
+715189655,Fixed golint check,enhancement,bug,other,enhancement,bug,enh
+715185679,Correct misspellings in the codebase,documentation,enhancement,documentation,documentation,enhancement,documentation
+715183105,Added return error check,enhancement,enhancement,other,enhancement,enhancement,enh
+715166008,Several misspellings in doctl,documentation,bug,other,documentation,bug,enh
+715145759,Top-level doctl package fails golint check,bug,bug,other,bug,bug,enh
+715142402,Run gofmt (closes #866),enhancement,enhancement,other,enhancement,enhancement,other
+715137125,Apps integration test fails to check a returned error,bug,bug,other,bug,bug,enh
+715133378,Run gofmt on doctl's codebase,enhancement,enhancement,other,enhancement,enhancement,enh
+713908827,load balancers: add new size slug field,enhancement,enhancement,other,enhancement,enhancement,enh
+713854630,Fix typos,documentation,documentation,documentation,documentation,documentation,documentation
+713405584,Update README.md,documentation,documentation,documentation,documentation,documentation,documentation
+712431883,commands/doit: Prevent creation of config home when using `--config`,enhancement,enhancement,other,enhancement,enhancement,enh
+709262243,upgrade godo to v1.45.0,enhancement,enhancement,other,enhancement,enhancement,enh
+707737713,Simplify Docker build process and collapse on one file.,enhancement,enhancement,other,enhancement,enhancement,enh
+707515457,Remove unused script: script/build.sh,enhancement,enhancement,other,enhancement,enhancement,enh
+707234904,"Add multi-stage build, non-root user, multi-arch builds in Dockerfile",enhancement,enhancement,other,enhancement,enhancement,enh
+705625556,Kubernetes: add support for node pool taints,enhancement,enhancement,other,enhancement,enhancement,enh
+697124724,apps: add spec commands: get and validate,enhancement,enhancement,other,enhancement,enhancement,enh
+696644814,apps: add defaults for deployment id and component name,enhancement,enhancement,other,enhancement,enhancement,enh
+696018592,"Update godo, present confirmation prompt on app deletion",enhancement,enhancement,other,enhancement,enhancement,enh
+692329297,[WIP] Upgrade doctl to Go 1.15,enhancement,enhancement,other,enhancement,enhancement,enh

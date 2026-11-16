@@ -1,0 +1,3293 @@
+issue_id,title,description,status,ground_truth,manual_label
+1353112532,[Feature Request] Deploy zip to Functions,"**What is the problem this feature would solve? Please describe.**
+<!-- A clear and concise description of what the problem is. Ex. I'm always frustrated when [...] -->
+
+Using this folder structure:
+
+- project.yml
+- packages
+  - sample
+    - example
+      - index.js
+      - package.json
+      - node_modules
+
+To deploy to DigitalOcean Functions, I need to run `doctl serverless deploy .`.
+Then it will run `npm install --production` and then it will zip the content and deploy to Functions.
+
+**Describe the solution you'd like**
+<!-- A clear and concise description of what you want to happen. -->
+
+I have a library to zip the contents of `node_modules` and minify the files called [node_modules_packer](https://github.com/H4ad/node-modules-packer) and I want to use this library to create a zip file and then upload it to Functions.
+
+Serverless Framework has a solution called [artifact](https://www.serverless.com/framework/docs/providers/aws/guide/packaging#artifact), which looks like:
+
+```yml
+package:
+  artifact: path/to/my-artifact.zip
+```
+
+So the solution I wanted was something like:
+
+```yml
+packages:
+  - name: sample
+    functions:
+      - name: hello
+        file: 'path/to/my-artifact.zip'
+        zipped: true
+        main: ''
+        runtime: 'nodejs:18'
+        web: true
+```
+
+**Additional context**
+<!-- Add any other context about the feature request here. -->
+
+I spent a couple hours reading the source code of this CLI my discovers was: `doctl` call [@nimbella/nimbella-cli](https://www.npmjs.com/package/@nimbella/nimbella-cli), and then call [@nimbella/nimbella-deployer](https://www.npmjs.com/package/@nimbella/nimbella-deployer).
+
+The `@nimbella/nimbella-deployer` has support to deploy the content of the Function as zip file [here](https://github.com/nimbella/nimbella-deployer/blob/4841ca48f49ea1ce9244906294a6e35298469c75/src/deploy-struct.ts#L62) and [here](https://github.com/nimbella/nimbella-deployer/blob/4841ca48f49ea1ce9244906294a6e35298469c75/src/deploy-struct.ts#L57).
+
+In theory, it already has support for deploying zip files but `docl` doesn't enable this functionality.
+",closed,enhancement,question
+3709905481,oauth2 support,"**What is the problem this feature would solve? Please describe.**
+It's annoying that I have to manually copy/paste the token
+
+**Describe the solution you'd like**
+Use oauth2 flow to fetch a token for me instead; like aws cli does
+
+**Additional context**
+",open,enhancement,question
+1919769173,Add Support for Alerts for Uptime Checks,"**Overview:**
+Now that we've added doctl support for uptime checks (https://github.com/digitalocean/doctl/pull/1386), we should follow up with supporting uptime alerts so that we support the entire feature set. 
+
+**Instructions**
+
+1. Clone this repo
+2. Create file: doctl/commands/uptime_alerts.go
+3. Reference this [PR](https://github.com/digitalocean/doctl/pull/1386) and the API [documentation](https://docs.digitalocean.com/reference/api/api-reference/#operation/uptime_alert_create) for creating support for uptime alerts in doctl. You will need to use the [digitalocean/godo](https://github.com/digitalocean/godo) package to make the API calls. Refer to #1386 on how that was done.
+4. Create a test file.
+5. Create PR for us to review and merge 🎆 
+
+",closed,enhancement,documentation
+2293826331,doctl --user-data help syntax wrong ,"**Describe the Issue:**
+wrong help/usage for --user-data
+
+running 
+
+`doctl compute droplet create --help `
+
+shows the usage example: 
+
+`doctl compute droplet create example-droplet --size s-2vcpu-2gb --image ubuntu-20-04-x64 --region nyc1 --user-data $'#!/bin/bash\n touch /root/example.txt; sudo apt update;sudo snap install doctl'`
+
+but at least running this from powershell in windows, this will create a user-data.txt with uninterpreted content, thus it will not run. 
+
+**Environment:**
+ - doctl version: latest, 1.106
+ - OS: windows powershell 5 or 7 
+
+**Additional Details:**
+
+**Needed fix**
+
+This is the correct syntax:
+- use ""`n"" instead of ""\n""
+- do not prefix with $
+
+Example:
+`` --user-data ""#!/bin/bash`n touch /root/example.txt; sudo apt update;sudo snap install doctl""``",closed,bug,bug
+1670173045,Provide Proper Snap Package on ARM,"**Describe the Issue:**
+
+I install an Ubuntu 2022 ARM VM on my Mac, but when I install Doctl I get version 1.54 from 2016
+
+<!-- Please provide a clear and concise description of the problem you are
+facing including the steps to reproduce the issue. -->
+
+**Environment:**
+ - doctl version: 1.54
+ - OS: Ubuntu 2022 Server (ARM)
+ - Installation method: Snap
+
+**Additional Details:**
+
+Since Apple Silicon is the only architecture on new Macs, it is my only choice.  The version from 2016 works, but is very incomplete.  Is it really that hard to package this up properly for people like me?  
+",open,bug,bug
+1048074562,"Unknown field ""log_destinations"" when updating spec","```
+Error: Command failed: doctl apps update <APP_ID> --spec ./1636419271119.spec.json
+Error: parsing app spec: json: unknown field ""log_destinations""
+```
+Doesn't digital ocean accept log_destinations when updating a spec?
+
+`doctl@1.66.0`
+
+Spec:
+```
+{
+            ....
+            ""name"": ""foo"",
+            ""routes"": [
+                {
+                    ""path"": ""/""
+                }
+            ],
+            ""run_command"": ""yarn run start"",
+            ""log_destinations"": [
+                {
+                    ""name"": ""foo"",
+                    ""papertrail"": {
+                        ""endpoint"": ""syslog+tls://xxxxxxxx""
+                    }
+                }
+            ]
+        }
+```        
+",closed,bug,bug
+930384737,Upload image from local fileystem,"**What is the problem this feature would solve? Please describe.**
+Currently the `doctl compute image create` command just allows to create an image based on a URL.
+What if I build an image locally or on another droplet. How can I add it as an image?
+
+**Describe the solution you'd like**
+Add `--image-path` as an alternative for `--image-url` to upload local files as images.",open,enhancement,question
+1004821565,connection refused from doctl,"**Describe the Issue:**
+
+```
+root@master:/home/ubuntu/tm_scrape_wipo# doctl compute droplet list 
+Error: Get ""https://api.digitalocean.com/v2/droplets?page=1&per_page=200"": dial tcp: lookup api.digitalocean.com on [::1]:53: read udp [::1]:44757->[::1]:53: read: connection refused
+
+```
+It looks like I forgot to add that ping to 8.8.8.8 is ok while ping to such places as  repos.insights.digitalocean.com  or archive.ubuntu.com timeout. 
+
+**Environment:**
+```
+doctl version 1.64.0-release
+Git commit hash: 84fb2307
+```
+```
+root@master:/home/ubuntu/tm_scrape_wipo# uname -a
+Linux master 5.4.0-81-generic #91-Ubuntu SMP Thu Jul 15 19:09:17 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux
+
+```
+",closed,bug,bug
+3539274736,doctl apps spec get not returning authority correctly,"**Describe the Issue:**
+I'm using `doctl apps spec get <id> --format json > spec.json` 
+
+I'm observing that the authority in the response is `{}`
+```
+  ""ingress"": {
+    ""rules"": [
+      {
+        ""match"": {
+          ""path"": {
+            ""prefix"": ""/""
+          },
+          ""authority"": {}
+        },
+        ""component"": {
+          ""name"": ""pixelate""
+        }
+      }
+    ]
+  },
+```
+But in the DigitalOcean Web UI there is an authority added on the app. 
+
+<img width=""476"" height=""334"" alt=""Image"" src=""https://github.com/user-attachments/assets/57878668-5e5f-4d47-a87a-46c26dea544e"" />
+
+I would expect the doctl apps spec get command to return the same values that are 
+displayed in the web UI.
+
+**Environment:**
+ - doctl version: 1.146.0-release
+ - OS: Tested both Windows 11 and ubuntu-latest via github actions.
+ - Installation method: winget, and `uses: digitalocean/action-doctl@v2`
+
+**Additional Details:**
+Also tested yaml with same results, the authority is not set in the spec. 
+
+This is a new app created by the Web UI, with deployment source “Container image”, pointing to a DigitalOcean Container Registry image. No manual changes have been done to the spec file. ",open,bug,bug
+1818343393,#NAME?,"**Describe the Issue:**
+
+I am attempting to create an auth context with a custom name, with a token from my env vars.
+
+If I use…
+
+```shell
+$ doctl auth init --access-token ""${DIGITALOCEAN_TOKEN}""
+```
+
+… it works just fine, but if I use…
+
+```shell
+$ doctl auth init --access-token ""${DIGITALOCEAN_TOKEN}"" --context=another
+```
+
+if prompts for my access token.
+
+
+**Environment:**
+ - doctl version: doctl version 1.97.1-release
+ - OS: MacOS 13.2.1 (22D68)
+ - Installation method: Homebrew
+
+**Additional Details:**
+
+No trace to provide as it's not making any requests
+",open,bug,bug
+921434566,CVE-2021-31525 (Medium) detected in golang.org/x/net/http/httpguts-69a78807bb2bb6d1599c68698c6b009505012083,"## CVE-2021-31525 - Medium Severity Vulnerability
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/vulnerability_details.png' width=19 height=20> Vulnerable Library - <b>golang.org/x/net/http/httpguts-69a78807bb2bb6d1599c68698c6b009505012083</b></p></summary>
+
+<p>[mirror] Go supplementary network libraries</p>
+<p>
+
+Dependency Hierarchy:
+  - k8s.io/apimachinery/pkg/runtime/serializer/json-v0.20.0 (Root Library)
+    - k8s.io/apimachinery/pkg/runtime-v0.20.0
+      - k8s.io/apimachinery/pkg/runtime/serializer/protobuf-v0.20.0
+        - k8s.io/apimachinery/pkg/apis/meta/v1-v0.20.0
+          - k8s.io/apimachinery/pkg/watch-v0.20.0
+            - k8s.io/apimachinery/pkg/util/net-v0.20.0
+              - golang.org/x/net/http2-69a78807bb2bb6d1599c68698c6b009505012083
+                - :x: **golang.org/x/net/http/httpguts-69a78807bb2bb6d1599c68698c6b009505012083** (Vulnerable Library)
+<p>Found in HEAD commit: <a href=""https://github.com/digitalocean/doctl/commit/19ad2432898c0c31cb19475552ce0bcdcd13aac3"">19ad2432898c0c31cb19475552ce0bcdcd13aac3</a></p>
+</p>
+</details>
+<p></p>
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/medium_vul.png' width=19 height=20> Vulnerability Details</summary>
+<p>  
+  
+net/http in Go before 1.15.12 and 1.16.x before 1.16.4 allows remote attackers to cause a denial of service (panic) via a large header to ReadRequest or ReadResponse. Server, Transport, and Client can each be affected in some configurations.
+
+<p>Publish Date: 2021-05-27
+<p>URL: <a href=https://vuln.whitesourcesoftware.com/vulnerability/CVE-2021-31525>CVE-2021-31525</a></p>
+</p>
+</details>
+<p></p>
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/cvss3.png' width=19 height=20> CVSS 3 Score Details (<b>5.9</b>)</summary>
+<p>
+
+Base Score Metrics:
+- Exploitability Metrics:
+  - Attack Vector: Network
+  - Attack Complexity: High
+  - Privileges Required: None
+  - User Interaction: None
+  - Scope: Unchanged
+- Impact Metrics:
+  - Confidentiality Impact: None
+  - Integrity Impact: None
+  - Availability Impact: High
+</p>
+For more information on CVSS3 Scores, click <a href=""https://www.first.org/cvss/calculator/3.0"">here</a>.
+</p>
+</details>
+<p></p>
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/suggested_fix.png' width=19 height=20> Suggested Fix</summary>
+<p>
+
+<p>Type: Upgrade version</p>
+<p>Origin: <a href=""https://bugzilla.redhat.com/show_bug.cgi?id=1958341"">https://bugzilla.redhat.com/show_bug.cgi?id=1958341</a></p>
+<p>Release Date: 2021-04-22</p>
+<p>Fix Resolution: golang - v1.15.12,v1.16.4,v1.17.0</p>
+
+</p>
+</details>
+<p></p>
+
+***
+Step up your Open Source Security Game with WhiteSource [here](https://www.whitesourcesoftware.com/full_solution_bolt_github)",closed,security,security
+812658011,CVE-2020-27813 (High) detected in github.com/gorilla/websocket-v1.4.0,"## CVE-2020-27813 - High Severity Vulnerability
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/vulnerability_details.png' width=19 height=20> Vulnerable Library - <b>github.com/gorilla/websocket-v1.4.0</b></p></summary>
+
+<p>A fast, well-tested and widely used WebSocket implementation for Go.</p>
+<p>
+
+Dependency Hierarchy:
+  - :x: **github.com/gorilla/websocket-v1.4.0** (Vulnerable Library)
+<p>Found in HEAD commit: <a href=""https://github.com/digitalocean/doctl/commit/a29c15f367b609166fe5af50e204b21a1e9232e4"">a29c15f367b609166fe5af50e204b21a1e9232e4</a></p>
+</p>
+</details>
+<p></p>
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/high_vul.png' width=19 height=20> Vulnerability Details</summary>
+<p>  
+  
+An integer overflow vulnerability exists with the length of websocket frames received via a websocket connection. An attacker would use this flaw to cause a denial of service attack on an HTTP Server allowing websocket connections.
+
+<p>Publish Date: 2020-12-02
+<p>URL: <a href=https://vuln.whitesourcesoftware.com/vulnerability/CVE-2020-27813>CVE-2020-27813</a></p>
+</p>
+</details>
+<p></p>
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/cvss3.png' width=19 height=20> CVSS 3 Score Details (<b>7.5</b>)</summary>
+<p>
+
+Base Score Metrics:
+- Exploitability Metrics:
+  - Attack Vector: Network
+  - Attack Complexity: Low
+  - Privileges Required: None
+  - User Interaction: None
+  - Scope: Unchanged
+- Impact Metrics:
+  - Confidentiality Impact: None
+  - Integrity Impact: None
+  - Availability Impact: High
+</p>
+For more information on CVSS3 Scores, click <a href=""https://www.first.org/cvss/calculator/3.0"">here</a>.
+</p>
+</details>
+<p></p>
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/suggested_fix.png' width=19 height=20> Suggested Fix</summary>
+<p>
+
+<p>Type: Upgrade version</p>
+<p>Origin: <a href=""https://security-tracker.debian.org/tracker/CVE-2020-27813"">https://security-tracker.debian.org/tracker/CVE-2020-27813</a></p>
+<p>Release Date: 2020-10-27</p>
+<p>Fix Resolution: v1.4.1</p>
+
+</p>
+</details>
+<p></p>
+
+***
+Step up your Open Source Security Game with WhiteSource [here](https://www.whitesourcesoftware.com/full_solution_bolt_github)",closed,security,security
+725624238,auth init is freezing after OK,"Hello,
+
+I installed doctl 1.48.1 on Windows 10Pro v1909, by downloading the executable from the relases page.
+
+I created an API token and I am trying to initialize.
+
+The command doctl auth init accepts the token, but after writing OK it freezes and never goes back to prompt, I have to kill the CMD session.
+ I have tried with --trace option. The response is 200 OK but it freezes as well.
+
+![immagine](https://user-images.githubusercontent.com/73177642/96596446-01b32980-12ed-11eb-9548-f8bed1de13a7.png)
+",closed,bug,bug
+718083240,Way to delete image tags from DO container registry,"**What is the problem this feature would solve? Please describe.**
+I am looking for suitable way to cleanup docker container registry in digital ocean. It would be perfect if this will be possible with doctl 
+
+**Describe the solution you'd like**
+I want to be able to fetch list of image tags from my registry, eg:
+doctl registry my-registry/myproject list
+my-registry/myproject:tag1
+my-registry/myproject:tag2
+my-registry/myproject:tag3
+
+doctl registry my-registry/myproject:tag1 delete
+
+**Additional context**
+As i understood there is only one way to delete images at this moment - via UI - This is not acceptable in case i have 150+ images build per day
+
+Thanks in advance",closed,enhancement,question
+2149354147,Adding taints has wrong syntax in DO docs,"I have observed an issue in (probably) auto-generated docs under `doctl kubernetes cluster node-pool create` and `doctl kubernetes cluster node-pool update`.  Under Flags option `--taint`, the description says
+> Taint in key[=value:]effect notation to apply to the node pool, repeat to add multiple taints at once. Omitted taints will be removed from the node pool if the flag is specified.
+
+Using `key[=value:]effect` does not work.
+
+The right syntax is just `key=value:effect`
+Example
+```cli
+doctl kubernetes cluster node-pool update cluster-name node-pool-name --taint key=value:NoExecute
+```
+
+I am not sure whether the error is in the code (I was unable to locate that) or in auto-generation mechanism.
+
+Link to docs
+- https://docs.digitalocean.com/reference/doctl/reference/kubernetes/cluster/node-pool/create/
+- https://docs.digitalocean.com/reference/doctl/reference/kubernetes/cluster/node-pool/update/",closed,bug,bug
+775474502,Support for getting do_token from Vault,"**What is the problem this feature would solve? Please describe.**
+Now, `doctl` after auth init action, saves long-lived token for DO resources in a file system (config file).
+
+**Describe the solution you'd like**
+`doctl auth` should allow bypass the local storage and get the desired token from Vault repository. In that case, short-lived Vaults tokens will allow to getting long-lived. Similar features are available in terms of shadowing secrets on well-known cloud providers as with the AWS, Azure etc.
+ 
+So the desired scenario might look like:
+1. Call `doctl auth init` for getting Vault connection properties.
+2. Call `vault login` in order to login into Vault (e.g. via OIDC provider, GitHub etc.)
+3. Use `doctl` as usual, but in the background, `doctl` uses Vault client and honoured the default token from `~/.vault-token` in terms of getting target DO token.
+
+**Additional context**
+This suggestion improves significantly security in case of using `doctl` on the desktop env. It avoids storing DO tokens locally on fs.
+",open,enhancement,security
+938715527,`doctl compute droplet create --wait` is not waiting long enough ,"**Describe the Issue:**
+
+I am using GitHub workflows to provision new droplets. After creating the droplet and trying to SSH into it, I always got a connection refused' error. Trying to SSH into the newly created droplet on my local machine worked. Therefore, I thought it had to do with the GitHub environment. Turns out the --wait flag simply does not wait till the server is ready to accept a connection which I expected. It might be no bug but either clearly mention it in the documentation or change the --wait flag to test whether the droplet is ready to accept a connection. The workaround is to naively wait for X seconds after the droplet has been created. 
+
+**Environment:**
+<!-- Please provide the following information: -->
+ - digitalocean/action-doctl@v2.1.0
+ - runs-on: ubuntu-latest
+
+",closed,bug,bug
+3444032945,doctl databases pool create (fails when --user arg not provided),"**Describe the Issue:**
+
+1. According to the DO Dashboard, connection pools can have the user field (also known as `User privileges override (Optional)`) set to an empty string (which appears as `N/A` in the table shown on the Connection Pools tab for a Postgres database). The empty string corresponds to ""Use inbound user"" in the DO Dashboard. 
+
+2. The [DO API Reference to ""Add a New Connection Pool""](https://docs.digitalocean.com/reference/api/digitalocean/#tag/Databases/operation/databases_add_connectionPool) shows:
+- `name`, `mode`, `size` and `db` are **required**, but 
+- `user` is **not required**.
+
+3. When using `doctl databases pool create <database-cluster-id> <pool-name> --size 25 --db <a-database-name-that-exists-inside-database-cluster-id-provided> --mode transaction`, I see an error message appear:
+```
+Error: (pool.create.user) command is missing required arguments
+```
+**See ""Additional Details"" below for a possible fix.**
+
+
+
+
+**Environment:**
+<!-- Please provide the following information: -->
+ - doctl version: `1.142.0-release` (`Git commit hash: 4979b33d`)
+ - OS: Ubuntu 20.04.4 LTS
+ - Installation method: Installed binary from tarball (https://github.com/digitalocean/doctl/releases/download/v1.142.0/doctl-1.142.0-linux-amd64.tar.gz)
+
+**Additional Details:**
+
+Since the `--user` arg is not marked as a `requiredOpt()` in https://github.com/digitalocean/doctl/blob/c74c583764a12cc7ddb353acfe2733c5d20bc5d5/commands/databases.go#L1239-L1240
+I believe the problem lies with 
+https://github.com/digitalocean/doctl/blob/c74c583764a12cc7ddb353acfe2733c5d20bc5d5/commands/databases.go#L1344-L1348
+which probably needs to be modified so it doesn't throw an error if no `--user` arg is provided.
+
+",open,bug,bug
+1067406687,CVE-2021-41190 (Medium) detected in github.com/opencontainers/image-spec-v1.0.1,"## CVE-2021-41190 - Medium Severity Vulnerability
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/vulnerability_details.png' width=19 height=20> Vulnerable Library - <b>github.com/opencontainers/image-spec-v1.0.1</b></p></summary>
+
+<p>OCI Image Format</p>
+<p>
+
+Dependency Hierarchy:
+  - github.com/docker/cli-v20.10.6 (Root Library)
+    - github.com/docker/docker-v17.03.2-ce
+      - :x: **github.com/opencontainers/image-spec-v1.0.1** (Vulnerable Library)
+<p>Found in HEAD commit: <a href=""https://github.com/digitalocean/doctl/commit/1aa36a8304905676b86be6b9038b872193d94378"">1aa36a8304905676b86be6b9038b872193d94378</a></p>
+<p>Found in base branch: <b>main</b></p>
+</p>
+</details>
+<p></p>
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/medium_vul.png' width=19 height=20> Vulnerability Details</summary>
+<p>  
+  
+The OCI Distribution Spec project defines an API protocol to facilitate and standardize the distribution of content. In the OCI Distribution Specification version 1.0.0 and prior, the Content-Type header alone was used to determine the type of document during push and pull operations. Documents that contain both “manifests” and “layers” fields could be interpreted as either a manifest or an index in the absence of an accompanying Content-Type header. If a Content-Type header changed between two pulls of the same digest, a client may interpret the resulting content differently. The OCI Distribution Specification has been updated to require that a mediaType value present in a manifest or index match the Content-Type header used during the push and pull operations. Clients pulling from a registry may distrust the Content-Type header and reject an ambiguous document that contains both “manifests” and “layers” fields or “manifests” and “config” fields if they are unable to update to version 1.0.1 of the spec.
+
+<p>Publish Date: 2021-11-17
+<p>URL: <a href=https://vuln.whitesourcesoftware.com/vulnerability/CVE-2021-41190>CVE-2021-41190</a></p>
+</p>
+</details>
+<p></p>
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/cvss3.png' width=19 height=20> CVSS 3 Score Details (<b>5.0</b>)</summary>
+<p>
+
+Base Score Metrics:
+- Exploitability Metrics:
+  - Attack Vector: Network
+  - Attack Complexity: Low
+  - Privileges Required: Low
+  - User Interaction: None
+  - Scope: Changed
+- Impact Metrics:
+  - Confidentiality Impact: None
+  - Integrity Impact: Low
+  - Availability Impact: None
+</p>
+For more information on CVSS3 Scores, click <a href=""https://www.first.org/cvss/calculator/3.0"">here</a>.
+</p>
+</details>
+<p></p>
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/suggested_fix.png' width=19 height=20> Suggested Fix</summary>
+<p>
+
+<p>Type: Upgrade version</p>
+<p>Origin: <a href=""https://github.com/advisories/GHSA-77vh-xpmg-72qh"">https://github.com/advisories/GHSA-77vh-xpmg-72qh</a></p>
+<p>Release Date: 2021-11-17</p>
+<p>Fix Resolution: 1.0.2</p>
+
+</p>
+</details>
+<p></p>
+
+***
+Step up your Open Source Security Game with WhiteSource [here](https://www.whitesourcesoftware.com/full_solution_bolt_github)",closed,security,security
+3069784764,Updates App create description with repo access instruction,"Resolves [PDOCS-2951](https://do-internal.atlassian.net/browse/PDOCS-2951). Updates App create command description to provide links that give AP access to various services.
+
+[PDOCS-2951]: https://do-internal.atlassian.net/browse/PDOCS-2951?atlOrigin=eyJpIjoiNWRkNTljNzYxNjVmNDY3MDlhMDU5Y2ZhYzA5YTRkZjUiLCJwIjoiZ2l0aHViLWNvbS1KU1cifQ",closed,documentation,documentation
+705610929,--auto-upgrade flag requires '=' and documentation doesn't describe usage well,"**Describe the Issue:**
+
+the autoupgrade flag should be used like `--auto-upgrade=false`and not `--auto-upgrade false`. Having a space, instead of '=' appears to accept the input but does not actually afftect the setting. I have provided output below. The `--help` output does not specify to use a space or `=` and can be misleading, especially when an error isn't thrown.
+
+```
+doctl kubernetes cluster update lab --auto-upgrade=false
+Notice: Cluster updated, fetching new credentials
+Notice: Adding cluster credentials to kubeconfig file found in ""/home/jkwiatko/.kube/config""
+Notice: Setting current-context to do-fra1-lab
+ID                                      Name    Region    Version        Auto Upgrade    Status     Node Pools
+8dcf2be8-955e-4c8f-850b-5ba5241096fa    lab     fra1      1.18.8-do.0    false           running    pool-eoogxuz0u
+```
+
+```
+doctl kubernetes cluster update lab --auto-upgrade false
+Notice: Cluster updated, fetching new credentials
+Notice: Adding cluster credentials to kubeconfig file found in ""/home/jkwiatko/.kube/config""
+Notice: Setting current-context to do-fra1-lab
+ID                                      Name    Region    Version        Auto Upgrade    Status     Node Pools
+8dcf2be8-955e-4c8f-850b-5ba5241096fa    lab     fra1      1.18.8-do.0    true            running    pool-eoogxuz0u
+```
+
+**Environment:**
+<!-- Please provide the following information: -->
+ - doctl version: doctl version 1.46.0-release
+
+ - OS: Fedora 32
+ - Installation method: Binary downloaded from releases
+
+",closed,bug,documentation
+3307953988,droplet-autoscale create/update --user-data-file,"It seems like `--user-data-file` is missing when doing `droplet-autoscale` commands. It is hard to use the `--user-data`, so having `--user-data-file` would be nice her.
+",open,enhancement,bug
+1644694292,Database Replica Functions Missing Integration Tests,"**Describe the Issue:**
+
+When working on #1348 to add `promote` functionality it was discovered that other endpoints under `replica` are missing integration tests. `replica create`, `replica delete`, `replica get`, `replica list`, and `replica getReplicaConnection` are all missing integration tests.
+
+**Environment:**
+Local Dev
+",closed,enhancement,enhancement
+2064776201,Docs audit: Monitoring,Clarifies doc strings for Monitoring related commands and adds examples for each one.,closed,documentation,question
+1078941126,apps create and apps create-deployment do not return error codes,"**Describe the Issue:**
+
+When running `apps create` with the `--wait` flag, if there is an error in the deployment, the error code remains as 0. This makes it difficult to detect errors.
+
+See the output below:
+```
+doctl apps create --upsert --spec app-spec.yml --wait --verbose
+Notice: App already exists, updating
+Notice: App creation is in progress, waiting for app to be running
+....
+Warning: App deployment couldn't enter `running` state: error deploying app (<ID> (deployment ID: <DID>):
+godo.DeploymentProgress{PendingSteps:1, RunningSteps:1, SuccessSteps:9, ErrorSteps:1, TotalSteps:12, Steps:[godo.DeploymentProgressStep{Name:""build"", Status:""SUCCESS"", Steps:[godo.DeploymentProgressStep{Name:""initialize"", Status:""SUCCESS"", StartedAt:time.Time{wall:, ext:}, EndedAt:time.Time{wall:, ext:}, ComponentName:"""", MessageBase:""""} godo.DeploymentProgressStep{Name:""components"", Status:""SUCCESS"", Steps:[godo.DeploymentProgressStep{Name:""next-rebase"", Status:""SUCCESS"", StartedAt:time.Time{wall:, ext:}, EndedAt:time.Time{wall:, ext:}, Reason:godo.DeploymentProgressStepReason{Code:""PreBuiltImage"", Message:""Your build job was skipped because you specified a pre-built image.""}, ComponentName:""next-rebase"", MessageBase:""Building worker""} godo.DeploymentProgressStep{Name:""klima-price"", Status:""SUCCESS"", StartedAt:time.Time{wall:, ext:}, EndedAt:time.Time{wall:, ext:}, Reason:godo.DeploymentProgressStepReason{Code:""PreBuiltImage"", Message:""Your build job was skipped because you specified a pre-built image.""}, ComponentName:""klima-price"", MessageBase:""Building worker""} godo.DeploymentProgressStep{Name:""bct-price"", Status:""SUCCESS"", StartedAt:time.Time{wall:, ext:}, EndedAt:time.Time{wall:, ext:}, Reason:godo.DeploymentProgressStepReason{Code:""PreBuiltImage"", Message:""Your build job was skipped because you specified a pre-built image.""}, ComponentName:""bct-price"", MessageBase:""Building worker""}], StartedAt:time.Time{wall:, ext:}, EndedAt:time.Time{wall:, ext:}, ComponentName:"""", MessageBase:""""}], StartedAt:time.Time{wall:, ext:}, EndedAt:time.Time{wall:, ext:}, ComponentName:"""", MessageBase:""""} godo.DeploymentProgressStep{Name:""deploy"", Status:""RUNNING"", Steps:[godo.DeploymentProgressStep{Name:""initialize"", Status:""SUCCESS"", StartedAt:time.Time{wall:, ext:}, EndedAt:time.Time{wall:, ext:}, ComponentName:"""", MessageBase:""""} godo.DeploymentProgressStep{Name:""components"", Status:""ERROR"", Steps:[godo.DeploymentProgressStep{Name:""next-rebase"", Status:""RUNNING"", Steps:[godo.DeploymentProgressStep{Name:""deploy"", Status:""SUCCESS"", StartedAt:time.Time{wall:, ext:}, EndedAt:time.Time{wall:, ext:}, ComponentName:""next-rebase"", MessageBase:""Deploying worker""} godo.DeploymentProgressStep{Name:""wait"", Status:""RUNNING"", StartedAt:time.Time{wall:, ext:}, EndedAt:time.Time{wall:, ext:}, ComponentName:""next-rebase"", MessageBase:""Waiting for worker""}], StartedAt:time.Time{wall:, ext:}, EndedAt:time.Time{wall:, ext:}, ComponentName:""next-rebase"", MessageBase:""""} godo.DeploymentProgressStep{Name:""klima-price"", Status:""ERROR"", Steps:[godo.DeploymentProgressStep{Name:""deploy"", Status:""SUCCESS"", StartedAt:time.Time{wall:, ext:}, EndedAt:time.Time{wall:, ext:}, ComponentName:""klima-price"", MessageBase:""Deploying worker""} godo.DeploymentProgressStep{Name:""wait"", Status:""ERROR"", StartedAt:time.Time{wall:, ext:}, EndedAt:time.Time{wall:, ext:}, Reason:godo.DeploymentProgressStepReason{Code:""DeployContainerExitNonZero"", Message:""Your deploy failed because your container exited with a non-zero exit code.""}, ComponentName:""klima-price"", MessageBase:""Waiting for worker""}], StartedAt:time.Time{wall:, ext:}, EndedAt:time.Time{wall:, ext:}, Reason:godo.DeploymentProgressStepReason{Code:""DeployContainerExitNonZero"", Message:""Your deploy failed because your container exited with a non-zero exit code.""}, ComponentName:""klima-price"", MessageBase:""""} godo.DeploymentProgressStep{Name:""bct-price"", Status:""SUCCESS"", Steps:[godo.DeploymentProgressStep{Name:""deploy"", Status:""SUCCESS"", StartedAt:time.Time{wall:, ext:}, EndedAt:time.Time{wall:, ext:}, ComponentName:""bct-price"", MessageBase:""Deploying worker""} godo.DeploymentProgressStep{Name:""wait"", Status:""SUCCESS"", StartedAt:time.Time{wall:, ext:}, EndedAt:time.Time{wall:, ext:}, ComponentName:""bct-price"", MessageBase:""Waiting for worker""}], StartedAt:time.Time{wall:, ext:}, EndedAt:time.Time{wall:, ext:}, ComponentName:""bct-price"", MessageBase:""""}], StartedAt:time.Time{wall:, ext:}, EndedAt:time.Time{wall:, ext:}, Reason:godo.DeploymentProgressStepReason{Code:""DeployContainerExitNonZero"", Message:""Your deploy failed because your container exited with a non-zero exit code.""}, ComponentName:"""", MessageBase:""""} godo.DeploymentProgressStep{Name:""finalize"", Status:""PENDING"", StartedAt:time.Time{wall:, ext:}, EndedAt:time.Time{wall:, ext:}, ComponentName:"""", MessageBase:""""}], StartedAt:time.Time{wall:, ext:}, EndedAt:time.Time{wall:, ext:}, ComponentName:"""", MessageBase:""""}], SummarySteps:[godo.DeploymentProgressStep{Name:""deploy.components.next-rebase.wait"", Status:""RUNNING"", StartedAt:time.Time{wall:, ext:}, EndedAt:time.Time{wall:, ext:}, ComponentName:""next-rebase"", MessageBase:""Waiting for worker""} godo.DeploymentProgressStep{Name:""deploy.components.klima-price.wait"", Status:""ERROR"", StartedAt:time.Time{wall:, ext:}, EndedAt:time.Time{wall:, ext:}, Reason:godo.DeploymentProgressStepReason{Code:""DeployContainerExitNonZero"", Message:""Your deploy failed because your container exited with a non-zero exit code.""}, ComponentName:""klima-price"", MessageBase:""Waiting for worker""}]}
+ID                                      Spec Name       Default Ingress    Active Deployment ID                    In Progress Deployment ID    Created At                       Updated At
+<ID>    discord-bots                       <DID>                                 2021-11-29 19:20:57 +0000 UTC    2021-12-13 19:53:39.388488725 +0000 UTC
+[~/Documents/Work/KlimaDAO/discord-bots]$ echo $?               
+0
+```
+
+This should instead return an error code, at least 1.
+
+**Environment:**
+ - doctl version: doctl version 1.68.0-release
+ - OS: macOS 12.0.1
+ - Installation method: Home-brew
+
+**Additional Details:**
+
+",closed,bug,bug
+2615659617,Error: unexpected end of JSON input,"I suddenly can't deploy anymore with `doctl`. 
+
+I'm just doing
+`./doctl serverless deploy --remote-build --verbose-build .`
+
+and am getting the following error:
+`Error: unexpected end of JSON input`.
+
+I tried:
+
+- Update to the newest version via `brew` (I'm on macOS)
+- Downloading the macOS binary and running `./doctl`
+- Switched to my Ubuntu machine and downloaded the latest `doctl` and tried the same. Same error.
+
+I'd really like to deploy the fixes to my server less function but I can't.",open,bug,question
+2324202564,doctl apps logs doesn't output JSON,"**What is the problem this feature would solve? Please describe.**
+
+On our apps services, we use JSON logging (pino) and it'd be really helpful to be able to do `doctl apps logs <id> -f | pino-pretty` but I can't because the log lines include the service name and the log timestamp, not just the log message:
+
+```
+webapp 2024-05-29T20:14:14.996999111Z {""level"":30,""time"":1717013654993,  ....
+```
+
+**Describe the solution you'd like**
+
+I'd like to just get what I logged, i.e., the JSON, without the `webapp 2024-05-29T20:14:14.996999111Z ` prefix.
+
+**Additional context**
+
+This would greatly improve my experience debugging apps on DO's App platform (currently we use papertrail, but it's not a particularly good log querier (doesn't parse the log lines correctly)
+",closed,enhancement,question
+3514506296,DigitalOcean Container Registry GET/DELETE API Calls Failing,"
+I’m running into a problem with **DigitalOcean Container Registries** using `doctl`.
+
+* Creating a registry (`doctl registry create`) works fine.
+* However, `doctl registry get` and `doctl registry delete` fail with a **412 error**:
+
+```
+Error retrieving container registry: GET https://api.digitalocean.com/v2/registry: 412
+This API is not supported if you have created multiple registries. Please use '/v2/registries' instead.
+```
+
+<img width=""1422"" height=""210"" alt=""Image"" src=""https://github.com/user-attachments/assets/f74d436a-996d-412f-9069-96925791b001"" />
+
+I also tested with Terraform — the same GET request fails there too. This confirms it’s an issue with the **DigitalOcean API**, not the tools or our configuration.
+
+**Environment:**
+
+doctl version 1.99.0-release
+OS: Win11
+
+**Additional Details:**
+
+* Tested with multiple Terraform registry configurations — same result.
+* Related GitHub issue: [https://github.com/digitalocean/doctl/issues/1723](https://github.com/digitalocean/doctl/issues/1723)
+",open,bug,documentation
+2834150959,doctl fail to install serverless when using docker,"I am trying to use the **docker** version of doctl and:
+
+1. sadly the image was created without serverless support already installed (why?) (also mentioned here #1559)
+2. it fails when running `docker run --rm -it --env=DIGITALOCEAN_ACCESS_TOKEN=??? digitalocean/doctl serverless install`. Error is: `stat /root/.config/doctl: no such file or directory`
+3. unable to access container's shell to check for the correct path and fix it with the install option `-c`
+
+**Environment:**
+<!-- Please provide the following information: -->
+ - doctl version: 
+```
+    REPOSITORY               TAG       IMAGE ID       CREATED         SIZE
+    digitalocean/doctl       latest    02672a76bc47   2 hours ago     50MB
+
+    doctl version 1.121.0-release
+    Git commit hash: a24ecf6c
+```
+ - OS: linux debian 
+ - Installation method: docker
+",open,bug,question
+1550074836,serverless project init uses `websecure` string instead of `webSecure` when generating project template,"**Describe the Issue:**
+```bash
+doctl sls init -l js foo
+```
+
+Generates `project.yml`:
+```yml
+parameters: {}
+environment: {}
+packages:
+    - name: sample
+      shared: false
+      environment: {}
+      parameters: {}
+      annotations: {}
+      functions:
+        - name: hello
+          binary: false
+          main: """"
+          runtime: nodejs:default
+          web: true
+          websecure: false
+          parameters: {}
+          environment: {}
+          annotations: {}
+          limits: {}
+```
+
+<!-- Please provide a clear and concise description of the problem you are
+facing including the steps to reproduce the issue. -->
+
+The `project.yml` contains a `websecure: false` property. The [schema calls for `webSecure`](https://github.com/digitalocean/functions-deployer/blob/0a25dc78dcdadb75fb409defb681bcfc440e6fba/src/deploy-struct.ts#L55). Changing the `false` to `true` results in an error at deploy time:
+```
+Error: Invalid project configuration file (project.yml): Invalid key 'websecure' found in 'action' clause in project.yml 
+```
+
+The proper key should be generated
+
+**Environment:**
+<!-- Please provide the following information: -->
+ - doctl version: 1.92
+ - OS: macos <!-- E.g. macOS Catalina, Ubuntu 19.04, etc -->
+ - Installation method: github release <!-- E.g. Installed from source, Homebrew, Snap package, Docker, etc -->
+
+**Additional Details:**
+
+<!-- Add any additional details that may be important for us to know.
+
+Tip: Running a command with the `--trace` flag will display details about the
+requests made to the DigitalOcean API and can help with debugging. Remember to
+check the output for any sensitive information before posting.
+-->
+",closed,bug,question
+919933369,doctl databases fork existing cluster,"**What is the problem this feature would solve? Please describe.**
+I would like to fork an existing database cluster using `doctl`, similar to how you can do this in the web UI.
+
+**Describe the solution you'd like**
+Some command of the form `doctl databases fork <existing-name> <new-name> [flags]`
+
+**Additional context**
+Would be more convenient than doing a manual copy using postgres.
+",closed,enhancement,question
+2803198369,"deploying serverless from ubuntu with python dependencies hangs, fails, is generally unclear","**Describe the Issue:**
+
+I am trying to deploy a very simple python script with a handful of dependencies via doctl and I just keep running into issue after issue:
+
+- It seems the only way to install dependencies is to include a build script. However it is not clear without a ton of digging that snap installations will not let you build locally
+- the deploy when building remotely appears to hang because there is no output whatsoever until the build is complete
+- installing just 3 dependencies seems impossible. The build times out (and there's no way to change that timeout) every time
+- If I add the --verbose-build flag then I get some stout back, but only so much before I just get `413 Payload Too Large` instead.
+- I also got an out of memory error once for the build. It's literally just running pip.
+- --verbose and --trace don't change the output at all
+
+**Environment:**
+ - doctl version:
+doctl version 1.120.2-release
+Git commit hash: 34e9fbbe
+ - OS: Ubuntu 24.04 LTS
+ - Installation method: snap
+
+**Additional Details:**
+
+my requirements.txt:
+```
+pyiceberg[s3fs]==0.8.1
+aiobotocore==2.17.0
+polars==1.20.0
+```
+
+my build.sh
+```shell
+#!/bin/bash
+
+set -e
+
+virtualenv --without-pip virtualenv
+pip install -r requirements.txt --target virtualenv/lib/python3.11/site-packages
+```
+",open,bug,bug
+1381430365,Add shell completion to doctl running in docker,"**What is the problem this feature would solve? Please describe.**
+Shell completion is a great feature and works with all major shells, but not when the CLI runs in docker.
+
+**Describe the solution you'd like**
+If possible provide shell completion for the docker installation
+
+**Additional context**
+This would help the CLI usability when running it a docker container.
+",open,enhancement,question
+802678082,Tag existing images in container registry,"I want to add a tag for an image that already exists in the container registry.
+
+I'd love to have a `doctl registry tag` command, similar to `docker tag`:
+
+```
+doctl registry tag image-name:old-tag image-name:new-tag
+```
+
+This way tagging can be done from the command line without downloading and then reuploading the image.
+
+I'm assuming this will also require changes in the container registry itself.",open,enhancement,bug
+3038268679,"unknown field ""authority"" reported when validating example spec from DO documentation","**Describe the Issue:**
+
+If you try to validate the example spec provided here: https://docs.digitalocean.com/products/app-platform/how-to/manage-domains/#use-subdomain-routing
+
+You get the following error:
+
+```
+Error: parsing app spec: json: unknown field ""authority""
+```
+
+**Environment:**
+<!-- Please provide the following information: -->
+ - doctl version: doctl version 1.125.0-release
+ - OS: macOS Sequoia 15.3.2 (24D81)
+ - Installation method: brew
+
+**Additional Details:**
+
+I've tried with both JSON and YAML and get the same result
+
+I also have a support ticket open (10497705)
+",closed,bug,bug
+1670385765,Add CSV export alongisde text/json,"**What is the problem this feature would solve? Please describe.**
+I'm always frustrated when I want to work with the data exported from doctl and I can't output it in a basic CSV output that is easy to parse in many scripts.
+
+**Describe the solution you'd like**
+CSV output
+
+**Additional context**
+None
+",open,enhancement,bug
+3408120243,doctl list-tags flags no longer working,"**Describe the Issue:**
+Since the last update - we are having issues with `doctl registry repository list-tags`,  where flags such as `--format` and `--no-header`  are no longer working. 
+
+**Environment:**
+
+ - doctl version: 1.142.0-release
+ - OS: Ubuntu 22.04.2 LTS
+ - Installation method: 
+
+**Additional Details:**
+Options such as --format and --no-header are not behaving as expected. 
+
+As example:
+```
+doctl registry repository list-tags NAME --format Tag  | head -n1
+Tag                                Compressed Size    Updated At                       Manifest Digest
+```
+
+Whereas I would expect to see:
+```
+Tag
+```
+
+Tested with the previous version without issue. 
+
+
+
+
+",open,bug,question
+934919360,Removing default auth context,"Hi, I try to remove the default context, which was initially created by `doctl auth init`.
+
+Executing the command `doctl auth list` displays:
+default (current)
+
+How should I remove this context now?
+Using the following command  `doctl auth remove --context default` throws an Error: Context not found.
+
+Any help is appreciated.
+Cheers,
+Daniel
+
+**Environment:**
+ - doctl version: 1.61.0-release
+ - OS:  macOS Mojave
+ - Installation method: MacPorts
+
+",closed,bug,bug
+1049986586,CVE-2021-25741 (High) detected in github.com/kubernetes/utils-67b214c5f920060488eda08cd2b5c30597f2f1d7,"## CVE-2021-25741 - High Severity Vulnerability
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/vulnerability_details.png' width=19 height=20> Vulnerable Library - <b>github.com/kubernetes/utils-67b214c5f920060488eda08cd2b5c30597f2f1d7</b></p></summary>
+
+<p>Non-Kubernetes-specific utility libraries which are consumed by multiple projects.</p>
+<p>
+
+Dependency Hierarchy:
+  - github.com/kubernetes/client-go-v0.20.0 (Root Library)
+    - :x: **github.com/kubernetes/utils-67b214c5f920060488eda08cd2b5c30597f2f1d7** (Vulnerable Library)
+<p>Found in HEAD commit: <a href=""https://github.com/digitalocean/doctl/commit/d9782b83eac5000545c1e0c915060ab6f5591d62"">d9782b83eac5000545c1e0c915060ab6f5591d62</a></p>
+<p>Found in base branch: <b>main</b></p>
+</p>
+</details>
+<p></p>
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/high_vul.png' width=19 height=20> Vulnerability Details</summary>
+<p>  
+  
+A security issue was discovered in Kubernetes where a user may be able to create a container with subpath volume mounts to access files & directories outside of the volume, including on the host filesystem.
+
+<p>Publish Date: 2021-09-20
+<p>URL: <a href=https://vuln.whitesourcesoftware.com/vulnerability/CVE-2021-25741>CVE-2021-25741</a></p>
+</p>
+</details>
+<p></p>
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/cvss3.png' width=19 height=20> CVSS 3 Score Details (<b>8.1</b>)</summary>
+<p>
+
+Base Score Metrics:
+- Exploitability Metrics:
+  - Attack Vector: Network
+  - Attack Complexity: Low
+  - Privileges Required: Low
+  - User Interaction: None
+  - Scope: Unchanged
+- Impact Metrics:
+  - Confidentiality Impact: High
+  - Integrity Impact: High
+  - Availability Impact: None
+</p>
+For more information on CVSS3 Scores, click <a href=""https://www.first.org/cvss/calculator/3.0"">here</a>.
+</p>
+</details>
+<p></p>
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/suggested_fix.png' width=19 height=20> Suggested Fix</summary>
+<p>
+
+<p>Type: Upgrade version</p>
+<p>Origin: <a href=""https://github.com/advisories/GHSA-f5f7-6478-qm6p"">https://github.com/advisories/GHSA-f5f7-6478-qm6p</a></p>
+<p>Release Date: 2021-09-20</p>
+<p>Fix Resolution: v1.19.15,v1.20.11,v1.21.5,v1.22.1</p>
+
+</p>
+</details>
+<p></p>
+
+***
+Step up your Open Source Security Game with WhiteSource [here](https://www.whitesourcesoftware.com/full_solution_bolt_github)",closed,security,documentation
+1177258918,CVE-2022-27191 (High) detected in github.com/docker/cli-v19.03.13-beta1,"## CVE-2022-27191 - High Severity Vulnerability
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/vulnerability_details.png' width=19 height=20> Vulnerable Library - <b>github.com/docker/cli-v19.03.13-beta1</b></p></summary>
+
+<p>The Docker CLI</p>
+<p>
+
+Dependency Hierarchy:
+  - :x: **github.com/docker/cli-v19.03.13-beta1** (Vulnerable Library)
+<p>Found in HEAD commit: <a href=""https://github.com/digitalocean/doctl/commit/8852084db541e3089b8ff41e1519d64049173978"">8852084db541e3089b8ff41e1519d64049173978</a></p>
+</p>
+</details>
+<p></p>
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/high_vul.png' width=19 height=20> Vulnerability Details</summary>
+<p>  
+  
+golang.org/x/crypto/ssh before 0.0.0-20220314234659-1baeb1ce4c0b in Go through 1.16.15 and 1.17.x through 1.17.8 allows an attacker to crash a server in certain circumstances involving AddHostKey.
+
+<p>Publish Date: 2022-03-18
+<p>URL: <a href=https://vuln.whitesourcesoftware.com/vulnerability/CVE-2022-27191>CVE-2022-27191</a></p>
+</p>
+</details>
+<p></p>
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/cvss3.png' width=19 height=20> CVSS 3 Score Details (<b>7.5</b>)</summary>
+<p>
+
+Base Score Metrics:
+- Exploitability Metrics:
+  - Attack Vector: Network
+  - Attack Complexity: Low
+  - Privileges Required: None
+  - User Interaction: None
+  - Scope: Unchanged
+- Impact Metrics:
+  - Confidentiality Impact: None
+  - Integrity Impact: None
+  - Availability Impact: High
+</p>
+For more information on CVSS3 Scores, click <a href=""https://www.first.org/cvss/calculator/3.0"">here</a>.
+</p>
+</details>
+<p></p>
+
+***
+Step up your Open Source Security Game with WhiteSource [here](https://www.whitesourcesoftware.com/full_solution_bolt_github)",closed,security,bug
+1554271721,"""Unexpected end Of JSON input"" error doing `doctl serverless deploy`.","**Describe the Issue:**
+
+<!-- Please provide a clear and concise description of the problem you are
+facing including the steps to reproduce the issue. -->
+
+Getting the following error when trying to deploy to DigitialOcean functions using `doctl`.
+
+```bash
+$ doctl serverless deploy do-fn-go-playground --verbose  --verbose-build
+Error: unexpected end of JSON input
+```
+
+**Environment:**
+<!-- Please provide the following information: -->
+ - doctl version: `doctl version 1.92.0-release`
+ - OS: `macOS 13.0.1`
+ - Installation method: `Homebrew`
+
+**Additional Details:**
+
+I asked the same [question](https://www.digitalocean.com/community/questions/unexpected-end-of-json-input-error-when-deploying-serverless-function-using-doctl) on DigitialOcean Community Questions where you can find more details.",open,bug,bug
+1924923189,compute image create --image-file,"**What is the problem this feature would solve? Please describe.**
+For example Fedora CoreOS offer a digitalocean image, and they helpfully provide cryptographic signatures to verify that the image you download is correct. But since digitalocean only allow you to programmatically upload images using doctl all those methods are useless because you can only specify an image URL.
+
+So the only way to upload a verified image is manually through the web UI.
+
+**Describe the solution you'd like**
+Either to specify --image-url file:// or a new argument called --image-file, whatever is better.
+
+**Additional context**
+
+",closed,enhancement,documentation
+1708682994,Cannot get read-only creds with `doctl registry login`,"**Describe the Issue:**
+
+There's no command line flag to log into the DO registry read-only, though that's the default on `doctl registry config`. This means that logins always request read-write access, which fails if doctl is logged in with a read-only token.
+
+**Environment:**
+
+ - doctl version:
+
+doctl version 1.94.0-release
+Git commit hash: d51d12cc
+
+ - OS: Ubuntu 22.04 (Docker marketplace image)
+ - Installation method: Snap",closed,bug,bug
+993258926,"Docker compose push return unexpected end of JSON input: """"","**Issue:**
+
+I have set up the docker registry at DigitalOcean to deploy my django application.
+I have installed the `doctl` and setup the API credentials.
+If I run the command as:
+`doctl auth list` 
+i can see my `auth` as the current one, which has the `Read` and `Write` permission.
+But now, when I try to run the command as:
+
+    docker-compose -f docker-compose.staging.yml push
+
+I get the error as:
+
+> ERROR: error parsing HTTP 400 response body: unexpected end of JSON
+> input: """"
+
+Here's my `docker-compose.staging.yml` file:
+
+    version: '3.8'
+    
+    services:
+      web:
+        build:
+          context: ./app
+          dockerfile: Dockerfile.prod
+        image: registry.digitalocean.com/pythonist-do:web
+        command: gunicorn Pythonist.wsgi:application --bind 0.0.0.0:8000
+        volumes:
+          - static_volume:/home/app/web/staticfiles
+          - media_volume:/home/app/web/mediafiles
+        expose:
+          - 8000
+        env_file:
+          - ./.env.staging
+      nginx-proxy:
+        container_name: nginx-proxy
+        build: nginx
+        image: registry.digitalocean.com/pythonist-do:nginx-proxy
+        restart: always
+        ports:
+          - 443:443
+          - 80:80
+        volumes:
+          - static_volume:/home/app/web/staticfiles
+          - media_volume:/home/app/web/mediafiles
+          - certs:/etc/nginx/certs
+          - html:/usr/share/nginx/html
+          - vhost:/etc/nginx/vhost.d
+          - /var/run/docker.sock:/tmp/docker.sock:ro
+        depends_on:
+          - web
+      nginx-proxy-letsencrypt:
+        image: jrcs/letsencrypt-nginx-proxy-companion
+        env_file:
+          - ./.env.staging.proxy-companion
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock:ro
+          - certs:/etc/nginx/certs
+          - html:/usr/share/nginx/html
+          - vhost:/etc/nginx/vhost.d
+          - acme:/etc/acme.sh
+        depends_on:
+          - nginx-proxy
+    
+    volumes:
+      static_volume:
+      media_volume:
+      certs:
+      html:
+      vhost:
+      acme:
+
+<!-- Please provide a clear and concise description of the problem you are
+facing including the steps to reproduce the issue. -->
+
+**Environment:**
+<!-- Please provide the following information: -->
+ - 1.64.0-release: <!-- The output of `doctl version` -->
+ - macOS Big Sur: <!-- E.g. macOS Catalina, Ubuntu 19.04, etc -->
+ - Installation method: MacPort<!-- E.g. Installed from source, Homebrew, Snap package, Docker, etc -->
+
+**Additional Details:**
+
+<!-- Add any additional details that may be important for us to know.
+
+Tip: Running a command with the `--trace` flag will display details about the
+requests made to the DigitalOcean API and can help with debugging. Remember to
+check the output for any sensitive information before posting.
+-->
+",closed,bug,security
+787178651,Create new API keys from doctl,"**What is the problem this feature would solve? Please describe.**
+It would be great if I could create a new API key with `doctl`. Using the web interface is very slow, as I usually end up on digitalocean.com, find the sign in button, then click through to my account, re-authenticate, create a new key, and then find the shell where I wanted to use it.
+
+**Describe the solution you'd like**
+Ideally, I could run `doctl account key new [-rw] [label]`, complete a second factor in a new browser window or even within the terminal, and be given a new API key. I could also run `doctl account key revoke [keyid]` to delete the key later
+
+**Additional context**
+With [go-libfido2](https://github.com/keys-pub/go-libfido2), I could use my yubikey from the command line to provide a second factor
+",open,enhancement,security
+3416865292,doctl registry garbage-collection start --force still asks for confirmation,"The -f, --force flag should run the `doctl registry garbage-collection-start` command without confirmation prompt.
+Bu when executing the command it still asks for confirmation
+
+```
+doctl registry garbage-collection start --force my-repository
+❯ Are you sure you want to run garbage collection -- this will put your registry in read-only mode until it finishes  yes ▸no
+```
+
+**Environment:**
+
+doctl version 1.142.0-release
+OS: macOS, Ubuntu 24.10
+Installation method: Homebrew, Github Actions
+",closed,bug,security
+1306856284,AppSpec JSON Schema,"**What is the problem this feature would solve? Please describe.**
+I would like to create a JSON app spec file and there is no JSON Schema to be found.
+
+**Describe the solution you'd like**
+Please publish a JSON Schema somewhere in your documentation.
+
+**Additional context**
+Here is a Go module that I created to generate the AppSpec JSON Schema:
+
+```golang
+/* To build and run this module:
+go mod init example.com/get-app-spec
+go get github.com/invopop/jsonschema
+go get github.com/digitalocean/godo
+go run main.go > AppSpec.schema.json
+*/
+package main
+
+import (
+	""encoding/json""
+	""fmt""
+
+	""github.com/digitalocean/godo""
+	""github.com/invopop/jsonschema""
+)
+
+func main() {
+	s := jsonschema.Reflect(&godo.AppSpec{})
+	b, _ := json.MarshalIndent(s, """", ""  "")
+	fmt.Print(""AppSpec Schema"", string(b), ""\n"")
+}
+```
+
+Here is the resulting schema from the current godo master:
+
+<details>
+  <summary>Click to expand.</summary>
+
+```json
+{
+  ""$schema"": ""http://json-schema.org/draft/2020-12/schema"",
+  ""$id"": ""https://github.com/digitalocean/godo/app-spec"",
+  ""$ref"": ""#/$defs/AppSpec"",
+  ""$defs"": {
+    ""AppAlertSpec"": {
+      ""properties"": {
+        ""rule"": {
+          ""type"": ""string""
+        },
+        ""disabled"": {
+          ""type"": ""boolean""
+        },
+        ""operator"": {
+          ""type"": ""string""
+        },
+        ""value"": {
+          ""type"": ""number""
+        },
+        ""window"": {
+          ""type"": ""string""
+        }
+      },
+      ""additionalProperties"": false,
+      ""type"": ""object""
+    },
+    ""AppCORSPolicy"": {
+      ""properties"": {
+        ""allow_origins"": {
+          ""items"": {
+            ""$ref"": ""#/$defs/AppStringMatch""
+          },
+          ""type"": ""array""
+        },
+        ""allow_methods"": {
+          ""items"": {
+            ""type"": ""string""
+          },
+          ""type"": ""array""
+        },
+        ""allow_headers"": {
+          ""items"": {
+            ""type"": ""string""
+          },
+          ""type"": ""array""
+        },
+        ""expose_headers"": {
+          ""items"": {
+            ""type"": ""string""
+          },
+          ""type"": ""array""
+        },
+        ""max_age"": {
+          ""type"": ""string""
+        },
+        ""allow_credentials"": {
+          ""type"": ""boolean""
+        }
+      },
+      ""additionalProperties"": false,
+      ""type"": ""object""
+    },
+    ""AppDatabaseSpec"": {
+      ""properties"": {
+        ""name"": {
+          ""type"": ""string""
+        },
+        ""engine"": {
+          ""type"": ""string""
+        },
+        ""version"": {
+          ""type"": ""string""
+        },
+        ""size"": {
+          ""type"": ""string""
+        },
+        ""num_nodes"": {
+          ""type"": ""integer""
+        },
+        ""production"": {
+          ""type"": ""boolean""
+        },
+        ""cluster_name"": {
+          ""type"": ""string""
+        },
+        ""db_name"": {
+          ""type"": ""string""
+        },
+        ""db_user"": {
+          ""type"": ""string""
+        }
+      },
+      ""additionalProperties"": false,
+      ""type"": ""object"",
+      ""required"": [
+        ""name""
+      ]
+    },
+    ""AppDomainSpec"": {
+      ""properties"": {
+        ""domain"": {
+          ""type"": ""string""
+        },
+        ""type"": {
+          ""type"": ""string""
+        },
+        ""wildcard"": {
+          ""type"": ""boolean""
+        },
+        ""zone"": {
+          ""type"": ""string""
+        },
+        ""certificate"": {
+          ""type"": ""string""
+        },
+        ""minimum_tls_version"": {
+          ""type"": ""string""
+        }
+      },
+      ""additionalProperties"": false,
+      ""type"": ""object"",
+      ""required"": [
+        ""domain""
+      ]
+    },
+    ""AppFunctionsSpec"": {
+      ""properties"": {
+        ""name"": {
+          ""type"": ""string""
+        },
+        ""git"": {
+          ""$ref"": ""#/$defs/GitSourceSpec""
+        },
+        ""github"": {
+          ""$ref"": ""#/$defs/GitHubSourceSpec""
+        },
+        ""gitlab"": {
+          ""$ref"": ""#/$defs/GitLabSourceSpec""
+        },
+        ""source_dir"": {
+          ""type"": ""string""
+        },
+        ""envs"": {
+          ""items"": {
+            ""$ref"": ""#/$defs/AppVariableDefinition""
+          },
+          ""type"": ""array""
+        },
+        ""routes"": {
+          ""items"": {
+            ""$ref"": ""#/$defs/AppRouteSpec""
+          },
+          ""type"": ""array""
+        },
+        ""alerts"": {
+          ""items"": {
+            ""$ref"": ""#/$defs/AppAlertSpec""
+          },
+          ""type"": ""array""
+        },
+        ""log_destinations"": {
+          ""items"": {
+            ""$ref"": ""#/$defs/AppLogDestinationSpec""
+          },
+          ""type"": ""array""
+        },
+        ""cors"": {
+          ""$ref"": ""#/$defs/AppCORSPolicy""
+        }
+      },
+      ""additionalProperties"": false,
+      ""type"": ""object"",
+      ""required"": [
+        ""name""
+      ]
+    },
+    ""AppIngressSpec"": {
+      ""properties"": {
+        ""load_balancer"": {
+          ""type"": ""string""
+        },
+        ""load_balancer_size"": {
+          ""type"": ""integer""
+        }
+      },
+      ""additionalProperties"": false,
+      ""type"": ""object""
+    },
+    ""AppJobSpec"": {
+      ""properties"": {
+        ""name"": {
+          ""type"": ""string""
+        },
+        ""git"": {
+          ""$ref"": ""#/$defs/GitSourceSpec""
+        },
+        ""github"": {
+          ""$ref"": ""#/$defs/GitHubSourceSpec""
+        },
+        ""image"": {
+          ""$ref"": ""#/$defs/ImageSourceSpec""
+        },
+        ""gitlab"": {
+          ""$ref"": ""#/$defs/GitLabSourceSpec""
+        },
+        ""dockerfile_path"": {
+          ""type"": ""string""
+        },
+        ""build_command"": {
+          ""type"": ""string""
+        },
+        ""run_command"": {
+          ""type"": ""string""
+        },
+        ""source_dir"": {
+          ""type"": ""string""
+        },
+        ""environment_slug"": {
+          ""type"": ""string""
+        },
+        ""envs"": {
+          ""items"": {
+            ""$ref"": ""#/$defs/AppVariableDefinition""
+          },
+          ""type"": ""array""
+        },
+        ""instance_size_slug"": {
+          ""type"": ""string""
+        },
+        ""instance_count"": {
+          ""type"": ""integer""
+        },
+        ""kind"": {
+          ""type"": ""string""
+        },
+        ""alerts"": {
+          ""items"": {
+            ""$ref"": ""#/$defs/AppAlertSpec""
+          },
+          ""type"": ""array""
+        },
+        ""log_destinations"": {
+          ""items"": {
+            ""$ref"": ""#/$defs/AppLogDestinationSpec""
+          },
+          ""type"": ""array""
+        }
+      },
+      ""additionalProperties"": false,
+      ""type"": ""object"",
+      ""required"": [
+        ""name""
+      ]
+    },
+    ""AppLogDestinationSpec"": {
+      ""properties"": {
+        ""name"": {
+          ""type"": ""string""
+        },
+        ""papertrail"": {
+          ""$ref"": ""#/$defs/AppLogDestinationSpecPapertrail""
+        },
+        ""datadog"": {
+          ""$ref"": ""#/$defs/AppLogDestinationSpecDataDog""
+        },
+        ""logtail"": {
+          ""$ref"": ""#/$defs/AppLogDestinationSpecLogtail""
+        },
+        ""endpoint"": {
+          ""type"": ""string""
+        },
+        ""tls_insecure"": {
+          ""type"": ""boolean""
+        },
+        ""headers"": {
+          ""items"": {
+            ""$ref"": ""#/$defs/AppLogDestinationSpecHeader""
+          },
+          ""type"": ""array""
+        }
+      },
+      ""additionalProperties"": false,
+      ""type"": ""object"",
+      ""required"": [
+        ""name""
+      ]
+    },
+    ""AppLogDestinationSpecDataDog"": {
+      ""properties"": {
+        ""endpoint"": {
+          ""type"": ""string""
+        },
+        ""api_key"": {
+          ""type"": ""string""
+        }
+      },
+      ""additionalProperties"": false,
+      ""type"": ""object"",
+      ""required"": [
+        ""api_key""
+      ]
+    },
+    ""AppLogDestinationSpecHeader"": {
+      ""properties"": {
+        ""key"": {
+          ""type"": ""string""
+        },
+        ""value"": {
+          ""type"": ""string""
+        }
+      },
+      ""additionalProperties"": false,
+      ""type"": ""object"",
+      ""required"": [
+        ""key""
+      ]
+    },
+    ""AppLogDestinationSpecLogtail"": {
+      ""properties"": {
+        ""token"": {
+          ""type"": ""string""
+        }
+      },
+      ""additionalProperties"": false,
+      ""type"": ""object"",
+      ""required"": [
+        ""token""
+      ]
+    },
+    ""AppLogDestinationSpecPapertrail"": {
+      ""properties"": {
+        ""endpoint"": {
+          ""type"": ""string""
+        }
+      },
+      ""additionalProperties"": false,
+      ""type"": ""object"",
+      ""required"": [
+        ""endpoint""
+      ]
+    },
+    ""AppRouteSpec"": {
+      ""properties"": {
+        ""path"": {
+          ""type"": ""string""
+        },
+        ""preserve_path_prefix"": {
+          ""type"": ""boolean""
+        }
+      },
+      ""additionalProperties"": false,
+      ""type"": ""object""
+    },
+    ""AppServiceSpec"": {
+      ""properties"": {
+        ""name"": {
+          ""type"": ""string""
+        },
+        ""git"": {
+          ""$ref"": ""#/$defs/GitSourceSpec""
+        },
+        ""github"": {
+          ""$ref"": ""#/$defs/GitHubSourceSpec""
+        },
+        ""image"": {
+          ""$ref"": ""#/$defs/ImageSourceSpec""
+        },
+        ""gitlab"": {
+          ""$ref"": ""#/$defs/GitLabSourceSpec""
+        },
+        ""dockerfile_path"": {
+          ""type"": ""string""
+        },
+        ""build_command"": {
+          ""type"": ""string""
+        },
+        ""run_command"": {
+          ""type"": ""string""
+        },
+        ""source_dir"": {
+          ""type"": ""string""
+        },
+        ""environment_slug"": {
+          ""type"": ""string""
+        },
+        ""envs"": {
+          ""items"": {
+            ""$ref"": ""#/$defs/AppVariableDefinition""
+          },
+          ""type"": ""array""
+        },
+        ""instance_size_slug"": {
+          ""type"": ""string""
+        },
+        ""instance_count"": {
+          ""type"": ""integer""
+        },
+        ""http_port"": {
+          ""type"": ""integer""
+        },
+        ""routes"": {
+          ""items"": {
+            ""$ref"": ""#/$defs/AppRouteSpec""
+          },
+          ""type"": ""array""
+        },
+        ""health_check"": {
+          ""$ref"": ""#/$defs/AppServiceSpecHealthCheck""
+        },
+        ""cors"": {
+          ""$ref"": ""#/$defs/AppCORSPolicy""
+        },
+        ""internal_ports"": {
+          ""items"": {
+            ""type"": ""integer""
+          },
+          ""type"": ""array""
+        },
+        ""alerts"": {
+          ""items"": {
+            ""$ref"": ""#/$defs/AppAlertSpec""
+          },
+          ""type"": ""array""
+        },
+        ""log_destinations"": {
+          ""items"": {
+            ""$ref"": ""#/$defs/AppLogDestinationSpec""
+          },
+          ""type"": ""array""
+        }
+      },
+      ""additionalProperties"": false,
+      ""type"": ""object"",
+      ""required"": [
+        ""name""
+      ]
+    },
+    ""AppServiceSpecHealthCheck"": {
+      ""properties"": {
+        ""path"": {
+          ""type"": ""string""
+        },
+        ""initial_delay_seconds"": {
+          ""type"": ""integer""
+        },
+        ""period_seconds"": {
+          ""type"": ""integer""
+        },
+        ""timeout_seconds"": {
+          ""type"": ""integer""
+        },
+        ""success_threshold"": {
+          ""type"": ""integer""
+        },
+        ""failure_threshold"": {
+          ""type"": ""integer""
+        },
+        ""http_path"": {
+          ""type"": ""string""
+        },
+        ""port"": {
+          ""type"": ""integer""
+        }
+      },
+      ""additionalProperties"": false,
+      ""type"": ""object""
+    },
+    ""AppSpec"": {
+      ""properties"": {
+        ""name"": {
+          ""type"": ""string""
+        },
+        ""services"": {
+          ""items"": {
+            ""$ref"": ""#/$defs/AppServiceSpec""
+          },
+          ""type"": ""array""
+        },
+        ""static_sites"": {
+          ""items"": {
+            ""$ref"": ""#/$defs/AppStaticSiteSpec""
+          },
+          ""type"": ""array""
+        },
+        ""workers"": {
+          ""items"": {
+            ""$ref"": ""#/$defs/AppWorkerSpec""
+          },
+          ""type"": ""array""
+        },
+        ""jobs"": {
+          ""items"": {
+            ""$ref"": ""#/$defs/AppJobSpec""
+          },
+          ""type"": ""array""
+        },
+        ""functions"": {
+          ""items"": {
+            ""$ref"": ""#/$defs/AppFunctionsSpec""
+          },
+          ""type"": ""array""
+        },
+        ""databases"": {
+          ""items"": {
+            ""$ref"": ""#/$defs/AppDatabaseSpec""
+          },
+          ""type"": ""array""
+        },
+        ""domains"": {
+          ""items"": {
+            ""$ref"": ""#/$defs/AppDomainSpec""
+          },
+          ""type"": ""array""
+        },
+        ""region"": {
+          ""type"": ""string""
+        },
+        ""envs"": {
+          ""items"": {
+            ""$ref"": ""#/$defs/AppVariableDefinition""
+          },
+          ""type"": ""array""
+        },
+        ""alerts"": {
+          ""items"": {
+            ""$ref"": ""#/$defs/AppAlertSpec""
+          },
+          ""type"": ""array""
+        },
+        ""ingress"": {
+          ""$ref"": ""#/$defs/AppIngressSpec""
+        },
+        ""features"": {
+          ""items"": {
+            ""type"": ""string""
+          },
+          ""type"": ""array""
+        }
+      },
+      ""additionalProperties"": false,
+      ""type"": ""object"",
+      ""required"": [
+        ""name""
+      ]
+    },
+    ""AppStaticSiteSpec"": {
+      ""properties"": {
+        ""name"": {
+          ""type"": ""string""
+        },
+        ""git"": {
+          ""$ref"": ""#/$defs/GitSourceSpec""
+        },
+        ""github"": {
+          ""$ref"": ""#/$defs/GitHubSourceSpec""
+        },
+        ""gitlab"": {
+          ""$ref"": ""#/$defs/GitLabSourceSpec""
+        },
+        ""dockerfile_path"": {
+          ""type"": ""string""
+        },
+        ""build_command"": {
+          ""type"": ""string""
+        },
+        ""source_dir"": {
+          ""type"": ""string""
+        },
+        ""environment_slug"": {
+          ""type"": ""string""
+        },
+        ""output_dir"": {
+          ""type"": ""string""
+        },
+        ""index_document"": {
+          ""type"": ""string""
+        },
+        ""error_document"": {
+          ""type"": ""string""
+        },
+        ""envs"": {
+          ""items"": {
+            ""$ref"": ""#/$defs/AppVariableDefinition""
+          },
+          ""type"": ""array""
+        },
+        ""routes"": {
+          ""items"": {
+            ""$ref"": ""#/$defs/AppRouteSpec""
+          },
+          ""type"": ""array""
+        },
+        ""cors"": {
+          ""$ref"": ""#/$defs/AppCORSPolicy""
+        },
+        ""catchall_document"": {
+          ""type"": ""string""
+        }
+      },
+      ""additionalProperties"": false,
+      ""type"": ""object"",
+      ""required"": [
+        ""name""
+      ]
+    },
+    ""AppStringMatch"": {
+      ""properties"": {
+        ""exact"": {
+          ""type"": ""string""
+        },
+        ""prefix"": {
+          ""type"": ""string""
+        },
+        ""regex"": {
+          ""type"": ""string""
+        }
+      },
+      ""additionalProperties"": false,
+      ""type"": ""object""
+    },
+    ""AppVariableDefinition"": {
+      ""properties"": {
+        ""key"": {
+          ""type"": ""string""
+        },
+        ""value"": {
+          ""type"": ""string""
+        },
+        ""scope"": {
+          ""type"": ""string""
+        },
+        ""type"": {
+          ""type"": ""string""
+        }
+      },
+      ""additionalProperties"": false,
+      ""type"": ""object"",
+      ""required"": [
+        ""key""
+      ]
+    },
+    ""AppWorkerSpec"": {
+      ""properties"": {
+        ""name"": {
+          ""type"": ""string""
+        },
+        ""git"": {
+          ""$ref"": ""#/$defs/GitSourceSpec""
+        },
+        ""github"": {
+          ""$ref"": ""#/$defs/GitHubSourceSpec""
+        },
+        ""image"": {
+          ""$ref"": ""#/$defs/ImageSourceSpec""
+        },
+        ""gitlab"": {
+          ""$ref"": ""#/$defs/GitLabSourceSpec""
+        },
+        ""dockerfile_path"": {
+          ""type"": ""string""
+        },
+        ""build_command"": {
+          ""type"": ""string""
+        },
+        ""run_command"": {
+          ""type"": ""string""
+        },
+        ""source_dir"": {
+          ""type"": ""string""
+        },
+        ""environment_slug"": {
+          ""type"": ""string""
+        },
+        ""envs"": {
+          ""items"": {
+            ""$ref"": ""#/$defs/AppVariableDefinition""
+          },
+          ""type"": ""array""
+        },
+        ""instance_size_slug"": {
+          ""type"": ""string""
+        },
+        ""instance_count"": {
+          ""type"": ""integer""
+        },
+        ""alerts"": {
+          ""items"": {
+            ""$ref"": ""#/$defs/AppAlertSpec""
+          },
+          ""type"": ""array""
+        },
+        ""log_destinations"": {
+          ""items"": {
+            ""$ref"": ""#/$defs/AppLogDestinationSpec""
+          },
+          ""type"": ""array""
+        }
+      },
+      ""additionalProperties"": false,
+      ""type"": ""object"",
+      ""required"": [
+        ""name""
+      ]
+    },
+    ""GitHubSourceSpec"": {
+      ""properties"": {
+        ""repo"": {
+          ""type"": ""string""
+        },
+        ""branch"": {
+          ""type"": ""string""
+        },
+        ""deploy_on_push"": {
+          ""type"": ""boolean""
+        }
+      },
+      ""additionalProperties"": false,
+      ""type"": ""object""
+    },
+    ""GitLabSourceSpec"": {
+      ""properties"": {
+        ""repo"": {
+          ""type"": ""string""
+        },
+        ""branch"": {
+          ""type"": ""string""
+        },
+        ""deploy_on_push"": {
+          ""type"": ""boolean""
+        }
+      },
+      ""additionalProperties"": false,
+      ""type"": ""object""
+    },
+    ""GitSourceSpec"": {
+      ""properties"": {
+        ""repo_clone_url"": {
+          ""type"": ""string""
+        },
+        ""branch"": {
+          ""type"": ""string""
+        }
+      },
+      ""additionalProperties"": false,
+      ""type"": ""object""
+    },
+    ""ImageSourceSpec"": {
+      ""properties"": {
+        ""registry_type"": {
+          ""type"": ""string""
+        },
+        ""registry"": {
+          ""type"": ""string""
+        },
+        ""repository"": {
+          ""type"": ""string""
+        },
+        ""tag"": {
+          ""type"": ""string""
+        }
+      },
+      ""additionalProperties"": false,
+      ""type"": ""object""
+    }
+  }
+}
+```
+</details>",closed,enhancement,bug
+2061183634,Docs audit: VPC,Updates and clarifies doc strings for VPC commands. Also add examples for each command.,closed,documentation,bug
+1099344758,compute ssk-key import gets permission denied error,"Greetings.
+
+I have a ""permission denied"" error when importing ssh key^
+
+> localname@note:~$ sudo doctl compute ssh-key import keyname --public-key-file ~/.ssh/id_rsa.pub
+> Error: open /home/localname/.ssh/id_rsa.pub: permission denied
+
+
+I am sure that I have everything right with permissions for the .pub file
+
+> localname@note:~/.ssh$ ls -lat | grep id_rsa.pub
+> -rw-r--r--  1 localname localname  393 Dec 17 22:03 id_rsa.pub
+
+
+doctl is freshly installed on ubuntu 18.04 with ""snap install doctl"":
+
+> localname@note:~/.ssh$ doctl version
+> doctl version 1.68.0-release
+> Git commit hash: 22869cba
+
+
+What permissions do I need to make it work fine? 
+Please, help me to understand.",closed,bug,bug
+2721373252,doctl .deb package,"**What is the problem this feature would solve? Please describe.**
+<!-- A clear and concise description of what the problem is. Ex. I'm always frustrated when [...] -->
+The current installation process involves multiple manual actions and completely avoids any sort of package management.
+
+**Describe the solution you'd like**
+<!-- A clear and concise description of what you want to happen. -->
+Create a .deb release artifact would allow it to be installed with a single command, just as remove/update the package more easily
+
+**Additional context**
+<!-- Add any other context about the feature request here. -->
+For example, railway's CLI is released as a deb package and installing that is way more convenient than fiddling with the binary directly",open,enhancement,other
+1410746128,serverless connect + status (and others) fails with Snap,"**Describe the Issue:**
+
+<!-- Please provide a clear and concise description of the problem you are
+facing including the steps to reproduce the issue. -->
+
+When installed via snap, seemingly all functions that interact with serverless fail, even after a successful connect. For instance:
+```
+❯ doctl serverless connect
+Connected to functions namespace 'fn-<redacted>' on API host 'https://faas-sfo3-<redacted>.doserverless.co' (label=<redacted>)
+
+❯ doctl serverless status
+Error: serverless support is installed but not connected to a functions namespace (use `doctl serverless connect`)
+```
+
+Note that I get the same failure for `doctl serverless functions list`
+
+**Environment:**
+<!-- Please provide the following information: -->
+ - doctl version: 
+ ```
+doctl version 1.83.0-release
+Git commit hash: c9b8dec9
+```
+ - OS: WSL2 on Windows 11:
+```
+WSL version: 0.70.0.0
+Kernel version: 5.15.68.1
+WSLg version: 1.0.45
+MSRDC version: 1.2.3575
+Direct3D version: 1.606.4
+DXCore version: 10.0.25131.1002-220531-1700.rs-onecore-base2-hyp
+Windows version: 10.0.22000.1098
+```
+Running in an Ubuntu 20.04 container:
+```
+❯ lsb_release -a
+No LSB modules are available.
+Distributor ID: Ubuntu
+Description:    Ubuntu 20.04.1 LTS
+Release:        20.04
+Codename:       focal
+```
+ - Installation method: Snap
+
+**Additional Details:**
+
+<!-- Add any additional details that may be important for us to know.
+
+Tip: Running a command with the `--trace` flag will display details about the
+requests made to the DigitalOcean API and can help with debugging. Remember to
+check the output for any sensitive information before posting.
+-->
+
+The `connect` command *does* write the credentials out to `~/.config/doctl/sandbox/creds/<hash>/credentials.json`, but the `status` command is only looking to read them from `/snap/doctl/<number>/opt/sandbox/creds/<hash>/credentials.json`.
+
+The mismatch seems to come from unconditionally using `usualServerlessDir` at
+https://github.com/digitalocean/doctl/blob/a1f1c350b96080999048a1b32368ec50a7eb631c/do/serverless.go#L322
+and the fact that some things use `serverlessDir` to lookup the creds whereas others use `credsDir`. But even more, it *seems* that `status` should actually be looking in the home dir since the snap dir is only writeable by root (at least for me).
+
+Let me know if there's any other useful information I can provide!
+
+Recent Snap PRs:
+- https://github.com/digitalocean/doctl/pull/1173
+- https://github.com/digitalocean/doctl/pull/1224
+
+Refactor that introduced the above line:
+- https://github.com/digitalocean/doctl/pull/1222
+
+(feel free to ignore this aside, since it transitions fully into back-seat driving with literally zero context on this project or the feasibility of the suggestion 🙃 BUT from the other PRs linked above it seems there's been a few times that Snap auth has broken and I wonder if it's possible to run more integration-y tests to ensure folks installing via the recommended method on Ubuntu can use the tool)",closed,bug,bug
+771117864,CVE-2020-29652 (High) detected in github.com/digitalocean/doctl-v1.54.0,"## CVE-2020-29652 - High Severity Vulnerability
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/vulnerability_details.png' width=19 height=20> Vulnerable Library - <b>github.com/digitalocean/doctl-v1.54.0</b></p></summary>
+
+<p>The official command line interface for the DigitalOcean API.</p>
+<p>
+
+Dependency Hierarchy:
+  - github.com/digitalocean/doctl/pluginhost-v1.54.0 (Root Library)
+    - :x: **github.com/digitalocean/doctl-v1.54.0** (Vulnerable Library)
+<p>Found in base branch: <b>master</b></p>
+</p>
+</details>
+<p></p>
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/high_vul.png' width=19 height=20> Vulnerability Details</summary>
+<p>  
+  
+A nil pointer dereference in the golang.org/x/crypto/ssh component through v0.0.0-20201203163018-be400aefbc4c for Go allows remote attackers to cause a denial of service against SSH servers.
+
+<p>Publish Date: 2020-12-17
+<p>URL: <a href=https://vuln.whitesourcesoftware.com/vulnerability/CVE-2020-29652>CVE-2020-29652</a></p>
+</p>
+</details>
+<p></p>
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/cvss3.png' width=19 height=20> CVSS 3 Score Details (<b>7.5</b>)</summary>
+<p>
+
+Base Score Metrics:
+- Exploitability Metrics:
+  - Attack Vector: Network
+  - Attack Complexity: Low
+  - Privileges Required: None
+  - User Interaction: None
+  - Scope: Unchanged
+- Impact Metrics:
+  - Confidentiality Impact: None
+  - Integrity Impact: None
+  - Availability Impact: High
+</p>
+For more information on CVSS3 Scores, click <a href=""https://www.first.org/cvss/calculator/3.0"">here</a>.
+</p>
+</details>
+<p></p>
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/suggested_fix.png' width=19 height=20> Suggested Fix</summary>
+<p>
+
+<p>Type: Upgrade version</p>
+<p>Origin: <a href=""https://groups.google.com/g/golang-announce/c/ouZIlBimOsE?pli=1"">https://groups.google.com/g/golang-announce/c/ouZIlBimOsE?pli=1</a></p>
+<p>Release Date: 2020-12-17</p>
+<p>Fix Resolution: v0.0.0-20201216223049-8b5274cf687f</p>
+
+</p>
+</details>
+<p></p>
+
+***
+Step up your Open Source Security Game with WhiteSource [here](https://www.whitesourcesoftware.com/full_solution_bolt_github)",closed,security,question
+722524534,Doctl Returns 500 Error When deploying app.yaml to DO App Platform,"**Describe the Issue:**
+I've created a YAML spec for my DO App Platform based on the sample on this repository.
+
+Which looks like this:
+
+```
+name: unique-expressions
+
+services:
+  - name: api
+    environment_slug: node-js
+    github:
+      repo: Valencian-Digital/unique-expressions
+      branch: main
+      deploy_on_push: true
+    source_dir: api
+    routes:
+      - path: /api
+```
+
+But when I try to execute `doctl apps create --spec .do/app.yaml`. 
+
+It returns a 500 Error and nothing else. I've tried executing the command both in a Github action and locally with different API tokens. I'm able to access other resources on my DO account but I can't successfully create the spec.
+
+Do you know what could be going wrong?
+
+**Environment:**
+ - doctl version: 1.48.1
+ - OS: Windows WSL 2 & Ubuntu (Github Actions)
+ - Installation method: Installed from Brrew & Through Github Action
+
+**Additional Details:**
+This is the specific error I get back from doctl:
+`Error: POST https://api.digitalocean.com/v2/apps: 500 Server Error`
+
+This is the output of the command with the trace flag turned out.
+P.S. I formatted to be more readable.
+
+```
+doctl: 2020/10/15 12:16:14 -> ""POST /v2/apps HTTP/1.1\r\n
+Host: api.digitalocean.com\r
+User-Agent: doctl/1.48.1-release (linux amd64) godo/1.46.0\r
+Content-Length: 237\r
+Accept: application/json\r
+Content-Type: application/json\r
+Accept-Encoding: gzip\r\n\r\n
+
+{\""spec\""
+:{\""name\"":\""unique-expressions\"",
+\""services\"":[
+      {\""name\"":\""api\""
+      ,\""github\"":
+           {\""repo\"":\""Valencian-Digital/unique-expressions\""
+           ,\""branch\"":\""main\""
+           ,\""deploy_on_push\"":true
+          }
+     ,\""source_dir\"":\""api\""
+     ,\""environment_slug\"":\""node-js\""
+     ,\""routes\"":[{\""path\"":\""/api\""}]}]}}\n""
+
+doctl: 2020/10/15 12:16:15 <- ""HTTP/2.0 500 Internal Server Error\r\n
+
+Content-Length: 59\r\nCf-Cache-Status: DYNAMIC\r\nCf-Ray: 5e2b2fd229a50ec2-DFW\r\nCf-Request-Id: 05cedc375d00000ec2bc955000000001\r\n
+
+Content-Type: application/json\r\nDate: Thu, 15 Oct 2020 17:16:16 GMT\r\nExpect-Ct: max-age=604800, report-uri=\""https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\""\r\nServer: cloudflare\r\nSet-Cookie: __cfduid=d6649d4345922d7d76e72b342f07c99d81602782175; expires=Sat, 14-Nov-20 17:16:15 GMT; path=/; domain=.digitalocean.com; HttpOnly; SameSite=Lax\r\nX-Gateway: Edge-Gateway\r\nX-Request-Id: 8981250f-c646-45c5-a0ad-5c54c83bf8fa\r\nX-Response-From: service\r\n\r\n{\""id\"": \""Internal Server Error\"", \""message\"": \""Server Error\"" }""
+
+
+```",closed,bug,question
+1554270139,"Serverless deploy command automatically creating ""__deployer__.zip"" and ignoring main file configuration in project.yml","**Describe the Issue:**
+When running the `doctl serverless deploy` comand in my project a `__deployer__.zip` file is automatically generated for a function that has multiple files located under the `src` directory. I have 27 other functions, which don't have this issue, all of which have a single file under the src directory.
+
+All of my functions have their code compiled into a single file located in their respective directory at `lib/output.js`. I did make sure that I specified a single main file for all of the functions in both the `project.yml` and the `package.json` files for each function but I cannot seem to disable or fix this issue where the deploy command is automatically deploying a zip for that one function.
+
+**Environment:**
+ - doctl version: 1.92.0-release
+ - OS: macOS Monterey 12.6.2
+ - Installation method: Homebrew
+
+**Additional Details:**
+All of my functions are written in TypeScript and are being compiled with esBuild
+
+Snippet from my `project.yml`:
+```
+packages:
+  - name: api-gateway
+    actions:
+      - name: graphql
+        main: ""./lib/output.js"" # have also tried this as lib/output.js
+        runtime: nodejs:18
+        web: true
+```
+
+.include file for the function in question:
+```
+lib
+lib/output.js
+package.json
+```
+
+Snippet from the package.json file of the function I'm having issues with:
+```
+  ""main"": ""./lib/output.js"",
+  ""files"": [""./lib/output.js""],
+```
+
+My esBuild config:
+```
+{
+    bundle: true,
+    loader: {
+      '.ts': 'ts',
+    },
+    entryPoints,
+    logLevel: 'info',
+    minify: true,
+    outfile,
+    platform: 'node',
+    sourcemap: false,
+    target: ['node14'],
+    treeShaking: true,
+  }
+```
+
+Screenshot of my file structure for the function:
+<img width=""320"" alt=""Screen Shot 2023-01-23 at 10 51 47 PM"" src=""https://user-images.githubusercontent.com/9813587/214208945-f974cdb7-354a-45e0-afe7-8cd84b5d2f6c.png"">
+
+
+Any help or guidance would be greatly appreciated
+",closed,bug,question
+1394610493,Implement `--wait` on `compute volume create`,"You currently cannot wait for a volume to complete creation. This is no good for CI.
+
+Add a `--wait` flag for `doctl compute volume create`.",closed,enhancement,question
+2182607984,Access the link to download CA certificate for managed databases,"**What is the problem this feature would solve? Please describe.**
+<!-- A clear and concise description of what the problem is. Ex. I'm always frustrated when [...] -->
+To fully automate managed database cluster setup within my infrastructure, including access to the database by other services, I would like to have a way to access CA database certificate download link.
+This would allow me to download certificate and pass it through the environment to configure SSL access.
+Additionally I would love that to be accessible with Terraform too.
+
+**Describe the solution you'd like**
+Doctl implementation + Terraform exposed output parameter for the `digitalocean_database_cluster` resource: https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs/resources/database_cluster
+
+**Additional context**
+<!-- Add any other context about the feature request here. -->
+",closed,enhancement,question
+807860762,doctl apps logs follow mode unexpectedly exits,"**Describe the Issue:**
+When I run `doctl apps logs c2ad307c-6f44-43f5-9b89-a80909b03e3d -f`, doctl will get all the current logs and print them to the terminal. However, doctl does not follow the logs as intended with `-f`. doctl will wait about a minute and then exit the log listening process.
+
+**Environment:**
+ - doctl version: doctl version 1.56.0-release
+ - OS: macOS Catalina
+ - Installation method: Homebrew
+
+**Additional Details:**
+Not sure of any - if there are any questions please let me know and I can assist.",closed,bug,bug
+1223210221,Add examples other than [*] to compute cdn flush --files in documentation and/or add output showing which files are flushed,"**What is the problem this feature would solve? Please describe.**
+
+Currently there aren't any examples showing what a path should look like. Does it start with a leading slash? Do you need the bucket name like you do in s3cmd? Can you start with a wildcard to flush everything with a given file extension?
+
+The fact that doctl always returns an empty success makes it even more difficult to determine whether you've entered the path correctly.
+
+**Describe the solution you'd like**
+
+Documentation showing a few examples of how you'd format a request, like:
+
+```
+doctl compute cdn flush <cdn-id> [/spacename/foldername/*]
+doctl compute cdn flush <cdn-id> [*/*.mp4]
+doctl compute cdn flush <cdn-id> [/spacename/*.obj]
+```
+
+It would be great if doctl could also return a list of the files that had their cache flushed.
+
+Thanks!",closed,enhancement,other
+1113198454,CVE-2021-38561 (High) detected in github.com/golang/text-v0.3.6,"## CVE-2021-38561 - High Severity Vulnerability
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/vulnerability_details.png' width=19 height=20> Vulnerable Library - <b>github.com/golang/text-v0.3.6</b></p></summary>
+
+<p>[mirror] Go text processing support</p>
+<p>
+
+Dependency Hierarchy:
+  - github.com/spf13/viper-v1.8.1 (Root Library)
+    - github.com/spf13/afero-v1.6.0
+      - :x: **github.com/golang/text-v0.3.6** (Vulnerable Library)
+<p>Found in base branch: <b>main</b></p>
+</p>
+</details>
+<p></p>
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/high_vul.png' width=19 height=20> Vulnerability Details</summary>
+<p>  
+  
+Due to improper index calculation, an incorrectly formatted language tag can cause Parse
+to panic, due to an out of bounds read. If Parse is used to process untrusted user inputs,
+this may be used as a vector for a denial of service attack.
+
+<p>Publish Date: 2021-08-12
+<p>URL: <a href=https://vuln.whitesourcesoftware.com/vulnerability/CVE-2021-38561>CVE-2021-38561</a></p>
+</p>
+</details>
+<p></p>
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/cvss3.png' width=19 height=20> CVSS 3 Score Details (<b>7.5</b>)</summary>
+<p>
+
+Base Score Metrics:
+- Exploitability Metrics:
+  - Attack Vector: Network
+  - Attack Complexity: Low
+  - Privileges Required: None
+  - User Interaction: None
+  - Scope: Unchanged
+- Impact Metrics:
+  - Confidentiality Impact: None
+  - Integrity Impact: None
+  - Availability Impact: High
+</p>
+For more information on CVSS3 Scores, click <a href=""https://www.first.org/cvss/calculator/3.0"">here</a>.
+</p>
+</details>
+<p></p>
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/suggested_fix.png' width=19 height=20> Suggested Fix</summary>
+<p>
+
+<p>Type: Upgrade version</p>
+<p>Origin: <a href=""https://osv.dev/vulnerability/GO-2021-0113"">https://osv.dev/vulnerability/GO-2021-0113</a></p>
+<p>Release Date: 2021-08-12</p>
+<p>Fix Resolution: v0.3.7</p>
+
+</p>
+</details>
+<p></p>
+
+***
+Step up your Open Source Security Game with WhiteSource [here](https://www.whitesourcesoftware.com/full_solution_bolt_github)",closed,security,bug
+754297982,Doctl Returns 500 Error When deploying app.yaml to DO App Platform (image source),"**Describe the Issue:**
+
+I've created a YAML spec for my DO App Platform.
+
+Which looks like this:
+
+```yaml
+name: redmine-do
+region: fra
+services:
+- name: redmine-dockerfile
+  image:
+    registry: index.docker.io/v1
+    repository: redmine
+    tag: 4.1.1
+  envs:
+  - key: REDMINE_DB_POSTGRES
+    scope: RUN_TIME
+    value: ${redmine-databases.DATABASE_URL}
+  http_port: 3000
+  instance_count: 1
+  instance_size_slug: basic-xs
+  routes:
+  - path: /
+databases:
+- engine: PG
+  name: redmine-databases
+  num_nodes: 1
+  size: db-s-dev-database
+  version: ""12""
+```
+
+But when I try to execute:
+```bash
+doctl apps create --spec app.yaml
+```
+
+It returns a 500 Error and nothing else. I've tried executing the command locally. I'm able to access other resources on my DO account but I can't successfully create the spec.
+
+Do you know what could be going wrong?
+
+**Environment:**
+
+* doctl version: 1.51.0
+* OS: Windows (Git Bash)
+* Installation method: Installed from release page
+
+**Additional Details:**
+
+This is the specific error I get back from doctl:
+Error: POST https://api.digitalocean.com/v2/apps: 500 Server Error
+
+This is the output of the command with the trace flag turned out.
+P.S. I formatted to be more readable.
+```
+doctl: 2020/12/01 13:52:23 -> ""POST /v2/apps HTTP/1.1
+Host: api.digitalocean.com
+User-Agent: doctl/1.51.0-release (windows amd64) godo/1.51.0
+Content-Length: 396
+Accept: application/json
+Content-Type: application/json
+Accept-Encoding: gzip
+
+{
+   ""spec"":{
+      ""name"":""redmine-do"",
+      ""services"":[
+         {
+            ""name"":""redmine-dockerfile"",
+            ""envs"":[
+               {
+                  ""key"":""REDMINE_DB_POSTGRES"",
+                  ""value"":""${redmine-databases.DATABASE_URL}"",
+                  ""scope"":""RUN_TIME""
+               }
+            ],
+            ""instance_size_slug"":""basic-xs"",
+            ""instance_count"":1,
+            ""http_port"":3000,
+            ""routes"":[
+               {
+                  ""path"":""/""
+               }
+            ]
+         }
+      ],
+      ""databases"":[
+         {
+            ""name"":""redmine-databases"",
+            ""engine"":""PG"",
+            ""version"":""12"",
+            ""size"":""db-s-dev-database"",
+            ""num_nodes"":1
+         }
+      ],
+      ""region"":""fra""
+   }
+}
+doctl: 2020/12/01 13:52:23 <- ""HTTP/2.0 500 Internal Server Error
+Content-Length: 59
+Cf-Cache-Status: DYNAMIC
+Cf-Ray: 5fac42240de05aaa-DME
+Cf-Request-Id: 06bf87aa8400005aaaf1a9a000000001
+Content-Type: application/json
+Date: Tue, 01 Dec 2020 10:52:23 GMT
+Expect-Ct: max-age=604800, report-uri=""https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct""
+Server: cloudflare
+Set-Cookie: __cfduid=d03379124a2f65ccc4db05086f4c278b91606819943; expires=Thu, 31-Dec-20 10:52:23 GMT; path=/; domain=.digitalocean.com; HttpOnly; SameSite=Lax
+X-Gateway: Edge-Gateway
+X-Request-Id: dbc4f7e5-114a-4e3e-a9ed-ad7b67775398
+X-Response-From: service
+
+{
+   ""id"":""Internal Server Error"",
+   ""message"":""Server Error""
+}
+Error: POST https://api.digitalocean.com/v2/apps: 500 Server Error
+```
+",closed,bug,question
+732818940,`doctl auth init` not working on Windows 10 powershell,"
+**Describe the Issue:**
+
+Not able to authorize doctl after installing doctl via the instructions https://www.digitalocean.com/docs/apis-clis/doctl/how-to/install/
+
+After following the instructions in the link above and getting to the step when you must run:
+`doctl auth init --context <NAME>`
+And supplying a newly created valid API key I'm met with this error:
+```
+doctl auth init --context batman
+Please authenticate doctl for use with your DigitalOcean account. You can generate a token in the control panel at https://cloud.digitalocean.com/account/api/tokens
+
+Enter your access token:
+Validating token... invalid token
+
+Error: Unable to use supplied token to access API: Get ""https://api.digitalocean.com/v2/account"": net/http: invalid header field value ""Bearer \x16"" for key Authorization
+```
+
+**Environment:**
+<!-- Please provide the following information: -->
+ - doctl version: ```doctl version 1.48.1-release
+Git commit hash: a5b1cd2
+release 1.49.0 is available, check it out!```
+ - OS: Windows 10 Pro Version 1903
+ - Installation method: `Invoke-WebRequest https://github.com/digitalocean/doctl/releases/download/v1.48.1/doctl-1.48.1-windows-amd64.zip -OutFile ~\doctl-1.48.1-windows-amd64.zip`
+
+**Additional Details:**
+
+Trace
+```
+Validating token... doctl: 2020/10/29 21:47:56 -> ""GET /v2/account HTTP/1.1\r\nHost: api.digitalocean.com\r\nUser-Agent: doctl/1.48.1-release (windows amd64) godo/1.46.0\r\nAccept: application/json\r\nContent-Type: application/json\r\nAccept-Encoding: gzip\r\n\r\n""
+panic: runtime error: invalid memory address or nil pointer dereference
+[signal 0xc0000005 code=0x0 addr=0x48 pc=0x86458a]
+
+goroutine 1 [running]:
+net/http/httputil.DumpResponse(0x0, 0xc0003db201, 0x0, 0x10e3620, 0xc0003e4650, 0xc7, 0x0)
+        /home/travis/.gimme/versions/go1.14.9.linux.amd64/src/net/http/httputil/dump.go:305 +0x4a
+github.com/digitalocean/doctl.(*recorder).RoundTrip(0xc000395cc0, 0xc0003db200, 0xc000395cc0, 0x0, 0x0)
+        /home/travis/gopath/src/github.com/digitalocean/doctl/recorder.go:47 +0x183
+net/http.send(0xc0003db200, 0x10e36e0, 0xc000395cc0, 0x0, 0x0, 0x0, 0xc00028eb38, 0x4, 0x1, 0x0)
+        /home/travis/.gimme/versions/go1.14.9.linux.amd64/src/net/http/client.go:252 +0x445
+net/http.(*Client).send(0xc0003c9a70, 0xc0003db200, 0x0, 0x0, 0x0, 0xc00028eb38, 0x0, 0x1, 0xf67006)
+        /home/travis/.gimme/versions/go1.14.9.linux.amd64/src/net/http/client.go:176 +0x101
+net/http.(*Client).do(0xc0003c9a70, 0xc0003db200, 0x0, 0x0, 0x0)
+        /home/travis/.gimme/versions/go1.14.9.linux.amd64/src/net/http/client.go:699 +0x451
+net/http.(*Client).Do(...)
+        /home/travis/.gimme/versions/go1.14.9.linux.amd64/src/net/http/client.go:567
+github.com/digitalocean/godo.DoRequestWithClient(0x10ffb80, 0xc0000300d8, 0xc0003c9a70, 0xc0003db100, 0x0, 0x8, 0x8)
+        /home/travis/gopath/src/github.com/digitalocean/doctl/vendor/github.com/digitalocean/godo/godo.go:388 +0xd5
+github.com/digitalocean/godo.(*Client).Do(0xc0002ba900, 0x10ffb80, 0xc0000300d8, 0xc0003db100, 0xdd9ce0, 0xc00028eb28, 0x0, 0x0, 0x0)
+        /home/travis/gopath/src/github.com/digitalocean/doctl/vendor/github.com/digitalocean/godo/godo.go:325 +0xa0
+github.com/digitalocean/godo.(*AccountServiceOp).Get(0xc00028ea30, 0x10ffb80, 0xc0000300d8, 0xc00012bc00, 0xd7a92d, 0xe7a0a0, 0xc00028eb20)
+        /home/travis/gopath/src/github.com/digitalocean/doctl/vendor/github.com/digitalocean/godo/account.go:54 +0x108
+github.com/digitalocean/doctl/do.(*accountService).Get(0xc00028eb20, 0xc00028eb20, 0x0, 0x1)
+        /home/travis/gopath/src/github.com/digitalocean/doctl/do/account.go:51 +0x5a
+github.com/digitalocean/doctl/commands.RunAuthInit.func1(0xc0003e8000, 0x0, 0x110ce80)
+        /home/travis/gopath/src/github.com/digitalocean/doctl/commands/auth.go:138 +0x26f
+github.com/digitalocean/doctl/commands.cmdBuilderWithInit.func1(0xc000301400, 0xc0003e4180, 0x0, 0x1)
+        /home/travis/gopath/src/github.com/digitalocean/doctl/commands/command.go:69 +0x14d
+github.com/spf13/cobra.(*Command).execute(0xc000301400, 0xc0003e4150, 0x1, 0x1, 0xc000301400, 0xc0003e4150)
+        /home/travis/gopath/src/github.com/digitalocean/doctl/vendor/github.com/spf13/cobra/command.go:766 +0x2a4
+github.com/spf13/cobra.(*Command).ExecuteC(0x17b50a0, 0xc0002ef650, 0xc000006020, 0xc00012bf48)
+        /home/travis/gopath/src/github.com/digitalocean/doctl/vendor/github.com/spf13/cobra/command.go:852 +0x2f1
+github.com/spf13/cobra.(*Command).Execute(...)
+        /home/travis/gopath/src/github.com/digitalocean/doctl/vendor/github.com/spf13/cobra/command.go:800
+github.com/digitalocean/doctl/commands.Execute()
+        /home/travis/gopath/src/github.com/digitalocean/doctl/commands/doit.go:125 +0x3b
+main.main()
+        /home/travis/gopath/src/github.com/digitalocean/doctl/cmd/doctl/main.go:24 +0x4e
+```
+I've deleted the API key from my account just incase this trace gives something away that I'm not aware of.",closed,bug,question
+1201497559,Initial node pool contains more nodes than expected,"**Describe the Issue:**
+I create my k8s cluster as follows:
+```
+doctl kubernetes cluster create jeho \
+--tag jeho \
+--region ams3 \
+--vpc-uuid=<redacted> \
+--node-pool ""name=jeho;size=s-4vcpu-8gb;tag=jeho;auto-scale=true;min-nodes=2;max-nodes=5;"" \
+--wait
+```
+
+Then I see that three nodes are created by default:
+```
+ k get node
+NAME         STATUS   ROLES    AGE     VERSION
+jeho-cmzqb   Ready    <none>   6m32s   v1.22.8
+jeho-cmzqj   Ready    <none>   6m32s   v1.22.8
+jeho-cmzqr   Ready    <none>   6m38s   v1.22.8
+```
+And after sometime the node pool scales down to two nodes
+```
+NAME         STATUS   ROLES    AGE   VERSION
+jeho-cmzqj   Ready    <none>   14m   v1.22.8
+jeho-cmzqr   Ready    <none>   14m   v1.22.8
+```
+
+**Expected behaviour**
+A node pool starts with minimum number of nodes.
+
+**Environment:**
+```
+doctl version 1.73.0-release
+```
+",closed,bug,question
+1581077569,Allow `--build-command` to be passed for docker builds,"**What is the problem this feature would solve? Please describe.**
+<!-- A clear and concise description of what the problem is. Ex. I'm always frustrated when [...] -->
+
+We're trying to improve the performance of our Docker based builds for DOAP, and was looking into Depot (https://depot.dev), which is a drop-in replacement for Docker. So `docker build` -> `depot build`.
+
+Unfortunately the `doctl app dev build` command doesn't support a custom build command for docker builds. 
+
+```
+✘ build command overrides are ignored for dockerfile-based builds
+```
+
+**Describe the solution you'd like**
+<!-- A clear and concise description of what you want to happen. -->
+
+It would be nice if we could substitute `docker` for `depot`. Whether it's something like `--build-command 'depot build'` or a completely unique option like `--use-depot`.
+
+**Additional context**
+<!-- Add any other context about the feature request here. -->
+",open,enhancement,question
+2044243871,Docs audit: Databases,This updates and clarifies the docs strings for the database commands and adds examples for each command.,closed,documentation,question
+1504390762,oh-my-zsh plugin not working,"**Describe the Issue:**
+The plugin is installed by adding the doctl keyword to the *plugins* line:
+
+```
+plugins=(git pyenv tmux docker doctl)
+```
+
+After logging into a new shell, there is no sign of completion at all.
+
+```
+doctl compute TAB
+[nothing happens]
+```
+
+**Environment:**
+<!-- Please provide the following information: -->
+ - doctl version: 
+   doctl version 1.91.0-release
+   Git commit hash: 0863be
+ - OS: **Ubuntu 22.04**
+ - Installation method: 
+   - **doctl** has been installed through snap,
+   - **zsh** has been installed through apt (v5.8.1),
+   - **oh-my-zsh** has been installed through curl 
+   - **powerlevel10k** was installed through curl
+
+**Additional Details:**
+```
+doctl completion zsh
+```
+<!-- Add any additional details that may be important for us to know.
+
+Tip: Running a command with the `--trace` flag will display details about the
+requests made to the DigitalOcean API and can help with debugging. Remember to
+check the output for any sensitive information before posting.
+-->
+Is there a way to debug and understand why the autocompletion is not working?",closed,bug,bug
+1113198483,CVE-2021-43565 (High) detected in github.com/docker/cli-v19.03.13-beta1,"## CVE-2021-43565 - High Severity Vulnerability
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/vulnerability_details.png' width=19 height=20> Vulnerable Library - <b>github.com/docker/cli-v19.03.13-beta1</b></p></summary>
+
+<p>The Docker CLI</p>
+<p>
+
+Dependency Hierarchy:
+  - :x: **github.com/docker/cli-v19.03.13-beta1** (Vulnerable Library)
+<p>Found in base branch: <b>main</b></p>
+</p>
+</details>
+<p></p>
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/high_vul.png' width=19 height=20> Vulnerability Details</summary>
+<p>  
+  
+There's an input validation flaw in golang.org/x/crypto's readCipherPacket() function. An unauthenticated attacker who sends an empty plaintext packet to a program linked with golang.org/x/crypto/ssh could cause a panic, potentially leading to denial of service.
+
+<p>Publish Date: 2021-11-10
+<p>URL: <a href=https://vuln.whitesourcesoftware.com/vulnerability/CVE-2021-43565>CVE-2021-43565</a></p>
+</p>
+</details>
+<p></p>
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/cvss3.png' width=19 height=20> CVSS 3 Score Details (<b>7.5</b>)</summary>
+<p>
+
+Base Score Metrics:
+- Exploitability Metrics:
+  - Attack Vector: Network
+  - Attack Complexity: Low
+  - Privileges Required: None
+  - User Interaction: None
+  - Scope: Unchanged
+- Impact Metrics:
+  - Confidentiality Impact: None
+  - Integrity Impact: None
+  - Availability Impact: High
+</p>
+For more information on CVSS3 Scores, click <a href=""https://www.first.org/cvss/calculator/3.0"">here</a>.
+</p>
+</details>
+<p></p>
+
+***
+Step up your Open Source Security Game with WhiteSource [here](https://www.whitesourcesoftware.com/full_solution_bolt_github)",closed,security,question
+707458902,how to create a droplet from an image??,how to create a droplet from an image??,closed,enhancement,question
+1676730363,"Add command ""Add ssh key to droplet"" (Renewed, was not considered all around)","**What is the problem this feature would solve? Please describe.**
+Being able to build from an API and assign a key after the fact without ever giving password access to a droplet
+
+**Describe the solution you'd like**
+doctl compute droplet-action add-ssh-key  <droplet-id> --shh-key <dir-or-ssh-keyvalue>
+
+**Additional context**
+When building a droplet through doctl we DONT EVER want to give password access to spotinstances, but we may also have to choose to ""remove"" the one and only assigned key, only programatically determined SSH keys, and be able to revoke will have to be a thing too of course.
+",open,enhancement,question
+1105332637,databases firewalls append error: command contains unsupported arguments,"**Describe the Issue:**
+
+Using the `doctl databases firewalls` append command throws the following error:
+
+`Error: (firewalls.append) command contains unsupported arguments`
+
+this is when using any type.
+
+command used is: `doctl databases firewalls append <db_id> --rule app:<id>`
+
+**Environment:**
+ - doctl version: doctl version 1.69.0-release
+ - OS: macOS Monterey 12.1 & alpine:latest docker image
+ - Installation method:brew on Mac, docker for alpine
+
+**Additional Details:**
+
+--trace shows nothing extra
+
+<!-- Add any additional details that may be important for us to know.
+
+Tip: Running a command with the `--trace` flag will display details about the
+requests made to the DigitalOcean API and can help with debugging. Remember to
+check the output for any sensitive information before posting.
+-->
+",closed,bug,question
+727724880,`doctl compute droplet get <droplet-id|droplet-name>`,"**What is the problem this feature would solve? Please describe.**
+
+`doctl compute droplet get` supports only droplet ID whereas `doctl compute droplet delete` supports ID and name
+
+```console
+doctl compute droplet get --help
+
+Usage:
+  doctl compute droplet get <droplet-id> [flags]
+
+doctl compute droplet delete --help
+
+Usage:
+  doctl compute droplet delete <droplet-id|droplet-name>... [flags]
+```
+
+**Describe the solution you'd like**
+
+It would be helpful to `doctl compute droplet get <droplet-name>` to save `doctl compute droplet list` and then either `grep`ping the ID  or `--output=JSON` and then `jq`ing it, in order to get values from a specific droplet's configuration.
+
+Or, I'm missing something!?
+",closed,enhancement,question
+2061140145,Docs audit: Snapshots,Updates and clarifies doc strings for Snapshot commands. Also add examples for each command.,closed,documentation,question
+1177258943,CVE-2021-44716 (High) detected in github.com/docker/cli-v19.03.13-beta1,"## CVE-2021-44716 - High Severity Vulnerability
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/vulnerability_details.png' width=19 height=20> Vulnerable Library - <b>github.com/docker/cli-v19.03.13-beta1</b></p></summary>
+
+<p>The Docker CLI</p>
+<p>
+
+Dependency Hierarchy:
+  - :x: **github.com/docker/cli-v19.03.13-beta1** (Vulnerable Library)
+<p>Found in HEAD commit: <a href=""https://github.com/digitalocean/doctl/commit/8852084db541e3089b8ff41e1519d64049173978"">8852084db541e3089b8ff41e1519d64049173978</a></p>
+<p>Found in base branch: <b>main</b></p>
+</p>
+</details>
+<p></p>
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/high_vul.png' width=19 height=20> Vulnerability Details</summary>
+<p>  
+  
+net/http in Go before 1.16.12 and 1.17.x before 1.17.5 allows uncontrolled memory consumption in the header canonicalization cache via HTTP/2 requests.
+
+<p>Publish Date: 2022-01-01
+<p>URL: <a href=https://vuln.whitesourcesoftware.com/vulnerability/CVE-2021-44716>CVE-2021-44716</a></p>
+</p>
+</details>
+<p></p>
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/cvss3.png' width=19 height=20> CVSS 3 Score Details (<b>7.5</b>)</summary>
+<p>
+
+Base Score Metrics:
+- Exploitability Metrics:
+  - Attack Vector: Network
+  - Attack Complexity: Low
+  - Privileges Required: None
+  - User Interaction: None
+  - Scope: Unchanged
+- Impact Metrics:
+  - Confidentiality Impact: None
+  - Integrity Impact: None
+  - Availability Impact: High
+</p>
+For more information on CVSS3 Scores, click <a href=""https://www.first.org/cvss/calculator/3.0"">here</a>.
+</p>
+</details>
+<p></p>
+<details><summary><img src='https://whitesource-resources.whitesourcesoftware.com/suggested_fix.png' width=19 height=20> Suggested Fix</summary>
+<p>
+
+<p>Type: Upgrade version</p>
+<p>Origin: <a href=""https://github.com/advisories/GHSA-vc3p-29h2-gpcp"">https://github.com/advisories/GHSA-vc3p-29h2-gpcp</a></p>
+<p>Release Date: 2022-01-01</p>
+<p>Fix Resolution: github.com/golang/net - 491a49abca63de5e07ef554052d180a1b5fe2d70</p>
+
+</p>
+</details>
+<p></p>
+
+***
+Step up your Open Source Security Game with WhiteSource [here](https://www.whitesourcesoftware.com/full_solution_bolt_github)",closed,security,question
+1617795842,Bring back SizeSlug option to doctl compute droplet list,"**What is the problem this feature would solve? Please describe.**
+There is no easy way to know *exactly* what droplet I'm using - neither from the UI nor CLI. As far as I researched the only way is to use JSON output in `doctl compute droplet list -o json`.
+
+**Describe the solution you'd like**
+Let's add SizeSlug in as a column in `doctl compute droplet list`
+
+**Additional context**
+I saw a few bug reports that it's been there, but I didn't find a way to show the exact droplet slug.",open,enhancement,question
+2061119631,Docs audit: DOCR,Updates and clarifies doc strings for DOCR commands. Also add examples for each command.,closed,documentation,question
+724932474,No size unit for `doctl compute volume-action resize`,"**Describe the Issue:**
+
+<!-- Please provide a clear and concise description of the problem you are
+facing including the steps to reproduce the issue. -->
+
+Neither the CLI, nor the [docs](https://www.digitalocean.com/docs/apis-clis/doctl/reference/compute/volume-action/resize/) make mention of the size unit (it's GiB by [this](https://developers.digitalocean.com/documentation/v2/#resize-a-volume)).
+
+```
+❯ doctl compute volume-action resize -h | grep New
+      --size int        New size (required)
+```
+
+**Environment:**
+<!-- Please provide the following information: -->
+ - doctl version: <!-- The output of `doctl version` -->
+
+```
+❯ doctl version
+doctl version 1.46.0-release
+release 1.48.1 is available, check it out!
+```
+
+ - OS: <!-- E.g. macOS Catalina, Ubuntu 19.04, etc -->
+
+```
+❯ uname -a
+Darwin C02D6D7BMD6M 19.6.0 Darwin Kernel Version 19.6.0: Mon Aug 31 22:12:52 PDT 2020; root:xnu-6153.141.2~1/RELEASE_X86_64 x86_64
+```
+
+ - Installation method: <!-- E.g. Installed from source, Homebrew, Snap package, Docker, etc -->
+
+Homebrew
+
+**Additional Details:**
+
+<!-- Add any additional details that may be important for us to know.
+
+Tip: Running a command with the `--trace` flag will display details about the
+requests made to the DigitalOcean API and can help with debugging. Remember to
+check the output for any sensitive information before posting.
+-->
+",closed,bug,question
+2053059218,Docs audit: Droplet actions,This PR clarifies the doc strings for the `doctl compute droplet-action` commands and adds an example to each command.,closed,documentation,question
+2878626520,1.122 installed via Homebrew on MacOS is flagged by antivirus,"**Describe the Issue:**
+
+Avast antivirus has flagged the tarball downloaded by Homebrew and the installed `doctl` binary for 1.122.0 as a `MacOS:Agent-APC [Tool]`.
+
+However, [VirusTotal does not flag](https://www.virustotal.com/gui/url/139e51555f65e8d5f29a89b8e0c2f334540926f2f7f2b4a2eed47b4400e6503d) the tarball referenced by [the Homebrew definition](https://github.com/Homebrew/homebrew-core/blob/e16f727206c25158db8b557fbf0cbcd18f1093fc/Formula/d/doctl.rb).
+
+**Additional Details:**
+
+Avast version: 16.0.0a
+Avast virus definition: 25022502
+",open,bug,question
+1494344447,doctl as NPM package and .deb,"**What is the problem this feature would solve? Please describe.**
+- We can use doctl as a dependency on NPM. This eases the integration with native code and reduces friction for CI/CD. 
+- `.deb` packages are preferred under linux environments as `snap` [slows down the entire machine](https://www.reddit.com/r/Ubuntu/comments/rh3u89/snap_is_slowing_down_your_system/). 
+
+**Describe the solution you'd like**
+- Pack doctl in .deb and NPM packages. 
+",closed,enhancement,question
+2057739837,Docs audit: Kubernetes,Updates and clarifies the doc strings for the Kubernetes commands. This also adds examples for each command.,closed,documentation,question
+2012953823,doctl registry garbage-collection start --force moves the registry to RO mode but don't run garbage collector,"**Describe the Issue:**
+Hello! I tried to run the garbage-collection via the doctl but got that my container registry moved to RO mode and I sew the following action status:
+```shell
+doctl registry garbage-collection get-active 
+UUID                                    Registry Name    Status                         Created At                       Updated At                       Blobs Deleted    Bytes Freed
+df2dec4a-7718-468e-a0de-a858e7a0df27    <asd>            waiting for delete requests    2023-11-27 19:18:33 +0000 UTC    2023-11-27 19:20:34 +0000 UTC    0                0",closed,bug,bug
+3776825633,registry repository list-v2 ignores --format and --no-header flags,"**Describe the Issue:**
+
+The `--format` and `--no-header` flags are completely ignored by `doctl registry repository list-v2`. The command outputs all columns with headers regardless of the format specified.
+
+**Steps to reproduce:**
+
+```bash
+# Expected: Only repository names, no header
+doctl registry repository list-v2 --format Name --no-header
+
+# Actual output: Full table with all columns and header
+Name                       Latest Manifest                                                            Latest Tag    Tag Count    Manifest Count    Updated At
+my-app-prod                sha256:a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2    latest        2            3                 2025-12-04 06:57:34 +0000 UTC
+my-app-stg                 sha256:f6e5d4c3b2a1f6e5d4c3b2a1f6e5d4c3b2a1f6e5d4c3b2a1f6e5d4c3b2a1f6e5    latest        3            5                 2025-12-11 18:35:05 +0000 UTC
+```
+
+**Expected behavior:**
+
+```bash
+doctl registry repository list-v2 --format Name --no-header
+# Should output:
+my-app-prod
+my-app-stg
+...
+```
+
+**Workaround:**
+
+Using `--output json` with `jq` works correctly:
+```bash
+doctl registry repository list-v2 --output json | jq -r '.[].name'
+```
+
+**Environment:**
+ - doctl version: 1.148.0 (also reproduced on 1.141.0 in CI)
+ - OS: Ubuntu 22.04 / Ubuntu 24.04 (GitHub Actions)
+ - Installation method: GitHub Actions `digitalocean/action-doctl@v2`
+
+**Additional Details:**
+
+The same issue affects `doctl registry repository list` (non-v2). This breaks scripts that rely on `grep -Fxq` for exact matching since the full row is returned instead of just the name.
+
+Additional Note: We noticed this issue started to happen since December 27th
+",open,bug,question
+2321423424,Corrects DOCR list manifests example,Resolves PDOCS-2515. This PR corrects an example where the registry name was incorrectly prepended to the repository name. The example should be correct now.,closed,documentation,security
+988499096,doctl binary for Android ARM64,"There is no working **doctl binary for Android ARM64** & I'd like to be able to use doctl on Android to manage Kubernetes clusters.
+
+Currently I'm able to manage EKS, GKE with their tools like `aws-iam-authenticator` & `gcloud` but not DigitalOcean.
+
+For example with the latest arm64 binary in the repo releases  [https://github.com/digitalocean/doctl/releases/download/v1.64.0/doctl-1.64.0-linux-arm64.tar.gz](https://github.com/digitalocean/doctl/releases/download/v1.64.0/doctl-1.64.0-linux-arm64.tar.gz) it doesn't work:
+```
+export DIGITALOCEAN_ACCESS_TOKEN=""xxxxxxxxxxxxxx"" && \
+doctl auth init
+
+Error: Unable to use supplied token to access API: Get https://api.digitalocean.com/v2/account: dial tcp lookup api.digitalocean.com on [::1]:53 read udp [::1]:47107>[::1]:53 read connection refused
+```
+
+But the curl request for same api works ok:
+```
+export DIGITALOCEAN_ACCESS_TOKEN=""xxxxxxxxxxxxxx"" && \
+curl -X GET -H ""Content-Type: application/json"" \
+-H ""Authorization: Bearer $TOKEN"" \
+""https://api.digitalocean.com/v2/account""
+
+{
+  ""account"":
+    {
+      ""droplet_limit"":xxxx,
+      ""floating_ip_limit"":xx,
+      ""volume_limit"":xxx,
+      ""email"":""xxxxxx"",
+      ""uuid"":""xxxxxxxxx"",
+      ""email_verified"":true,
+      ""status"":""active"",
+      ""status_message"":""""
+    }
+}
+```
+
+I wasn't able to build a working binary from sources either.",open,enhancement,question
+743097865,zsh autocompletion uses non portable sed extensions,"**Describe the Issue:**
+
+<!-- Please provide a clear and concise description of the problem you are
+facing including the steps to reproduce the issue. -->
+
+We trying to use the zsh completion generated by doctl with a sed version not supporting the `_filedir` extension (so busybox sed, that is used by default on alpine linux)
+
+
+**Environment:**
+<!-- Please provide the following information: -->
+ - doctl version:
+both the last release:
+```doctl version 1.52.0-release
+Git commit hash: af5bae4
+```
+and the one packaged on alpine:
+```
+doctl version 0.0.0-dev
+```
+ - OS: alpine linux edge and 3.1.12
+ - Installation method: using the [distribution package](https://pkgs.alpinelinux.org/package/edge/testing/x86_64/doctl) and downloading from [the release page](https://github.com/digitalocean/doctl/releases/tag/v1.52.0).
+
+**Additional Details:**
+Here is a detailed how to to reproduce the bug. It assumes you have docker installed and running, and your containers can access internet.
+
+### Running a clean alpine container with docker:
+`docker run -it alpine /bin/sh`
+
+### Setup in the container
+```shell
+# apk add zsh
+# zsh
+# autoload -Uz compinit
+# compinit
+# wget https://github.com/digitalocean/doctl/releases/download/v1.52.0/doctl-1.52.0-linux-amd64.tar.gz
+# tar -C /usr/local/bin -zxvf doctl-1.52.0-linux-amd64.tar.gz
+```
+
+The bug in itself
+```shell
+# source <(doctl completion zsh)
+```
+
+You should get the following output
+```
+sed: bad regex '[[:<:]]_filedir[[:>:]]': Unknown character class name
+```
+
+Note: If we used the alpine provided [doctl-zsh-completion](https://pkgs.alpinelinux.org/package/edge/testing/x86_64/doctl-zsh-completion) package, the same bug would appear when trying to use the autocomplete (ie, `doctl [tab]`)
+
+
+It seems the bug comes from [line 600 of the completion.go file](https://github.com/digitalocean/doctl/blob/5d55b2d49a8bc47043d64c5ccd6f879c6cf10535/commands/completion.go#L600).",closed,bug,question
+1106723369,Saving the kubernetes config is not unique enough,"**Describe the Issue:**
+
+When running the command `doctl kubernetes cluster kubeconfig save {cluster-name OR cluster-id}` the context name, cluster name and auth user name are not unique across multiple Digital Ocean accounts or Teams.  This causes authentication to be merged over multiple accounts.
+
+For example if I create the same kubernetes cluster in two teams (e.g. demo-cluster) in the same region (e.g. lon1) the same context, cluster and auth name will be created for both clusters, `do-lon1-demo-cluster`.
+
+Kubectl uses the names to identify whether to merge the config or create new entries so in this case they are always merged on top of each other.
+
+**Environment:**
+ - doctl version: doctl version 1.68.0-release
+ - OS: Ubuntu 20.04
+ - Installation method: Installed from source
+
+**Additional Details:**
+
+Maybe adding an additional flag to allow an override to the context name that could also be used for making the cluster and auth names unique may fix the issue?
+",open,bug,question
+2185053751,Incremental builds don't work with --remote-build,"**Describe the Issue:**
+
+```
+$ doctl serverless deploy . --remote-build --incremental
+Deploying '/Users/nathan/project'
+  to namespace 'fn-...'
+  on host 'https://faas-syd1-c274eac6.doserverless.co'
+Error: Cannot read properties of undefined (reading 'packageVersions')
+```
+
+**Environment:**
+<!-- Please provide the following information: -->
+ - doctl version: doctl version 1.104.0-release
+ - OS: macOS Sonoma
+ - Installation method: Github release
+
+**Additional Details:**
+
+I'm not sure if incremental builds are supposed to work with remote builds, but that would save a lot of time, especially when deploying functions across multiple regions.
+",open,bug,question
+1392568339,Use consistent aliases for `list` and `delete` sub-commands,"**What is the problem this feature would solve? Please describe.**
+
+Many `doctl` commands provide aliases allowing you to use a shorter version of the command. In particular, `list` is often aliased as `ls` and `delete` is often aliased as `rm`. These are short memorable aliases that recall common Unix commands. Unfortunately, we have not always made sure every new sub-command adds these aliases. We should provide a consistent experience. User should know that they can use `ls` and `list` interchangeably across `doctl`.
+
+**Describe the solution you'd like**
+
+- `ls` should be added as an alias for all  `list` sub-commands
+- `rm` should be added as an alias for all  `delete` sub-commands
+
+You can find an example here:
+
+https://github.com/digitalocean/doctl/blob/c7bf8d427e73e395f59f743cee05f6747392b677/commands/sizes.go#L35-L36
+
+**Additional context**
+
+Adding a test to `commands/commands_test.go` to iterate through the commands and inspect their aliases can help to identify where changes are needed. For example: 
+
+```go
+func assertCommandAliases(t *testing.T, cmd *cobra.Command) {
+	for _, c := range cmd.Commands() {
+		if c.Name() == ""list"" {
+			assert.Contains(t, c.Aliases, ""ls"", ""Missing 'ls' alias for 'list' command."")
+		}
+		if c.Name() == ""delete"" {
+			assert.Contains(t, c.Aliases, ""rm"", ""Missing 'rm' alias for 'delete' command."")
+		}
+	}
+}
+
+func TestCommandAliases(t *testing.T) {
+	for _, cmd := range DoitCmd.Commands() {
+		t.Run(cmd.Name(), func(t *testing.T) {
+			assertCommandAliases(t, cmd)
+			for _, c := range cmd.Commands() {
+				t.Run(c.Name(), func(t *testing.T) {
+					assertCommandAliases(t, c)
+				})
+			}
+		})
+	}
+}
+```",closed,enhancement,question
+1505152530,App platform metrics?,"**What is the problem this feature would solve? Please describe.**
+<!-- A clear and concise description of what the problem is. Ex. I'm always frustrated when [...] -->
+How do I get the App platform's metrics? Like CPU, MEM etc.. Is it possible?
+
+**Describe the solution you'd like**
+<!-- A clear and concise description of what you want to happen. -->
+
+**Additional context**
+<!-- Add any other context about the feature request here. -->
+",open,enhancement,question
+835077378,`doctl registry login` with doctl+Docker snaps uses incorrect (!?) `config.json`,"**Describe the Issue:**
+
+`doctl registry login` provides a helpful (but incorrect?) reminder that:
+
+```console
+Warning: Using the doctl Snap? Grant access to the doctl:dot-docker plug to use this command with: sudo snap connect doctl:dot-docker
+```
+
+After permitting the change (`sudo snap connect doctl:dot-docker`), the commands updates:
+
+`${HOME}/.docker/config.json`
+
+But, with the Docker snap (and, if using doctl snap, this is more probable), this is incorrect and the command should update:
+
+`${HOME}/snap/docker/current/.docker/config.json`
+
+Manually (there's probably a sweet `jq` way too) moving `auths[""registry.digitalocean.com""]`, works (i.e. I can `docker push registry.digitalocean.com/${REGISTRY}/${IMAGE}:${TAG}`)
+
+<!-- Please provide a clear and concise description of the problem you are
+facing including the steps to reproduce the issue. -->
+
+**Environment:**
+<!-- Please provide the following information: -->
+ - doctl version: <!-- The output of `doctl version` --> doctl version 1.57.0-release; Git commit hash: 497c9008
+
+ - OS: <!-- E.g. macOS Catalina, Ubuntu 19.04, etc --> Ubuntu 20.04.2 LTS
+ - Installation method: <!-- E.g. Installed from source, Homebrew, Snap package, Docker, etc --> `doctl` and `docker` under Snap
+
+**Additional Details:**
+
+<!-- Add any additional details that may be important for us to know.
+
+Tip: Running a command with the `--trace` flag will display details about the
+requests made to the DigitalOcean API and can help with debugging. Remember to
+check the output for any sensitive information before posting.
+-->
+
+I don't know of a portable way to determine the location of dockerd's `config.json`.",closed,bug,question
+1253631873,doctl auth init flag --access-token do not have effect,"**flag -t or --access-token not overwriting token in config.yaml**
+
+See images of the issue.
+CLI does not use the token passed and always grab the one in the config.yaml
+![api-portal](https://user-images.githubusercontent.com/54447877/171148293-807d26e2-b5e2-4565-9e2d-188acb3f4150.png)
+![terminal](https://user-images.githubusercontent.com/54447877/171148300-d8b172c7-a99c-4155-aaba-7f3db4c57fd4.png)
+
+
+**Environment:**
+<!-- Please provide the following information: -->
+ - doctl version: doctl version 1.76.2-release
+ - OS: macOS Monterey (although I think my ubuntu machines are affected too // 20.04.1 LTS (GNU/Linux 5.4.0-74-generic x86_64))
+ - Installation method: Homebrew (macOs, docker Ubuntu machines)
+
+",open,bug,question
+2813950832,Add ability of connecting recovery iso to droplet.,"Thanks for your effort in developing doctl.
+
+Using the digital ocean web interface, one can connect a recovery iso, and change if a droplet is booting from disk or from iso.
+This functionality is not currently exposed using doctl.",open,enhancement,question
+3480103678,Non working example for doctl compute image create,"**Describe the Issue:**
+
+The doctl compute image create help right now shows
+The following example creates a custom image named `Example Image` from a URL and stores it in the `nyc1` region: doctl compute image create ""Example Image"" --image-url ""https://example.com/image.iso"" --region nyc1
+
+Although an iso image is not supported as of now. We should change this example to reflect the same
+
+
+
+",closed,bug,question
+2770159284,"Document permissions for ""doctl compute droplet create"" optional flags","###  Issue
+
+I'm utilizing the official [digitalocean/action-doctl@v2](https://github.com/digitalocean/action-doctl) Github action. I initialize the `doctl` client by passing an API key.
+
+I'm trying to create a droplet with the following `doctl` command:
+
+```
+doctl compute droplet create \
+  ""$DROPLET_NAME"" \
+  --region ""nyc3"" \
+  --size ""s-1vcpu-1gb"" \
+  --image ""ubuntu-22-04-x64"" \
+  --ssh-keys ""$SSH_KEY"" \
+  --project-id ""$PROJECT_ID"" \
+  --wait
+```
+
+This command successfully exits if I use an API key that has all permissions (`Full Access`).
+
+When I create & use an API key that only has the 4 CRUD permissions for `droplet`:
+
+<img width=""293"" alt=""Screenshot 2025-01-06 at 11 26 59 AM"" src=""https://github.com/user-attachments/assets/cc2a86ad-10b2-4cb1-aaaf-fafeb2fe6dcc"" />
+
+I get the following error with exit code 1:
+
+```
+Error: POST https://api.digitalocean.com/v2/projects/<some-long-uuid-thing>/resources: 403 (request ""e1efed05-8592-491a-aeb3-e8bb968e6592"") You are not authorized to perform this operation
+```
+
+Looking at the dashboard, I can verify that the droplet actually does end up being created.
+
+I've tried to guess the missing permissions by adding the `actions:read` permissions & `account:read` permissions with no success.
+
+According to the [official API reference docs](https://docs.digitalocean.com/reference/api/api-reference/#operation/droplets_create) `droplet:create` is the only permission required for creating droplets.
+
+The [official CLI reference docs](https://docs.digitalocean.com/reference/doctl/reference/compute/droplet/create/) doesn't provide any additional information on what API permissions are required to create a droplet.
+
+### Question
+
+What is the narrowest set of API permissions I can use to successfully create (& exit code 0) a droplet using the CLI?
+
+<!-- Please provide a clear and concise description of the problem you are
+facing including the steps to reproduce the issue. -->
+
+**Environment:**
+<!-- Please provide the following information: -->
+ - doctl version: `1.120.0 x64`
+ - OS: `ubuntu-24.04`
+ - OS Version: `20241215.1.0`
+ - Installation method: Pre-installed via [digitalocean/action-doctl@v2](https://github.com/digitalocean/action-doctl).
+
+**Additional Details:**
+
+I'm running the example above as part of a pipeline in GitHub Actions.
+
+<!-- Add any additional details that may be important for us to know.
+
+Tip: Running a command with the `--trace` flag will display details about the
+requests made to the DigitalOcean API and can help with debugging. Remember to
+check the output for any sensitive information before posting.
+-->
+",closed,bug,question
+2883700862,Allow Interacting with spaces,"**What is the problem this feature would solve? Please describe.**
+Currently documentation asks to install different tools for interacting with spaces.
+
+**Describe the solution you'd like**
+ It would be great if it was a single doctl utility.
+",open,enhancement,question
+2666092230,Reference an app by name instead of ID,"**What is the problem this feature would solve? Please describe.**
+
+Apps in the UI are listed by name but in doctl I always have to figure out the UUID by going to the UX and copy-pasting it. 
+
+Add support to using names instead of IDs in doctl.
+
+**Describe the solution you'd like**
+
+Currently to tail my logs I do this:
+
+```
+doctl apps logs uuid -f
+```
+
+I'd like to do this :
+
+```
+doctl apps logs app-name -f
+```
+
+**Additional context**
+
+```
+$ doctl version
+doctl version 1.117.0-release
+```",closed,enhancement,question
+807112679,Ability to define a tag name when deploying a prebuilt image from the Container Registry to Apps Platform,"**What is the problem this feature would solve? Please describe.**
+<!-- A clear and concise description of what the problem is. Ex. I'm always frustrated when [...] -->
+Deployments from DO Container Registry to Apps platform are limited and require manual input which is not ideal.
+After contacting support i understand there are plans to support ""deploy_on_push"" for prebuilt images, but there's no ETA on that.
+
+**Describe the solution you'd like**
+
+Maybe it would be possible to include a new flag or some other way to specify the tag name when creating a new deployment using the cli.
+
+Perhaps something like this
+```
+$ doctl apps create-deployment <app id> --tag={TAG_NAME}
+```
+
+which would update the app.spec
+```
+services:
+    image:
+        tag: {NEW_TAG_NAME}
+```
+before starting the deployment
+
+
+",open,enhancement,documentation
+3230501081,feature request: store the token in the keyring,"**What is the problem this feature would solve? Please describe.**
+
+I would like to avoid the token being stored on my disk. To prevent a rogue script from reading it.
+
+For most people, their keyring is unlocked when they log-in so the ""protection"" could be limited. In my case I'm using keepassxc which has a prompt every time the keyring is read.
+
+**Describe the solution you'd like**
+
+Store the token in the keyring.
+
+**Additional context**
+<!-- Add any other context about the feature request here. -->
+",open,enhancement,question
+1955191146,`doctl auth init` connection refused,"**Describe the Issue:**
+
+```❯ doctl auth init
+Please authenticate doctl for use with your DigitalOcean account. You can generate a token in the control panel at https://cloud.digitalocean.com/account/api/tokens
+
+❯ Enter your access token:  ●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●
+
+Validating token... ✘
+
+Error: Unable to use supplied token to access API: Get ""https://cloud.digitalocean.com/v1/oauth/token/info"": dial tcp: lookup cloud.digitalocean.com on [::1]:53: read udp [::1]:35560->[::1]:53: read: connection refused
+```
+
+<!-- Please provide a clear and concise description of the problem you are
+facing including the steps to reproduce the issue. -->
+
+**Environment:**
+<!-- Please provide the following information: -->
+ - doctl version: doctl version 1.100.0-release
+Git commit hash: 86fc3313 <!-- The output of `doctl version` -->
+ - OS: Ubuntu 22.04.3 LTS on WSL 2 <!-- E.g. macOS Catalina, Ubuntu 19.04, etc -->
+ - Installation method: Snap package <!-- E.g. Installed from source, Homebrew, Snap package, Docker, etc -->
+
+**Additional Details:**
+
+Seems to be trying to use IPv6 exclusively, and won't fall back to IPv4? IPv6 is on (by default, I believe) in the WSL instance but turned off for the Windows host.
+<!-- Add any additional details that may be important for us to know.
+
+Tip: Running a command with the `--trace` flag will display details about the
+requests made to the DigitalOcean API and can help with debugging. Remember to
+check the output for any sensitive information before posting.
+-->
+",open,bug,question
+836299364,Add wait option to app create and update commands,"**What is the problem this feature would solve? Please describe.**
+
+In CI and/or scripting it is often useful for commands that create resources to block until they become ready. For example, both `doctl compute droplet create` and `doctl kubernetes cluster` create have `--wait` flags that block until the resource has been successfully created. Recently, the `doctl apps create-deployment` command has grown a `--wait` flag as well.
+
+Creating or updating an App can also start a new deployment and should have the same behavior. 
+
+**Describe the solution you'd like**
+
+`doctl apps create` and  `doctl apps update` should accept a  `--wait` flag that will block until any new deployment they trigger reaches the `ACTIVE` phase.
+
+**Additional context**
+
+This is a continuation of the theme from https://github.com/digitalocean/doctl/issues/964 (PR: https://github.com/digitalocean/doctl/pull/969).
+",closed,enhancement,question
+1895237824,Broken link fix for Volumes,This PR resolves a reported broken link in the volumes documentation.,closed,bug,question

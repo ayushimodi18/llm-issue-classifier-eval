@@ -1,0 +1,137 @@
+{
+    "model": "gpt-5.1",
+    "class_distribution": {
+        "bug": 103,
+        "other": 70,
+        "documentation": 35,
+        "security": 22,
+        "question": 20
+    },
+    "accuracy": 0.6,
+    "precision": 0.696,
+    "recall": 0.6,
+    "f1": 0.6376,
+    "per_class_metrics": {
+        "bug": {
+            "precision": 1.0,
+            "recall": 0.762962962962963,
+            "f1-score": 0.865546218487395,
+            "support": 135.0
+        },
+        "documentation": {
+            "precision": 0.7714285714285715,
+            "recall": 1.0,
+            "f1-score": 0.8709677419354839,
+            "support": 27.0
+        },
+        "enhancement": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 68.0
+        },
+        "other": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 0.0
+        },
+        "question": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 0.0
+        },
+        "security": {
+            "precision": 0.9090909090909091,
+            "recall": 1.0,
+            "f1-score": 0.9523809523809523,
+            "support": 20.0
+        },
+        "accuracy": 0.6,
+        "macro avg": {
+            "precision": 0.44675324675324674,
+            "recall": 0.46049382716049386,
+            "f1-score": 0.44814915213397183,
+            "support": 250.0
+        },
+        "weighted avg": {
+            "precision": 0.6960415584415585,
+            "recall": 0.6,
+            "f1-score": 0.6376499503027017,
+            "support": 250.0
+        }
+    },
+    "p50_latency": 0.7723,
+    "p95_latency": 1.5095,
+    "avg_latency": 0.9444,
+    "wall_clock_time": 29.44,
+    "throughput": 8.4913,
+    "concurrency": 10,
+    "error_count": 0,
+    "error_rate": 0.0,
+    "rate_limit_errors": 0,
+    "timeout_errors": 0,
+    "other_errors": 0,
+    "total_tokens": 78794,
+    "cost_per_call": 0.00069035,
+    "total_cost": 0.172588,
+    "labels": [
+        "bug",
+        "documentation",
+        "enhancement",
+        "other",
+        "question",
+        "security"
+    ],
+    "confusion_matrix": [
+        [
+            103,
+            7,
+            0,
+            6,
+            17,
+            2
+        ],
+        [
+            0,
+            27,
+            0,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            1,
+            0,
+            64,
+            3,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            0,
+            0,
+            20
+        ]
+    ]
+}
